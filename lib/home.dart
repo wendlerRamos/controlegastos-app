@@ -1,14 +1,14 @@
 import 'package:controlegastos/screens/auth/login.dart';
-import 'package:controlegastos/screens/dash.dart';
+import 'package:controlegastos/screens/home/dash.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-class FancyBottomBarPage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _FancyBottomBarPageState createState() => _FancyBottomBarPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _FancyBottomBarPageState extends State<FancyBottomBarPage> {
+class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     indexcontroller.close();
@@ -16,9 +16,9 @@ class _FancyBottomBarPageState extends State<FancyBottomBarPage> {
   }
 
   final Color _colorBlue = Color.fromARGB(255, 3, 40, 80);
-  final Color _colorLightBlue = Color.fromARGB(255, 8, 74, 146);
-  final Color _colorWhite = Colors.white;
-  final Color _colorOrange = Color.fromARGB(255, 255, 59, 0);
+  //final Color _colorLightBlue = Color.fromARGB(255, 8, 74, 146);
+  //final Color _colorWhite = Colors.white;
+  //final Color _colorOrange = Color.fromARGB(255, 255, 59, 0);
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   PageController pageController = PageController(initialPage: 0);

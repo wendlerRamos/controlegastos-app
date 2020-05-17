@@ -1,3 +1,4 @@
+import 'package:controlegastos/screens/home/widgets/charts/proportion_pie.dart';
 import 'package:flutter/material.dart';
 
 class MainDashboard extends StatefulWidget {
@@ -7,11 +8,12 @@ class MainDashboard extends StatefulWidget {
 
 class _MainDashboardState extends State<MainDashboard> {
   final TextStyle whiteText = TextStyle(color: Colors.white);
-  
+  bool isLoading = false;
   final Color _colorBlue = Color.fromARGB(255, 3, 40, 80);
   final Color _colorLightBlue = Color.fromARGB(255, 8, 74, 146);
-  final Color _colorWhite = Colors.white;
+  //final Color _colorWhite = Colors.white;
   final Color _colorOrange = Color.fromARGB(255, 255, 59, 0);
+  final Color _colorRed = Color.fromARGB(255, 255, 0, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,6 @@ class _MainDashboardState extends State<MainDashboard> {
       body: _buildBody(context),
     );
   }
-
 
   Widget _buildBody(BuildContext context) {
     return SingleChildScrollView(
@@ -44,8 +45,9 @@ class _MainDashboardState extends State<MainDashboard> {
                 Expanded(
                   flex: 3,
                   child: _buildTile(
-                    color: _colorOrange,
-                    icon: Icons.money_off,
+                    isLoading: isLoading,
+                    color: _colorRed,
+                    icon: Icons.trending_down,
                     title: "Gastos em 30 dias",
                     data: "1.200,00",
                   ),
@@ -54,8 +56,9 @@ class _MainDashboardState extends State<MainDashboard> {
                 Expanded(
                   flex: 2,
                   child: _buildTile(
+                    isLoading: isLoading,
                     color: Colors.green,
-                    icon: Icons.attach_money,
+                    icon: Icons.trending_up,
                     title: "Receitas em 30 dias",
                     data: "900,00",
                   ),
@@ -64,90 +67,13 @@ class _MainDashboardState extends State<MainDashboard> {
             ),
           ),
           const SizedBox(height: 4.0),
-          Card(
-            elevation: 4.0,
-            color: Colors.white,
-            margin: const EdgeInsets.all(16.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: ListTile(
-                    leading: Container(
-                      alignment: Alignment.bottomCenter,
-                      width: 45.0,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                            height: 20,
-                            width: 8.0,
-                            color: Colors.grey.shade300,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Container(
-                            height: 25,
-                            width: 8.0,
-                            color: Colors.grey.shade300,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Container(
-                            height: 40,
-                            width: 8.0,
-                            color: _colorLightBlue,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Container(
-                            height: 30,
-                            width: 8.0,
-                            color: Colors.grey.shade300,
-                          ),
-                        ],
-                      ),
-                    ),
-                    title: Text("Receita"),
-                    subtitle: Text("25"),
-                  ),
-                ),
-                VerticalDivider(),
-                Expanded(
-                  child: ListTile(
-                    leading: Container(
-                      alignment: Alignment.bottomCenter,
-                      width: 45.0,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                            height: 20,
-                            width: 8.0,
-                            color: Colors.grey.shade300,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Container(
-                            height: 25,
-                            width: 8.0,
-                            color: Colors.grey.shade300,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Container(
-                            height: 40,
-                            width: 8.0,
-                            color: Colors.red,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Container(
-                            height: 30,
-                            width: 8.0,
-                            color: Colors.grey.shade300,
-                          ),
-                        ],
-                      ),
-                    ),
-                    title: Text("Despesa"),
-                    subtitle: Text("7"),
-                  ),
-                ),
-              ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: SizedBox(
+              height: 200.0,
+              child: DonutPieChart(
+                []
+              ),
             ),
           ),
           const SizedBox(height: 4.0),
@@ -157,28 +83,31 @@ class _MainDashboardState extends State<MainDashboard> {
               children: <Widget>[
                 Expanded(
                   child: _buildTile(
-                    color: _colorLightBlue,
-                    icon: Icons.favorite,
-                    title: "Discharged",
-                    data: "864",
-                  ),
-                ),
-                const SizedBox(width: 16.0),
-                Expanded(
-                  child: _buildTile(
+                    isLoading: isLoading,
                     color: _colorOrange,
-                    icon: Icons.portrait,
-                    title: "Dropped",
-                    data: "857",
+                    icon: Icons.shopping_basket,
+                    title: "Mercado",
+                    data: "300,00",
                   ),
                 ),
                 const SizedBox(width: 16.0),
                 Expanded(
                   child: _buildTile(
+                    isLoading: isLoading,
                     color: _colorLightBlue,
-                    icon: Icons.favorite,
-                    title: "Arrived",
-                    data: "698",
+                    icon: Icons.fastfood,
+                    title: "Alimentação",
+                    data: "150,00",
+                  ),
+                ),
+                const SizedBox(width: 16.0),
+                Expanded(
+                  child: _buildTile(
+                    isLoading: isLoading,
+                    color: _colorOrange,
+                    icon: Icons.directions_bus,
+                    title: "Transporte",
+                    data: "200,00",
                   ),
                 ),
               ],
@@ -191,28 +120,68 @@ class _MainDashboardState extends State<MainDashboard> {
               children: <Widget>[
                 Expanded(
                   child: _buildTile(
+                    isLoading: isLoading,
                     color: _colorLightBlue,
-                    icon: Icons.favorite,
-                    title: "Discharged",
-                    data: "864",
+                    icon: Icons.receipt,
+                    title: "Contas",
+                    data: "750,00",
                   ),
                 ),
                 const SizedBox(width: 16.0),
                 Expanded(
                   child: _buildTile(
+                    isLoading: isLoading,
                     color: _colorOrange,
-                    icon: Icons.portrait,
-                    title: "Dropped",
-                    data: "857",
+                    icon: Icons.school,
+                    title: "Educação",
+                    data: "150,00",
                   ),
                 ),
                 const SizedBox(width: 16.0),
                 Expanded(
                   child: _buildTile(
+                    isLoading: isLoading,
                     color: _colorLightBlue,
+                    icon: Icons.insert_emoticon,
+                    title: "Lazer",
+                    data: "80,00",
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: _buildTile(
+                    isLoading: isLoading,
+                    color: _colorOrange,
                     icon: Icons.favorite,
-                    title: "Arrived",
-                    data: "698",
+                    title: "Saúde",
+                    data: "50,00",
+                  ),
+                ),
+                const SizedBox(width: 16.0),
+                Expanded(
+                  child: _buildTile(
+                    isLoading: isLoading,
+                    color: _colorLightBlue,
+                    icon: Icons.scatter_plot,
+                    title: "Outros",
+                    data: "250,00",
+                  ),
+                ),
+                const SizedBox(width: 16.0),
+                Expanded(
+                  child: _buildTile(
+                    isLoading: isLoading,
+                    color: Colors.green,
+                    icon: Icons.arrow_drop_up,
+                    title: "Receita",
+                    data: "1.200,00",
                   ),
                 ),
               ],
@@ -256,10 +225,25 @@ class _MainDashboardState extends State<MainDashboard> {
   }
 
   Container _buildTile(
-      {Color color, IconData icon, String title, String data}) {
+      {Color color, IconData icon, String title, String data, bool isLoading=false}) {
+    if(isLoading){
+      return Container(
+      padding: const EdgeInsets.all(8.0),
+      height: 120.0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4.0),
+        color: color,
+      ),
+      child: Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.white,
+        ),
+      )
+    );
+    }
     return Container(
       padding: const EdgeInsets.all(8.0),
-      height: 150.0,
+      height: 120.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: color,

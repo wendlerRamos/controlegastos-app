@@ -1,6 +1,5 @@
+import 'package:controlegastos/home.dart';
 import 'package:flutter/material.dart';
-
-import '../../bottom.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -109,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Text("Login".toUpperCase()),
                 onPressed: () {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => FancyBottomBarPage()));
+                      builder: (context) => HomePage()));
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0)),
