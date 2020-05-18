@@ -9,7 +9,7 @@ class AddMovimentationScreen extends StatefulWidget {
 enum MovimentationType { receita, despesa }
 
 class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
-  final Color _colorBlue = Color.fromARGB(255, 3, 40, 80);
+  //final Color _colorBlue = Color.fromARGB(255, 3, 40, 80);
   Color _backgroundColor = Colors.green;
   final _formKey = GlobalKey<FormState>();
   MovimentationType _character = MovimentationType.despesa;
@@ -18,6 +18,7 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
   String movimentationDescription = 'MERCADO';
   String paymentType = "CRÉDITO";
   bool isOtherSelected = false;
+
   @override
   Widget build(BuildContext context) {
     if (_character == MovimentationType.despesa) {
@@ -83,7 +84,9 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: Container(height: 5.0,),
+                      child: Container(
+                        height: 5.0,
+                      ),
                       flex: 2,
                     ),
                     Expanded(
@@ -119,98 +122,50 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                     ),
                     Expanded(
                       flex: 10,
-                      child:                 DropdownButton<String>(
-                  value: movimentationDescription,
-                  icon: Icon(
-                    Icons.arrow_downward,
-                    color: Colors.white,
-                  ),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: TextStyle(color: Colors.white),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.white,
-                  ),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      movimentationDescription = newValue;
-                      if (newValue == "OUTRO") {
-                        isOtherSelected = true;
-                      } else {
-                        isOtherSelected = false;
-                      }
-                    });
-                  },
-                  dropdownColor: _backgroundColor,
-                  items: <String>[
-                    'MERCADO',
-                    'ALIMENTAÇÃO',
-                    'TRANSPORTE',
-                    'CONTA',
-                    'LAZER',
-                    'SAÚDE',
-                    'EDUCAÇÃO',
-                    'RECEITA',
-                    'OUTRO'
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
+                      child: DropdownButton<String>(
+                        value: movimentationDescription,
+                        icon: Icon(
+                          Icons.arrow_downward,
+                          color: Colors.white,
+                        ),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: Colors.white),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.white,
+                        ),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            movimentationDescription = newValue;
+                            if (newValue == "OUTRO") {
+                              isOtherSelected = true;
+                            } else {
+                              isOtherSelected = false;
+                            }
+                          });
+                        },
+                        dropdownColor: _backgroundColor,
+                        items: <String>[
+                          'MERCADO',
+                          'ALIMENTAÇÃO',
+                          'TRANSPORTE',
+                          'CONTA',
+                          'LAZER',
+                          'SAÚDE',
+                          'EDUCAÇÃO',
+                          'RECEITA',
+                          'OUTRO'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ],
                 ),
-
-  /*              
-                Text(
-                  "Tipo de despesa",
-                  style: TextStyle(color: Colors.white54),
-                ),
-                DropdownButton<String>(
-                  value: movimentationDescription,
-                  icon: Icon(
-                    Icons.arrow_downward,
-                    color: Colors.white,
-                  ),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: TextStyle(color: Colors.white),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.white,
-                  ),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      movimentationDescription = newValue;
-                      if (newValue == "OUTRO") {
-                        isOtherSelected = true;
-                      } else {
-                        isOtherSelected = false;
-                      }
-                    });
-                  },
-                  dropdownColor: _backgroundColor,
-                  items: <String>[
-                    'MERCADO',
-                    'ALIMENTAÇÃO',
-                    'TRANSPORTE',
-                    'CONTA',
-                    'LAZER',
-                    'SAÚDE',
-                    'EDUCAÇÃO',
-                    'RECEITA',
-                    'OUTRO'
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-*/
                 SizedBox(
                   height: 5.0,
                 ),
@@ -329,7 +284,9 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: Container(height: 5.0,),
+                      child: Container(
+                        height: 5.0,
+                      ),
                       flex: 2,
                     ),
                     Expanded(
@@ -412,7 +369,7 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                         color: Colors.white,
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
-                            Scaffold.of(context).showSnackBar(
+                            _scaffoldKey.currentState.showSnackBar(
                                 SnackBar(content: Text('Processando ... ')));
                           }
                         },
@@ -426,7 +383,8 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                   ],
                 ),
               ],
-            )),
+            )
+          ),
       ),
     );
   }
