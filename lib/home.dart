@@ -1,4 +1,5 @@
 import 'package:controlegastos/screens/auth/login.dart';
+import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
 import 'package:controlegastos/screens/home/dash.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -32,6 +33,14 @@ class _HomePageState extends State<HomePage> {
         title: Text('CONTROLE DE GASTOS'),
         backgroundColor: _colorBlue,
         actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add_circle),
+            tooltip: 'Adicionar',
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => AddMovimentationScreen()));
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.exit_to_app),
             tooltip: 'Sair',
