@@ -14,9 +14,10 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
   final _formKey = GlobalKey<FormState>();
   MovimentationType _character = MovimentationType.despesa;
   String formattedDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  String movimentationDescription = 'MERCADO';
+  String paymentType = "CRÉDITO";
+  bool isOtherSelected = false;
   @override
   Widget build(BuildContext context) {
     if (_character == MovimentationType.despesa) {
@@ -66,6 +67,7 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                       onChanged: (MovimentationType value) {
                         setState(() {
                           _character = value;
+                          movimentationDescription = "RECEITA";
                         });
                       },
                     ),
@@ -75,40 +77,180 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                     ),
                   ],
                 ),
-                TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(16.0),
-                    prefixIcon: Container(
-                        padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-                        margin: const EdgeInsets.only(right: 8.0),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30.0),
-                                bottomLeft: Radius.circular(30.0),
-                                topRight: Radius.circular(30.0),
-                                bottomRight: Radius.circular(10.0))),
-                        child: Icon(
-                          Icons.description,
-                          color: _backgroundColor,
-                        )),
-                    labelText: "Selecione o tipo de despesa",
-                    labelStyle: TextStyle(color: Colors.white54),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                        borderSide: BorderSide.none),
-                    filled: true,
-                    fillColor: Colors.white.withOpacity(0.1),
-                  ),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Preencha este campo !';
-                    }
-                    return null;
-                  },
+                SizedBox(
+                  height: 20.0,
                 ),
-                SizedBox(height: 20.0,),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(height: 5.0,),
+                      flex: 2,
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: Text(
+                        "Descrição",
+                        style: TextStyle(
+                          color: Colors.white54,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                          padding:
+                              const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                          margin: const EdgeInsets.only(right: 8.0),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(30.0),
+                                  bottomLeft: Radius.circular(30.0),
+                                  topRight: Radius.circular(30.0),
+                                  bottomRight: Radius.circular(10.0))),
+                          child: Icon(
+                            Icons.description,
+                            color: _backgroundColor,
+                          )),
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child:                 DropdownButton<String>(
+                  value: movimentationDescription,
+                  icon: Icon(
+                    Icons.arrow_downward,
+                    color: Colors.white,
+                  ),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: TextStyle(color: Colors.white),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.white,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      movimentationDescription = newValue;
+                      if (newValue == "OUTRO") {
+                        isOtherSelected = true;
+                      } else {
+                        isOtherSelected = false;
+                      }
+                    });
+                  },
+                  dropdownColor: _backgroundColor,
+                  items: <String>[
+                    'MERCADO',
+                    'ALIMENTAÇÃO',
+                    'TRANSPORTE',
+                    'CONTA',
+                    'LAZER',
+                    'SAÚDE',
+                    'EDUCAÇÃO',
+                    'RECEITA',
+                    'OUTRO'
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                    ),
+                  ],
+                ),
+
+  /*              
+                Text(
+                  "Tipo de despesa",
+                  style: TextStyle(color: Colors.white54),
+                ),
+                DropdownButton<String>(
+                  value: movimentationDescription,
+                  icon: Icon(
+                    Icons.arrow_downward,
+                    color: Colors.white,
+                  ),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: TextStyle(color: Colors.white),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.white,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      movimentationDescription = newValue;
+                      if (newValue == "OUTRO") {
+                        isOtherSelected = true;
+                      } else {
+                        isOtherSelected = false;
+                      }
+                    });
+                  },
+                  dropdownColor: _backgroundColor,
+                  items: <String>[
+                    'MERCADO',
+                    'ALIMENTAÇÃO',
+                    'TRANSPORTE',
+                    'CONTA',
+                    'LAZER',
+                    'SAÚDE',
+                    'EDUCAÇÃO',
+                    'RECEITA',
+                    'OUTRO'
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+*/
+                SizedBox(
+                  height: 5.0,
+                ),
+                Visibility(
+                  visible: isOtherSelected,
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(16.0),
+                      prefixIcon: Container(
+                          padding:
+                              const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                          margin: const EdgeInsets.only(right: 8.0),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(30.0),
+                                  bottomLeft: Radius.circular(30.0),
+                                  topRight: Radius.circular(30.0),
+                                  bottomRight: Radius.circular(10.0))),
+                          child: Icon(
+                            Icons.description,
+                            color: _backgroundColor,
+                          )),
+                      labelText: "Descrição diferente (opcional)",
+                      labelStyle: TextStyle(color: Colors.white54),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide.none),
+                      filled: true,
+                      fillColor: Colors.white.withOpacity(0.1),
+                    ),
+                    validator: (value) {
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   style: TextStyle(color: Colors.white),
@@ -143,7 +285,9 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20.0,),
+                SizedBox(
+                  height: 20.0,
+                ),
                 TextFormField(
                   initialValue: formattedDate,
                   keyboardType: TextInputType.datetime,
@@ -179,42 +323,87 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20.0,),
-                TextFormField(
-                  initialValue: "CRÉDITO",
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(16.0),
-                    prefixIcon: Container(
-                        padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-                        margin: const EdgeInsets.only(right: 8.0),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30.0),
-                                bottomLeft: Radius.circular(30.0),
-                                topRight: Radius.circular(30.0),
-                                bottomRight: Radius.circular(10.0))),
-                        child: Icon(
-                          Icons.payment,
-                          color: _backgroundColor,
-                        )),
-                    labelText: "Tipo de Pagamento",
-                    labelStyle: TextStyle(color: Colors.white54),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                        borderSide: BorderSide.none),
-                    filled: true,
-                    fillColor: Colors.white.withOpacity(0.1),
-                  ),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Preencha este campo !';
-                    }
-                    return null;
-                  },
+                SizedBox(
+                  height: 20.0,
                 ),
-                SizedBox(height: 20.0,),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(height: 5.0,),
+                      flex: 2,
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: Text(
+                        "Tipo de pagamento",
+                        style: TextStyle(
+                          color: Colors.white54,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                          padding:
+                              const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                          margin: const EdgeInsets.only(right: 8.0),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(30.0),
+                                  bottomLeft: Radius.circular(30.0),
+                                  topRight: Radius.circular(30.0),
+                                  bottomRight: Radius.circular(10.0))),
+                          child: Icon(
+                            Icons.payment,
+                            color: _backgroundColor,
+                          )),
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: DropdownButton<String>(
+                        value: paymentType,
+                        icon: Icon(
+                          Icons.arrow_downward,
+                          color: Colors.white,
+                        ),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: Colors.white),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.white,
+                        ),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            paymentType = newValue;
+                          });
+                        },
+                        dropdownColor: _backgroundColor,
+                        items: <String>[
+                          'CRÉDITO',
+                          'DÉBITO',
+                          'DINHEIRO',
+                          'TRANSFERÊNCIA',
+                          'DEPÓSITO',
+                          'OUTRO',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
                 Row(
                   children: <Widget>[
                     Expanded(
@@ -222,16 +411,16 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                         padding: EdgeInsets.all(10.0),
                         color: Colors.white,
                         onPressed: () {
-                          // Validate returns true if the form is valid, otherwise false.
                           if (_formKey.currentState.validate()) {
-                            // If the form is valid, display a snackbar. In the real world,
-                            // you'd often call a server or save the information in a database.
-
                             Scaffold.of(context).showSnackBar(
                                 SnackBar(content: Text('Processando ... ')));
                           }
                         },
-                        child: Text('SALVAR', style: TextStyle(color: _backgroundColor, fontSize: 30.0),),
+                        child: Text(
+                          'SALVAR',
+                          style: TextStyle(
+                              color: _backgroundColor, fontSize: 30.0),
+                        ),
                       ),
                     ),
                   ],
