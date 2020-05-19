@@ -30,12 +30,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        
-        title: Row(children: <Widget>[
-          Icon(Icons.monetization_on),
-          SizedBox(width: 5.0,),
-          Text('CONTROLE DE GASTOS')
-        ],),
+        title: Row(
+          children: <Widget>[
+            Icon(Icons.monetization_on),
+            SizedBox(
+              width: 5.0,
+            ),
+            Text('CONTROLE DE GASTOS')
+          ],
+        ),
         backgroundColor: _colorBlue,
         actions: <Widget>[
           IconButton(
@@ -50,8 +53,8 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.exit_to_app),
             tooltip: 'Sair',
             onPressed: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => LoginScreen()));
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
             },
           ),
         ],
@@ -228,8 +231,8 @@ class _FancyBottomNavigationState extends State<FancyBottomNavigation> {
           return GestureDetector(
             onTap: () {
               onItemSelected(index);
-
               setState(() {
+                Scaffold.of(context).hideCurrentSnackBar();
                 _selectedIndex = index;
               });
             },

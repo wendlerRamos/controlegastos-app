@@ -315,25 +315,37 @@ class _MainDashboardState extends State<MainDashboard> {
             ),
             Expanded(
                 child: Container(
-              child: ListView(
-                children: <Widget>[
-                  _buildItem(),
-                  _buildItem(),
-                  _buildItem(color: Colors.green),
-                  _buildItem(),
-                  _buildItem(),
-                  _buildItem(color: Colors.green),
-                  _buildItem(),
-                  _buildItem(),
-                  _buildItem(),
-                  _buildItem(color: Colors.green),
-                  _buildItem(),
-                  _buildItem(),
-                  _buildItem(),
-                  _buildItem(),
-                ],
-              ),
-            ))
+                  child: ListView(
+                    children: <Widget>[
+                      _buildItem(),
+                      _buildItem(),
+                      _buildItem(color: Colors.green),
+                      _buildItem(),
+                      _buildItem(),
+                      _buildItem(color: Colors.green),
+                      _buildItem(),
+                      _buildItem(),
+                      _buildItem(),
+                      _buildItem(color: Colors.green),
+                      _buildItem(),
+                      _buildItem(),
+                      _buildItem(),
+                      _buildItem(),
+                    ],
+                  ),
+                )
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Center(
+              child: CloseButton(
+                  color: Colors.white,
+                  onPressed: (){
+                    Scaffold.of(context).hideCurrentSnackBar();
+                  },
+                ),
+            ),
           ],
         ),
       ),
