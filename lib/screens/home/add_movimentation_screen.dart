@@ -1,3 +1,4 @@
+import 'package:controlegastos/screens/home/widgets/date_picker_input.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -18,7 +19,7 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
   String movimentationDescription = 'MERCADO';
   String paymentType = "CRÉDITO";
   bool isOtherSelected = false;
-
+  final format = DateFormat("dd/MM/yyyy");
   @override
   Widget build(BuildContext context) {
     if (_character == MovimentationType.despesa) {
@@ -243,40 +244,9 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                 SizedBox(
                   height: 20.0,
                 ),
-                TextFormField(
-                  initialValue: formattedDate,
-                  keyboardType: TextInputType.datetime,
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(16.0),
-                    prefixIcon: Container(
-                        padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-                        margin: const EdgeInsets.only(right: 8.0),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30.0),
-                                bottomLeft: Radius.circular(30.0),
-                                topRight: Radius.circular(30.0),
-                                bottomRight: Radius.circular(10.0))),
-                        child: Icon(
-                          Icons.calendar_today,
-                          color: _backgroundColor,
-                        )),
-                    labelText: "Data",
-                    labelStyle: TextStyle(color: Colors.white54),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                        borderSide: BorderSide.none),
-                    filled: true,
-                    fillColor: Colors.white.withOpacity(0.1),
-                  ),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Preencha este campo !';
-                    }
-                    return null;
-                  },
+                BasicDateField(
+                  backgroundColor: _backgroundColor,
+                  defaultValue: DateTime.now(),
                 ),
                 SizedBox(
                   height: 20.0,
