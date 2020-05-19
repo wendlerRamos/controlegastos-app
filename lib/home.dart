@@ -30,7 +30,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text('CONTROLE DE GASTOS'),
+        
+        title: Row(children: <Widget>[
+          Icon(Icons.monetization_on),
+          SizedBox(width: 5.0,),
+          Text('CONTROLE DE GASTOS')
+        ],),
         backgroundColor: _colorBlue,
         actions: <Widget>[
           IconButton(
