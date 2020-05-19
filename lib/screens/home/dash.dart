@@ -1,6 +1,8 @@
 import 'package:controlegastos/screens/home/widgets/charts/proportion_pie.dart';
 import 'package:flutter/material.dart';
 
+import 'add_movimentation_screen.dart';
+
 class MainDashboard extends StatefulWidget {
   @override
   _MainDashboardState createState() => _MainDashboardState();
@@ -50,6 +52,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     icon: Icons.trending_down,
                     title: "Gastos em 30 dias",
                     data: "1.200,00",
+                    kind: "despesa",
                   ),
                 ),
                 const SizedBox(width: 16.0),
@@ -71,9 +74,7 @@ class _MainDashboardState extends State<MainDashboard> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: SizedBox(
               height: 200.0,
-              child: DonutPieChart(
-                []
-              ),
+              child: DonutPieChart([]),
             ),
           ),
           const SizedBox(height: 4.0),
@@ -211,12 +212,11 @@ class _MainDashboardState extends State<MainDashboard> {
               style: whiteText.copyWith(
                   fontWeight: FontWeight.bold, fontSize: 15.0),
             ),
-            
             trailing: Text(
               "01/01/2020",
               style: whiteText.copyWith(
                   fontWeight: FontWeight.bold, fontSize: 10.0),
-                  textAlign: TextAlign.end,
+              textAlign: TextAlign.end,
             ),
           ),
         ],
@@ -225,45 +225,158 @@ class _MainDashboardState extends State<MainDashboard> {
   }
 
   Container _buildTile(
-      {Color color, IconData icon, String title, String data, bool isLoading=false}) {
-    if(isLoading){
+      {Color color,
+      IconData icon,
+      String title,
+      String data,
+      bool isLoading = false,
+      String kind}) {
+    if (isLoading) {
       return Container(
-      padding: const EdgeInsets.all(8.0),
-      height: 120.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        color: color,
-      ),
-      child: Center(
-        child: CircularProgressIndicator(
-          backgroundColor: Colors.white,
-        ),
-      )
-    );
+          padding: const EdgeInsets.all(8.0),
+          height: 120.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4.0),
+            color: color,
+          ),
+          child: Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.white,
+            ),
+          ));
     }
     return Container(
-      padding: const EdgeInsets.all(8.0),
-      height: 120.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        color: color,
+      child: GestureDetector(
+        onTap: () {
+          if (kind != null) {
+            displayData(kind);
+          }
+        },
+        child: Container(
+          padding: const EdgeInsets.all(8.0),
+          height: 120.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4.0),
+            color: color,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Icon(
+                icon,
+                color: Colors.white,
+              ),
+              Text(
+                title,
+                style: whiteText.copyWith(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                data,
+                style: whiteText.copyWith(
+                    fontWeight: FontWeight.bold, fontSize: 20.0),
+              ),
+            ],
+          ),
+        ),
       ),
+    );
+  }
+
+  void displayData(String type) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      duration: Duration(hours: 1),
+      /*action: SnackBarAction(
+          label:"X",
+          textColor: Colors.white, 
+          onPressed: () {
+              Scaffold.of(context).hideCurrentSnackBar();
+          },
+        ),*/
+      backgroundColor: _colorBlue,
+      content: Container(
+        padding: EdgeInsets.only(left: 0.0, right: 0.0),
+        height: (MediaQuery.of(context).size.height) * .75,
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(child: Icon(Icons.description)),
+                Expanded(child: Icon(Icons.attach_money)),
+                Expanded(child: Icon(Icons.calendar_today)),
+              ],
+            ),
+            Divider(
+              color: Colors.white,
+              height: 20.0,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+                child: Container(
+              child: ListView(
+                children: <Widget>[
+                  _buildItem(),
+                  _buildItem(),
+                  _buildItem(color: Colors.green),
+                  _buildItem(),
+                  _buildItem(),
+                  _buildItem(color: Colors.green),
+                  _buildItem(),
+                  _buildItem(),
+                  _buildItem(),
+                  _buildItem(color: Colors.green),
+                  _buildItem(),
+                  _buildItem(),
+                  _buildItem(),
+                  _buildItem(),
+                ],
+              ),
+            ))
+          ],
+        ),
+      ),
+    ));
+  }
+
+  GestureDetector _buildItem(
+      {Color color, IconData icon, String value, String data, String kind}) {
+    if (color == null){
+      color = Colors.redAccent;
+    }
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => AddMovimentationScreen()));
+      },
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Icon(
-            icon,
+          Card(
+              color: _colorBlue,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(child: Icon(Icons.fastfood, color: color,)),
+                    Expanded(
+                      child: Text(
+                        "50,00",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    Expanded(
+                        child: Text(
+                      "01/01/2020",
+                      textAlign: TextAlign.end,
+                      style: TextStyle(color: Colors.white),
+                    )),
+                  ],
+                ),
+              )),
+          Divider(
             color: Colors.white,
-          ),
-          Text(
-            title,
-            style: whiteText.copyWith(fontWeight: FontWeight.bold),
-          ),
-          Text(
-            data,
-            style:
-                whiteText.copyWith(fontWeight: FontWeight.bold, fontSize: 20.0),
           ),
         ],
       ),
