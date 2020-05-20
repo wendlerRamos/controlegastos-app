@@ -57,7 +57,7 @@ class _MainDashboardState extends State<MainDashboard> {
                 ),
                 const SizedBox(width: 16.0),
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: _buildTile(
                     isLoading: isLoading,
                     color: Colors.green,
@@ -275,6 +275,11 @@ class _MainDashboardState extends State<MainDashboard> {
                 data,
                 style: whiteText.copyWith(
                     fontWeight: FontWeight.bold, fontSize: 20.0),
+              ),
+              Text(
+                "Média $data",
+                style: whiteText.copyWith(
+                    fontWeight: FontWeight.bold, fontSize: 10.0),
               ),
             ],
           ),

@@ -6,16 +6,14 @@ import 'package:splashscreen/splashscreen.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  Color _colorBlue = Color.fromARGB(255, 3, 40, 80);
-  Color _colorLightBlue = Color.fromARGB(255, 8, 74, 146);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Controle de Gastos",
+      title: "CONTROLE DE GASTOS",
       theme: ThemeData(
-        primaryColor: _colorBlue,
+        primaryColor:Color.fromARGB(255, 3, 40, 80),
       ),
-      color: _colorBlue,
+      color: Color.fromARGB(255, 3, 40, 80),
       home: _introScreen(),
     );
   }
