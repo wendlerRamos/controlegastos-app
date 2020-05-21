@@ -320,36 +320,35 @@ class _MainDashboardState extends State<MainDashboard> {
             ),
             Expanded(
                 child: Container(
-                  child: ListView(
-                    children: <Widget>[
-                      _buildItem(),
-                      _buildItem(),
-                      _buildItem(color: Colors.green),
-                      _buildItem(),
-                      _buildItem(),
-                      _buildItem(color: Colors.green),
-                      _buildItem(),
-                      _buildItem(),
-                      _buildItem(),
-                      _buildItem(color: Colors.green),
-                      _buildItem(),
-                      _buildItem(),
-                      _buildItem(),
-                      _buildItem(),
-                    ],
-                  ),
-                )
-            ),
+              child: ListView(
+                children: <Widget>[
+                  _buildItem(),
+                  _buildItem(),
+                  _buildItem(color: Colors.green),
+                  _buildItem(),
+                  _buildItem(),
+                  _buildItem(color: Colors.green),
+                  _buildItem(),
+                  _buildItem(),
+                  _buildItem(),
+                  _buildItem(color: Colors.green),
+                  _buildItem(),
+                  _buildItem(),
+                  _buildItem(),
+                  _buildItem(),
+                ],
+              ),
+            )),
             SizedBox(
               height: 8.0,
             ),
             Center(
               child: CloseButton(
-                  color: Colors.white,
-                  onPressed: (){
-                    Scaffold.of(context).hideCurrentSnackBar();
-                  },
-                ),
+                color: Colors.white,
+                onPressed: () {
+                  Scaffold.of(context).hideCurrentSnackBar();
+                },
+              ),
             ),
           ],
         ),
@@ -359,7 +358,7 @@ class _MainDashboardState extends State<MainDashboard> {
 
   GestureDetector _buildItem(
       {Color color, IconData icon, String value, String data, String kind}) {
-    if (color == null){
+    if (color == null) {
       color = Colors.redAccent;
     }
     return GestureDetector(
@@ -375,7 +374,11 @@ class _MainDashboardState extends State<MainDashboard> {
                 padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
                 child: Row(
                   children: <Widget>[
-                    Expanded(child: Icon(Icons.fastfood, color: color,)),
+                    Expanded(
+                        child: Icon(
+                      Icons.fastfood,
+                      color: color,
+                    )),
                     Expanded(
                       child: Text(
                         "50,00",

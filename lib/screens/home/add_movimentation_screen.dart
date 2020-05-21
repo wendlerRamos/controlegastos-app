@@ -353,8 +353,7 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                   ],
                 ),
               ],
-            )
-          ),
+            )),
       ),
     );
   }

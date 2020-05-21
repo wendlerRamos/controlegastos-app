@@ -1,6 +1,7 @@
 import 'package:controlegastos/screens/auth/login.dart';
 import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
 import 'package:controlegastos/screens/home/dash.dart';
+import 'package:controlegastos/screens/investments/dash_investments.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -25,9 +26,11 @@ class _HomePageState extends State<HomePage> {
   PageController pageController = PageController(initialPage: 0);
   StreamController<int> indexcontroller = StreamController<int>.broadcast();
   int index = 0;
+  final Color _backgroundDashColor = Color.fromARGB(255, 232, 247, 247);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: _backgroundDashColor,
       key: scaffoldKey,
       appBar: AppBar(
         title: Row(
@@ -60,6 +63,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: PageView(
+        
         physics: NeverScrollableScrollPhysics(),
         onPageChanged: (index) {
           indexcontroller.add(index);
@@ -70,10 +74,10 @@ class _HomePageState extends State<HomePage> {
             child: MainDashboard(),
           ),
           Center(
-            child: Text('user'),
+            child: Text('historic'),
           ),
           Center(
-            child: Text('Security'),
+            child: InvestmentsDashboardScreen(),
           ),
           Center(
             child: Text('User Info'),
