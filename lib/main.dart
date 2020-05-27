@@ -1,5 +1,6 @@
 import 'package:controlegastos/screens/auth/login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:splashscreen/splashscreen.dart';
 //import 'package:scoped_model/scoped_model.dart';
 
@@ -9,6 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      darkTheme: ThemeData.dark(),
+      supportedLocales: [const Locale('pt', 'BR')] ,
       title: "CONTROLE DE GASTOS",
       theme: ThemeData(
         primaryColor:Color.fromARGB(255, 3, 40, 80),

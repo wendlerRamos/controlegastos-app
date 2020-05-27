@@ -11,7 +11,7 @@ class InvestmentsDashboardScreen extends StatefulWidget {
 }
 
 class _InvestmentsDashboardScreenState
-    extends State<InvestmentsDashboardScreen> {
+  extends State<InvestmentsDashboardScreen> {
   final TextStyle whiteText = TextStyle(color: Colors.white);
   bool isLoading = false;
   final Color _colorBlue = Color.fromARGB(255, 3, 40, 80);
@@ -107,7 +107,7 @@ class _InvestmentsDashboardScreenState
                 child: Card(
                   color: _colorBlue,
                   child: ListView(
-                    children: <Widget>[
+                    children: <Widget> [
                       buildItemMeta(context: context),
                       buildItemMeta(context: context),
                       buildItemMeta(context: context),

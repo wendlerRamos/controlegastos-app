@@ -7,7 +7,8 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 class BasicDateField extends StatelessWidget {
   final Color backgroundColor;
   final DateTime defaultValue;
-  const BasicDateField({Key key, this.backgroundColor, this.defaultValue}) : super(key: key);
+  final String label;
+  const BasicDateField({Key key, this.backgroundColor, this.defaultValue, this.label}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class BasicDateField extends StatelessWidget {
                 Icons.calendar_today,
                 color: backgroundColor,
               )),
-          labelText: "Data",
+          labelText: (label != null ) ? label : "Data",
           labelStyle: TextStyle(color: Colors.white54),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30.0),

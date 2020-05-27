@@ -15,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Color _colorOrange = Color.fromARGB(255, 255, 59, 0);
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,8 +106,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Colors.white,
                 textColor: _colorOrange,
                 padding: const EdgeInsets.all(20.0),
-                child: Text("Login".toUpperCase()),
-                onPressed: () {
+                child: (isLoading) ? CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(Colors.orange),
+                ) : Text("Login".toUpperCase()),
+                onPressed: () async {
+                  setState((){
+                    isLoading = true;
+                  });
+                  await Future.delayed(Duration(seconds: 2));
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => HomePage()));
                 },

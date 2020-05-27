@@ -1,6 +1,7 @@
 import 'package:controlegastos/screens/auth/login.dart';
 import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
 import 'package:controlegastos/screens/home/dash.dart';
+import 'package:controlegastos/screens/investments/add_investment.dart';
 import 'package:controlegastos/screens/investments/dash_investments.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -48,8 +49,13 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.add_circle),
             tooltip: 'Adicionar',
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
+              if(pageController.page == 2.0){
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => AddInvestmentScreen()));
+              }else{
+                Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => AddMovimentationScreen()));
+              }
             },
           ),
           IconButton(
