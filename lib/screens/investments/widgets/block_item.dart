@@ -28,7 +28,7 @@ Container buildTile(
     child: GestureDetector(
       onTap: () {
         if (kind != null) {
-          displayData(kind, context, Colors.orange);
+          displayData(kind, context, Colors.white);
         }
       },
       child: Container(

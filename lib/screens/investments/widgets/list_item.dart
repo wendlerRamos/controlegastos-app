@@ -15,35 +15,48 @@ GestureDetector buildItem(
     onTap: () {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => Container(
-                color: Colors.orange,
+                color: Colors.orange[200],
               )));
     },
     child: Column(
       children: <Widget>[
         Card(
-            color: Colors.orange,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
+            color: color,
+            child: Container(
+              padding: EdgeInsets.only(
+                  bottom: 10.0, top: 10.0, left: 5.0, right: 5.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.0),
+                border: Border.all(
+                  color: Color.fromARGB(255, 3, 40, 80),
+                ),
+                color: Colors.white,
+              ),
               child: Row(
                 children: <Widget>[
                   Expanded(
-                      child: Icon(
-                    Icons.fastfood,
-                    color: color,
-                  )),
-                  Expanded(
+                    flex: 6,
                     child: Text(
-                      "50,00",
+                      "Meta 1",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Color.fromARGB(255, 3, 40, 80), fontWeight: FontWeight.bold),
                     ),
                   ),
                   Expanded(
+                    flex: 2,
+                    child: Text(
+                      "1.050,00",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Color.fromARGB(255, 3, 40, 80), fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 2,
                       child: Text(
-                    "01/01/2020",
-                    textAlign: TextAlign.end,
-                    style: TextStyle(color: Colors.white),
-                  )),
+                        "01/01/2020",
+                        textAlign: TextAlign.end,
+                        style: TextStyle(color: Color.fromARGB(255, 3, 40, 80), fontWeight: FontWeight.bold),
+                      )),
                 ],
               ),
             )),

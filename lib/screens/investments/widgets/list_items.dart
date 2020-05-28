@@ -20,13 +20,22 @@ void displayData(String type, BuildContext context, Color backgroudColor) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Expanded(child: Icon(Icons.description)),
-              Expanded(child: Icon(Icons.attach_money)),
-              Expanded(child: Icon(Icons.calendar_today)),
+              Expanded(
+                child: Icon(Icons.score, color: Color.fromARGB(255, 3, 40, 80),),
+                flex: 6,
+              ),
+              Expanded(
+                child: Icon(Icons.monetization_on, color: Color.fromARGB(255, 3, 40, 80),),
+                flex: 2,
+              ),
+              Expanded(
+                child: Icon(Icons.calendar_today, color: Color.fromARGB(255, 3, 40, 80),),
+                flex: 2,
+              ),
             ],
           ),
           Divider(
-            color: Colors.white,
+            color: Color.fromARGB(255, 3, 40, 80),
             height: 20.0,
           ),
           SizedBox(
@@ -36,20 +45,24 @@ void displayData(String type, BuildContext context, Color backgroudColor) {
               child: Container(
             child: ListView(
               children: <Widget>[
-                buildItem(context: context,),
-                buildItem(context: context,),
-                buildItem(context: context,color: Colors.green),
-                buildItem(context: context,),
-                buildItem(context: context,),
-                buildItem(context: context,color: Colors.green),
-                buildItem(context: context,),
-                buildItem(context: context,),
-                buildItem(context: context,),
-                buildItem(context: context,color: Colors.green),
-                buildItem(context: context,),
-                buildItem(context: context,),
-                buildItem(context: context,),
-                buildItem(context: context,),
+                buildItem(context: context, color: Colors.blue[900]),
+                buildItem(context: context, color: Colors.blue[700]),
+                buildItem(context: context, color: Colors.blue[900]),
+                buildItem(context: context, color: Colors.blue[700]),
+                buildItem(context: context, color: Colors.blue[900]),
+                buildItem(context: context, color: Colors.blue[700]),
+                buildItem(context: context, color: Colors.blue[900]),
+                buildItem(context: context, color: Colors.blue[700]),
+                buildItem(context: context, color: Colors.blue[900]),
+                buildItem(context: context, color: Colors.blue[700]),
+                buildItem(context: context, color: Colors.blue[900]),
+                buildItem(context: context, color: Colors.blue[700]),
+                buildItem(context: context, color: Colors.blue[900]),
+                buildItem(context: context, color: Colors.blue[700]),
+                buildItem(context: context, color: Colors.blue[900]),
+                buildItem(context: context, color: Colors.blue[700]),
+                buildItem(context: context, color: Colors.blue[900]),
+                buildItem(context: context, color: Colors.blue[700]),
               ],
             ),
           )),
@@ -58,7 +71,7 @@ void displayData(String type, BuildContext context, Color backgroudColor) {
           ),
           Center(
             child: CloseButton(
-              color: Colors.white,
+              color: Colors.redAccent,
               onPressed: () {
                 Scaffold.of(context).hideCurrentSnackBar();
               },

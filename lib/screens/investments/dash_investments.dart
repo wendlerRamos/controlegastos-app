@@ -1,4 +1,5 @@
 import 'package:controlegastos/screens/investments/widgets/block_item.dart';
+import 'package:controlegastos/screens/investments/widgets/charts/investments_by_month.dart';
 import 'package:controlegastos/screens/investments/widgets/header.dart';
 import 'package:controlegastos/screens/investments/widgets/item_meta.dart';
 import 'package:controlegastos/screens/investments/widgets/local_tile.dart';
@@ -63,6 +64,40 @@ class _InvestmentsDashboardScreenState
           ),
           Padding(
             padding: EdgeInsets.only(top: 8.0, bottom: 0.0, left: 15.0),
+            child: Text("METAS", style: TextStyle(color: _colorBlue, fontSize: 20.0, fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * .33,
+            child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                child: Card(
+                  color: _colorBlue,
+                  child: ListView(
+                    children: <Widget> [
+                      buildItemMeta(context: context),
+                      buildItemMeta(context: context),
+                      buildItemMeta(context: context),
+                      buildItemMeta(context: context),
+                      buildItemMeta(context: context),
+                    ],
+                  ),
+                )),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 8.0, bottom: 0.0, left: 15.0),
+            child: Text("VALORES INVESTIDOS NOS ÚLTIMOS MESES", style: TextStyle(color: _colorBlue, fontSize: 20.0, fontWeight: FontWeight.bold , ),textAlign: TextAlign.center, ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * .25,
+            child: Padding(
+              padding: EdgeInsets.all(5.0),
+              child: InvestmentsByMonth(null),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 8.0, bottom: 0.0, left: 15.0),
             child: Text("LOCAIS", style: TextStyle(color: _colorBlue, fontSize: 20.0, fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
           ),
           SizedBox(
@@ -94,28 +129,6 @@ class _InvestmentsDashboardScreenState
                 ],
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8.0, bottom: 0.0, left: 15.0),
-            child: Text("METAS", style: TextStyle(color: _colorBlue, fontSize: 20.0, fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .33,
-            child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-                child: Card(
-                  color: _colorBlue,
-                  child: ListView(
-                    children: <Widget> [
-                      buildItemMeta(context: context),
-                      buildItemMeta(context: context),
-                      buildItemMeta(context: context),
-                      buildItemMeta(context: context),
-                      buildItemMeta(context: context),
-                    ],
-                  ),
-                )),
           ),
           const SizedBox(height: 8.0),
           Padding(

@@ -245,7 +245,14 @@ class _AddInvestmentScreenState extends State<AddInvestmentScreen> {
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
                             _scaffoldKey.currentState.showSnackBar(
-                                SnackBar(content: Text('Processando ... ')));
+                                SnackBar(
+                                  backgroundColor: Colors.white,
+                                  content: Text(
+                                    'Processando ... ',
+                                    style: TextStyle(color: _backgroundColor),
+                                    )
+                                )
+                              );
                           }
                         },
                         child: Text(
