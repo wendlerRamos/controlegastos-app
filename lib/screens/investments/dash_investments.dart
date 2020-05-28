@@ -67,7 +67,7 @@ class _InvestmentsDashboardScreenState
             child: Text("METAS", style: TextStyle(color: _colorBlue, fontSize: 20.0, fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * .33,
+            height: MediaQuery.of(context).size.height * .4,
             child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
@@ -88,6 +88,7 @@ class _InvestmentsDashboardScreenState
             padding: EdgeInsets.only(top: 8.0, bottom: 0.0, left: 15.0),
             child: Text("VALORES INVESTIDOS NOS ÚLTIMOS MESES", style: TextStyle(color: _colorBlue, fontSize: 20.0, fontWeight: FontWeight.bold , ),textAlign: TextAlign.center, ),
           ),
+          
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * .25,
@@ -102,7 +103,7 @@ class _InvestmentsDashboardScreenState
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * .15,
+            height: MediaQuery.of(context).size.height * .20,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: ListView(
