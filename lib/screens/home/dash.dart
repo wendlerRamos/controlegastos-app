@@ -93,7 +93,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     data: "300,00",
                   ),
                 ),
-                const SizedBox(width: 16.0),
+                const SizedBox(width: 8.0),
                 Expanded(
                   child: _buildTile(
                     isLoading: isLoading,
@@ -103,7 +103,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     data: "150,00",
                   ),
                 ),
-                const SizedBox(width: 16.0),
+                const SizedBox(width: 8.0),
                 Expanded(
                   child: _buildTile(
                     isLoading: isLoading,
@@ -130,7 +130,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     data: "750,00",
                   ),
                 ),
-                const SizedBox(width: 16.0),
+                const SizedBox(width: 8.0),
                 Expanded(
                   child: _buildTile(
                     isLoading: isLoading,
@@ -140,7 +140,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     data: "150,00",
                   ),
                 ),
-                const SizedBox(width: 16.0),
+                const SizedBox(width: 8.0),
                 Expanded(
                   child: _buildTile(
                     isLoading: isLoading,
@@ -167,8 +167,9 @@ class _MainDashboardState extends State<MainDashboard> {
                     data: "50,00",
                   ),
                 ),
-                const SizedBox(width: 16.0),
+                const SizedBox(width: 8.0),
                 Expanded(
+                  flex: 1,
                   child: _buildTile(
                     isLoading: isLoading,
                     color: _colorLightBlue,
@@ -177,14 +178,15 @@ class _MainDashboardState extends State<MainDashboard> {
                     data: "250,00",
                   ),
                 ),
-                const SizedBox(width: 16.0),
+                const SizedBox(width: 8.0),
                 Expanded(
+                  flex: 1,
                   child: _buildTile(
                     isLoading: isLoading,
-                    color: Colors.green,
-                    icon: Icons.arrow_drop_up,
-                    title: "Receita",
-                    data: "1.200,00",
+                    color: _colorOrange,
+                    icon: Icons.compare_arrows,
+                    title: "% Gasto",
+                    data: "130%",
                   ),
                 ),
               ],

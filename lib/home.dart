@@ -79,13 +79,13 @@ class _HomePageState extends State<HomePage> {
             child: MainDashboard(),
           ),
           Center(
-            child: Text('historic'),
+            child: Text('Históricos ( Em Breve )'),
           ),
           Center(
             child: InvestmentsDashboardScreen(),
           ),
           Center(
-            child: Text('User Info'),
+            child: Text('Informações do usuário ( Em breve )'),
           ),
         ],
       ),
