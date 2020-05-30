@@ -1,3 +1,4 @@
+import 'package:controlegastos/screens/investments/show_goal_screen.dart';
 import 'package:flutter/material.dart';
 
 GestureDetector buildItem(
@@ -14,9 +15,7 @@ GestureDetector buildItem(
   return GestureDetector(
     onTap: () {
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Container(
-                color: Colors.orange[200],
-              )));
+          builder: (context) => ShowGoalScreen()));
     },
     child: Column(
       children: <Widget>[
