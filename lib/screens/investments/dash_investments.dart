@@ -16,12 +16,12 @@ class _InvestmentsDashboardScreenState
   final TextStyle whiteText = TextStyle(color: Colors.white);
   bool isLoading = false;
   final Color _colorBlue = Color.fromARGB(255, 3, 40, 80);
-  final Color _colorLightBlue = Color.fromARGB(255, 8, 74, 146);
-  final Color _backgroundDashColor = Color.fromARGB(255, 232, 247, 247);
+  //final Color _colorLightBlue = Color.fromARGB(255, 8, 74, 146);
+  //final Color _backgroundDashColor = Color.fromARGB(255, 232, 247, 247);
   //final Color _colorWhite = Colors.white;
   final Color _colorGreen = Color.fromARGB(255, 59, 156, 0);
-  final Color _colorOrange = Color.fromARGB(255, 255, 59, 0);
-  final Color _colorRed = Color.fromARGB(255, 255, 0, 0);
+  //final Color _colorOrange = Color.fromARGB(255, 255, 59, 0);
+  //final Color _colorRed = Color.fromARGB(255, 255, 0, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class _InvestmentsDashboardScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          buildHeader(_colorLightBlue),
+          buildHeader(_colorBlue),
           const SizedBox(height: 20.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -39,7 +39,7 @@ class _InvestmentsDashboardScreenState
                   flex: 3,
                   child: buildTile(
                     isLoading: isLoading,
-                    color: _colorLightBlue,
+                    color: _colorBlue,
                     icon: Icons.local_atm,
                     title: "Guardados",
                     data: "9.000,00",
@@ -113,7 +113,7 @@ class _InvestmentsDashboardScreenState
                     alignment: Alignment.center,
                     child: buildLocalTile(
                       isLoading: isLoading,
-                      color: _colorLightBlue,
+                      color: _colorBlue,
                       title: "Nubank",
                       data: "9.500,00",
                     ),
@@ -122,7 +122,7 @@ class _InvestmentsDashboardScreenState
                     alignment: Alignment.center,
                     child: buildLocalTile(
                       isLoading: isLoading,
-                      color: _colorLightBlue,
+                      color: _colorBlue,
                       title: "CDI",
                       data: "500,00",
                     ),
@@ -152,7 +152,7 @@ class _InvestmentsDashboardScreenState
                 flex: 1,
                 child: buildTile(
                   isLoading: isLoading,
-                  color: _colorLightBlue,
+                  color: _colorBlue,
                   icon: Icons.insert_chart,
                   title: "Média de investimento",
                   data: "250,00/mês",

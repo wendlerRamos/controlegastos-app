@@ -20,7 +20,7 @@ class _MainDashboardState extends State<MainDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       body: _buildBody(context),
     );
   }
@@ -71,12 +71,14 @@ class _MainDashboardState extends State<MainDashboard> {
           ),
           const SizedBox(height: 4.0),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: SizedBox(
-              height: 200.0,
-              child: DonutPieChart([]),
-            ),
-          ),
+              padding: const EdgeInsets.symmetric(horizontal: 11.0),
+              child: Card(
+                //color: _colorLightBlue,
+                child: SizedBox(
+                  height: 120.0,
+                  child: DonutPieChart([]),
+                ),
+              )),
           const SizedBox(height: 4.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),

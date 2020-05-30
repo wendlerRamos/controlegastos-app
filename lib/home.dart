@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   PageController pageController = PageController(initialPage: 0);
   StreamController<int> indexcontroller = StreamController<int>.broadcast();
   int index = 0;
-  final Color _backgroundDashColor = Color.fromARGB(255, 232, 247, 247);
+  //final Color _backgroundDashColor = Color.fromARGB(255, 232, 247, 247);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,12 +49,12 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.add_circle),
             tooltip: 'Adicionar',
             onPressed: () {
-              if(pageController.page == 2.0){
+              if (pageController.page == 2.0) {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => AddInvestmentScreen()));
-              }else{
+                    builder: (context) => AddInvestmentScreen()));
+              } else {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => AddMovimentationScreen()));
+                    builder: (context) => AddMovimentationScreen()));
               }
             },
           ),
@@ -69,7 +69,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: PageView(
-        
         physics: NeverScrollableScrollPhysics(),
         onPageChanged: (index) {
           indexcontroller.add(index);

@@ -64,7 +64,7 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
                                 Expanded(
                                   child: Column(
                                     children: <Widget>[
-                                      Text("10.000,00"),
+                                      Text("10.000,00", style: TextStyle(fontWeight: FontWeight.bold),),
                                       Text("Valor da Meta")
                                     ],
                                   ),
@@ -72,7 +72,7 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
                                 Expanded(
                                   child: Column(
                                     children: <Widget>[
-                                      Text("5.000,00"),
+                                      Text("5.000,00", style: TextStyle(fontWeight: FontWeight.bold),),
                                       Text("Investidos")
                                     ],
                                   ),
@@ -80,7 +80,7 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
                                 Expanded(
                                   child: Column(
                                     children: <Widget>[
-                                      Text("5.000,00"),
+                                      Text("5.000,00", style: TextStyle(fontWeight: FontWeight.bold),),
                                       Text("Restante")
                                     ],
                                   ),

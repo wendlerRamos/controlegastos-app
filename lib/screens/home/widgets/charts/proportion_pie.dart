@@ -24,7 +24,7 @@ class DonutPieChart extends StatelessWidget {
         // Configure the width of the pie slices to 60px. The remaining space in
         // the chart will be left as a hole in the center.
         defaultRenderer: new charts.ArcRendererConfig(
-            arcWidth: 40,
+            arcWidth: 20,
             
           arcRendererDecorators: [
             new charts.ArcLabelDecorator(
@@ -41,6 +41,10 @@ class DonutPieChart extends StatelessWidget {
       new LinearSales(1, 75, "Alimentação"),
       new LinearSales(2, 150, "Transporte"),
       new LinearSales(3, 480, "Contas"),
+      new LinearSales(4, 50, "Outro"),
+      new LinearSales(5, 80, "Saúde"),
+      new LinearSales(6, 120, "Educação"),
+      new LinearSales(7, 100, "Lazer"),
     ];
 
     return [
