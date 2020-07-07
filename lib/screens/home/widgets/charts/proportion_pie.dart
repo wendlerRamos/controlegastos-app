@@ -7,6 +7,7 @@ class DonutPieChart extends StatelessWidget {
 
   DonutPieChart(this.seriesList, {this.animate});
 
+ /* 
   /// Creates a [PieChart] with sample data and no transition.
   factory DonutPieChart.withSampleData() {
     return new DonutPieChart(
@@ -15,11 +16,12 @@ class DonutPieChart extends StatelessWidget {
       animate: false,
     );
   }
+  */
 
 
   @override
   Widget build(BuildContext context) {
-    return new charts.PieChart(_createSampleData(),
+    return new charts.PieChart( seriesList,
         animate: animate,
         // Configure the width of the pie slices to 60px. The remaining space in
         // the chart will be left as a hole in the center.

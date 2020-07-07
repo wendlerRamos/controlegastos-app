@@ -1,7 +1,18 @@
+import 'package:controlegastos/controllers/routes.dart';
+import 'package:controlegastos/controllers/util.dart';
+//import 'package:controlegastos/dummy_data/main_dash_data.dart';
+import 'package:controlegastos/dummy_data/movimentation.dart';
+import 'package:controlegastos/models/movimentation.dart';
 import 'package:controlegastos/screens/home/widgets/charts/proportion_pie.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import 'add_movimentation_screen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:controlegastos/controllers/routes.dart' as Routes;
+
+String request = Routes.getRoute('main_dash_data');
+var numberFormat =NumberFormat.simpleCurrency(locale: "BRL",);
 
 class MainDashboard extends StatefulWidget {
   @override
@@ -9,6 +20,7 @@ class MainDashboard extends StatefulWidget {
 }
 
 class _MainDashboardState extends State<MainDashboard> {
+
   final TextStyle whiteText = TextStyle(color: Colors.white);
   bool isLoading = false;
   final Color _colorBlue = Color.fromARGB(255, 3, 40, 80);
@@ -17,15 +29,40 @@ class _MainDashboardState extends State<MainDashboard> {
   final Color _colorOrange = Color.fromARGB(255, 255, 59, 0);
   final Color _colorRed = Color.fromARGB(255, 255, 0, 0);
 
+  Future<Map> getDataFromAPI() async {
+    print(request);
+    http.Response response = await http.get(request);
+    return json.decode(response.body);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: Colors.white,
-      body: _buildBody(context),
+      body: _buildBodyContent(context),
     );
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget _buildBodyContent(BuildContext context){
+    return FutureBuilder(
+      future: getDataFromAPI(),
+      builder: (context, snapshot){
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return Center(child: CircularProgressIndicator(),);
+            break;
+          default:
+            if(snapshot.hasError || !snapshot.hasData){
+              return Center(child: Text('Error 404 \n Data not Found'),);
+            }else{
+              return _buildBody(context, snapshot.data);
+            }
+        }
+      },
+    );
+  }
+
+  Widget _buildBody(BuildContext context, Map data) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,24 +83,26 @@ class _MainDashboardState extends State<MainDashboard> {
               children: <Widget>[
                 Expanded(
                   flex: 3,
-                  child: _buildTile(
+                  child: _blockTile(
                     isLoading: isLoading,
                     color: _colorRed,
                     icon: Icons.trending_down,
                     title: "Gastos em 30 dias",
-                    data: "1.200,00",
+                    currentValue: numberFormat.format(data['spent_card']['total']),
+                    average: numberFormat.format(data['spent_card']['avarage']),
                     kind: "despesa",
                   ),
                 ),
                 const SizedBox(width: 16.0),
                 Expanded(
                   flex: 3,
-                  child: _buildTile(
+                  child: _blockTile(
                     isLoading: isLoading,
                     color: Colors.green,
                     icon: Icons.trending_up,
                     title: "Receitas em 30 dias",
-                    data: "900,00",
+                    currentValue: numberFormat.format(data['profit_card']['total']),
+                    average: numberFormat.format(data['profit_card']['avarage']),
                   ),
                 ),
               ],
@@ -76,7 +115,7 @@ class _MainDashboardState extends State<MainDashboard> {
                 //color: _colorLightBlue,
                 child: SizedBox(
                   height: 120.0,
-                  child: DonutPieChart([]),
+                  child: DonutPieChart(createPieMainDashChartData(data['chart_data'])),
                 ),
               )),
           const SizedBox(height: 4.0),
@@ -85,32 +124,35 @@ class _MainDashboardState extends State<MainDashboard> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: _buildTile(
+                  child: _blockTile(
                     isLoading: isLoading,
                     color: _colorOrange,
                     icon: Icons.shopping_basket,
                     title: "Mercado",
-                    data: "300,00",
+                    currentValue: numberFormat.format(data['categories']['mercado']['total']),
+                    average: numberFormat.format(data['categories']['mercado']['avarage']),
                   ),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
-                  child: _buildTile(
+                  child: _blockTile(
                     isLoading: isLoading,
                     color: _colorLightBlue,
                     icon: Icons.fastfood,
                     title: "Alimentação",
-                    data: "150,00",
+                    currentValue: numberFormat.format(data['categories']['alimentacao']['total']),
+                    average: numberFormat.format(data['categories']['alimentacao']['avarage']),
                   ),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
-                  child: _buildTile(
+                  child: _blockTile(
                     isLoading: isLoading,
                     color: _colorOrange,
                     icon: Icons.directions_bus,
                     title: "Transporte",
-                    data: "200,00",
+                    currentValue: numberFormat.format(data['categories']['transporte']['total']),
+                    average: numberFormat.format(data['categories']['transporte']['avarage']),
                   ),
                 ),
               ],
@@ -122,32 +164,35 @@ class _MainDashboardState extends State<MainDashboard> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: _buildTile(
+                  child: _blockTile(
                     isLoading: isLoading,
                     color: _colorLightBlue,
                     icon: Icons.receipt,
                     title: "Contas",
-                    data: "750,00",
+                    currentValue: numberFormat.format(data['categories']['conta']['total']),
+                    average: numberFormat.format(data['categories']['conta']['avarage']),
                   ),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
-                  child: _buildTile(
+                  child: _blockTile(
                     isLoading: isLoading,
                     color: _colorOrange,
                     icon: Icons.school,
                     title: "Educação",
-                    data: "150,00",
+                    currentValue: numberFormat.format(data['categories']['educacao']['total']),
+                    average: numberFormat.format(data['categories']['educacao']['avarage']),
                   ),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
-                  child: _buildTile(
+                  child: _blockTile(
                     isLoading: isLoading,
                     color: _colorLightBlue,
                     icon: Icons.insert_emoticon,
                     title: "Lazer",
-                    data: "80,00",
+                    currentValue: numberFormat.format(data['categories']['lazer']['total']),
+                    average: numberFormat.format(data['categories']['lazer']['avarage']),
                   ),
                 ),
               ],
@@ -159,34 +204,37 @@ class _MainDashboardState extends State<MainDashboard> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: _buildTile(
+                  child: _blockTile(
                     isLoading: isLoading,
                     color: _colorOrange,
                     icon: Icons.favorite,
                     title: "Saúde",
-                    data: "50,00",
+                    currentValue: numberFormat.format(data['categories']['saude']['total']),
+                    average: numberFormat.format(data['categories']['saude']['avarage']),
                   ),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
                   flex: 1,
-                  child: _buildTile(
+                  child: _blockTile(
                     isLoading: isLoading,
                     color: _colorLightBlue,
                     icon: Icons.scatter_plot,
                     title: "Outros",
-                    data: "250,00",
+                    currentValue: numberFormat.format(data['categories']['outro']['total']),
+                    average: numberFormat.format(data['categories']['outro']['avarage']),
                   ),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
                   flex: 1,
-                  child: _buildTile(
+                  child: _blockTile(
                     isLoading: isLoading,
                     color: _colorOrange,
                     icon: Icons.compare_arrows,
                     title: "% Gasto",
-                    data: "130%",
+                    currentValue: data['categories']['porcentagem']['total'].toString(),
+                    average: data['categories']['porcentagem']['avarage'].toString(),
                   ),
                 ),
               ],
@@ -228,31 +276,36 @@ class _MainDashboardState extends State<MainDashboard> {
     );
   }
 
-  Container _buildTile(
-      {Color color,
-      IconData icon,
-      String title,
-      String data,
-      bool isLoading = false,
-      String kind}) {
+  Container _blockTile({
+    Color color,
+    IconData icon,
+    String title,
+    String currentValue,
+    String average,
+    bool isLoading = false,
+    String kind,
+  }) {
     if (isLoading) {
       return Container(
-          padding: const EdgeInsets.all(8.0),
-          height: 120.0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4.0),
-            color: color,
+        padding: const EdgeInsets.all(8.0),
+        height: 120.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.0),
+          color: color,
+        ),
+        child: Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.white,
           ),
-          child: Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.white,
-            ),
-          ));
+        ),
+      );
     }
     return Container(
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
           if (kind != null) {
+            displayData(null);
+            await Future.delayed(Duration(seconds: 2));
             displayData(kind);
           }
         },
@@ -276,14 +329,16 @@ class _MainDashboardState extends State<MainDashboard> {
                 style: whiteText.copyWith(fontWeight: FontWeight.bold),
               ),
               Text(
-                data,
+                currentValue,
                 style: whiteText.copyWith(
                     fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
               Text(
-                "Média $data",
+                "Média $average",
                 style: whiteText.copyWith(
-                    fontWeight: FontWeight.bold, fontSize: 10.0),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 10.0,
+                ),
               ),
             ],
           ),
@@ -293,77 +348,94 @@ class _MainDashboardState extends State<MainDashboard> {
   }
 
   void displayData(String type) {
-    Scaffold.of(context).showSnackBar(SnackBar(
-      duration: Duration(hours: 1),
-      /*action: SnackBarAction(
-          label:"X",
-          textColor: Colors.white, 
-          onPressed: () {
-              Scaffold.of(context).hideCurrentSnackBar();
-          },
-        ),*/
-      backgroundColor: _colorBlue,
-      content: Container(
-        padding: EdgeInsets.only(left: 0.0, right: 0.0),
-        height: (MediaQuery.of(context).size.height) * .75,
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(child: Icon(Icons.description)),
-                Expanded(child: Icon(Icons.attach_money)),
-                Expanded(child: Icon(Icons.calendar_today)),
-              ],
-            ),
-            Divider(
-              color: Colors.white,
-              height: 20.0,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Expanded(
-                child: Container(
-              child: ListView(
+    // Clear scaffold
+    Scaffold.of(context).hideCurrentSnackBar();
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(hours: 1),
+        backgroundColor: _colorBlue,
+        content: Container(
+          padding: EdgeInsets.only(left: 0.0, right: 0.0),
+          height: (MediaQuery.of(context).size.height) * .75,
+          child: Column(
+            children: <Widget>[
+              Row(
                 children: <Widget>[
-                  _buildItem(),
-                  _buildItem(),
-                  _buildItem(color: Colors.green),
-                  _buildItem(),
-                  _buildItem(),
-                  _buildItem(color: Colors.green),
-                  _buildItem(),
-                  _buildItem(),
-                  _buildItem(),
-                  _buildItem(color: Colors.green),
-                  _buildItem(),
-                  _buildItem(),
-                  _buildItem(),
-                  _buildItem(),
+                  Expanded(child: Icon(Icons.description)),
+                  Expanded(child: Icon(Icons.attach_money)),
+                  Expanded(child: Icon(Icons.calendar_today)),
                 ],
               ),
-            )),
-            SizedBox(
-              height: 8.0,
-            ),
-            Center(
-              child: CloseButton(
+              Divider(
                 color: Colors.white,
-                onPressed: () {
-                  Scaffold.of(context).hideCurrentSnackBar();
-                },
+                height: 20.0,
               ),
-            ),
-          ],
+              SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: Container(
+                  child: ListView(children: processListOfMovimentations(type)),
+                ),
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              Center(
+                child: CloseButton(
+                  color: Colors.white,
+                  onPressed: () {
+                    Scaffold.of(context).hideCurrentSnackBar();
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 
-  GestureDetector _buildItem(
-      {Color color, IconData icon, String value, String data, String kind}) {
-    if (color == null) {
-      color = Colors.redAccent;
+  List<Widget> processListOfMovimentations(dataFromAPI) {
+    List<Widget> listOfMovimentations = [];
+    if (dataFromAPI == null) {
+      final progress = Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.white,
+        ),
+      );
+      listOfMovimentations.add(progress);
+    } else {
+      Movimentation data1 = Movimentation.fromJson(getMovimentationJson());
+      listOfMovimentations = [
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+        _buildMovimentationItem(data: data1),
+      ];
+    }
+    return listOfMovimentations;
+  }
+
+  GestureDetector _buildMovimentationItem(
+      { Movimentation data }) {
+    DateFormat formatter = new DateFormat('yyyy-MM-dd');
+    var numberFormat = new NumberFormat.currency(locale: "BRL",symbol: "R\$");
+    Color iconColor;
+    if (data.kind == "DESPESA") {
+        iconColor  = Colors.redAccent;
+    }else{
+        iconColor = Colors.greenAccent;
     }
     return GestureDetector(
       onTap: () {
@@ -373,32 +445,34 @@ class _MainDashboardState extends State<MainDashboard> {
       child: Column(
         children: <Widget>[
           Card(
-              color: _colorBlue,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: Icon(
-                      Icons.fastfood,
-                      color: color,
-                    )),
-                    Expanded(
-                      child: Text(
-                        "50,00",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white),
-                      ),
+            color: _colorBlue,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Icon(
+                      returnIconByCategory(data.category),
+                      color: iconColor,
                     ),
-                    Expanded(
-                        child: Text(
-                      "01/01/2020",
-                      textAlign: TextAlign.end,
+                  ),
+                  Expanded(
+                    child: Text(
+                      numberFormat.format(data.value),
+                      textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
-                    )),
-                  ],
-                ),
-              )),
+                    ),
+                  ),
+                  Expanded(
+                      child: Text(
+                    formatter.format(data.date),
+                    textAlign: TextAlign.end,
+                    style: TextStyle(color: Colors.white),
+                  )),
+                ],
+              ),
+            ),
+          ),
           Divider(
             color: Colors.white,
           ),
