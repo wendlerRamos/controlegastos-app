@@ -47,8 +47,16 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return Expanded(
-              child: Card(
-                color: backgroundColor,
+              child: Container(
+                margin: EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4.0),
+                  color: backgroundColor,
+                  border: Border.all(
+                    color: borderColor,
+                    width: 2.0,
+                  ),
+                ),
                 child: Center(
                   child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(
@@ -76,8 +84,16 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
         onTap: () {
           setState(() {});
         },
-        child: Card(
-          color: backgroundColor,
+        child: Container(
+          margin: EdgeInsets.all(4.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4.0),
+            color: backgroundColor,
+            border: Border.all(
+              color: borderColor,
+              width: 2.0,
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -92,6 +108,13 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
                   color: contentColor,
                 ),
               ),
+              Text(
+                'Toque para tentar novamente',
+                style: TextStyle(
+                  color: contentColor,
+                  fontSize: 12,
+                ),
+              ),
             ],
           ),
         ),
@@ -103,7 +126,12 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
     return Expanded(
       child: GestureDetector(
         onTap: () {
-          setState(() {});
+          
+        },
+        onLongPress: (){
+          setState(() {
+            
+          });
         },
         child: Container(
           margin: EdgeInsets.all(4.0),
@@ -149,8 +177,9 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
                         "101% da média",
                         style: TextStyle(
                           fontSize: 15.0,
-                          color: getColors(colorName: "red"),
+                          color: getColors(colorName: "orange"),
                           fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold,
                         ),
                         textAlign: TextAlign.right,
                       ),

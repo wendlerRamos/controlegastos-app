@@ -23,9 +23,9 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
   @override
   Widget build(BuildContext context) {
     if (_character == MovimentationType.despesa) {
-      _backgroundColor = Colors.red;
+      _backgroundColor = Colors.red[900];
     } else {
-      _backgroundColor = Colors.green;
+      _backgroundColor = Colors.green[900];
     }
     return Scaffold(
       key: _scaffoldKey,

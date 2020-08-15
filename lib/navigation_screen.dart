@@ -1,12 +1,9 @@
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/screens/auth/login.dart';
 import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
-import 'package:controlegastos/deprecated_items/dash.dart';
 import 'package:controlegastos/screens/home/home_dash_tab.dart';
 import 'package:controlegastos/screens/investments/add_investment.dart';
 import 'package:controlegastos/screens/investments/dash_investments.dart';
-import 'package:controlegastos/tiles/home_category_tile.dart';
-import 'package:controlegastos/tiles/home_main_info_tile.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 

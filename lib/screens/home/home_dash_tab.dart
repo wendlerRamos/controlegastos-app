@@ -37,6 +37,21 @@ class _HomeDashTabState extends State<HomeDashTab> {
             padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
             child: Column(
               children: [
+                Text(
+                  "Gastos Por Categoria",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: getColors(colorName: "blue"),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30.0,
+                  ),
+                ),
+                Divider(
+                  color: getColors(colorName: "blue"),
+                  thickness: 2.0,
+                  indent: 5.0,
+                  endIndent: 5.0,
+                ),
                 SizedBox(
                   height: 100.0,
                   child: Row(
