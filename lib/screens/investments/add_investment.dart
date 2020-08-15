@@ -1,4 +1,4 @@
-import 'package:controlegastos/screens/home/widgets/date_picker_input.dart';
+import 'package:controlegastos/widgets/date_picker_input.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

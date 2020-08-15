@@ -57,3 +57,23 @@ List<charts.Series<PieChartModel, int>> createPieMainDashChartData(List listOfVa
       )
     ];
   }
+
+Color getColors({String colorName}){
+  switch (colorName) {
+    case "blue":
+      return Color.fromARGB(255, 3, 40, 80);
+    case "orange":
+      return Color.fromARGB(255, 255, 59, 0);
+    case "soft_white":
+      return Color.fromARGB(255, 234, 240, 246);
+    case "white":
+      return Colors.white;
+    case "red":
+      return Color.fromARGB(255, 196, 23, 12);
+    case "green":
+      return Color.fromARGB(255, 12, 196, 55);
+    default:
+      break;
+  }
+  return Color.fromARGB(255, 3, 40, 80);
+}

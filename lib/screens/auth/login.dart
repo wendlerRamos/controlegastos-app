@@ -1,4 +1,4 @@
-import 'package:controlegastos/home.dart';
+import 'package:controlegastos/navigation_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   });
                   await Future.delayed(Duration(seconds: 2));
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => HomePage()));
+                      builder: (context) => NavigationScreen()));
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0)),

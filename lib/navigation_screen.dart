@@ -1,38 +1,40 @@
+import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/screens/auth/login.dart';
 import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
-import 'package:controlegastos/screens/home/dash.dart';
+import 'package:controlegastos/deprecated_items/dash.dart';
+import 'package:controlegastos/screens/home/home_dash_tab.dart';
 import 'package:controlegastos/screens/investments/add_investment.dart';
 import 'package:controlegastos/screens/investments/dash_investments.dart';
+import 'package:controlegastos/tiles/home_category_tile.dart';
+import 'package:controlegastos/tiles/home_main_info_tile.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-class HomePage extends StatefulWidget {
+class NavigationScreen extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _NavigationScreenState createState() => _NavigationScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _NavigationScreenState extends State<NavigationScreen> {
   @override
   void dispose() {
     indexcontroller.close();
     super.dispose();
   }
 
-  final Color _colorBlue = Color.fromARGB(255, 3, 40, 80);
-  //final Color _colorLightBlue = Color.fromARGB(255, 8, 74, 146);
-  //final Color _colorWhite = Colors.white;
-  //final Color _colorOrange = Color.fromARGB(255, 255, 59, 0);
+  final Color _colorBlue = getColors(colorName: "blue");
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   PageController pageController = PageController(initialPage: 0);
   StreamController<int> indexcontroller = StreamController<int>.broadcast();
   int index = 0;
-  //final Color _backgroundDashColor = Color.fromARGB(255, 232, 247, 247);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: _backgroundDashColor,
       key: scaffoldKey,
+      backgroundColor: _colorBlue,
       appBar: AppBar(
         title: Row(
           children: <Widget>[
@@ -69,6 +71,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: PageView(
+        
         physics: NeverScrollableScrollPhysics(),
         onPageChanged: (index) {
           indexcontroller.add(index);
@@ -76,10 +79,10 @@ class _HomePageState extends State<HomePage> {
         controller: pageController,
         children: <Widget>[
           Center(
-            child: MainDashboard(),
+            child: HomeDashTab(),
           ),
           Center(
-            child: Text('Históricos ( Em Breve )'),
+            child: Container(color: getColors(colorName: "blue"),),
           ),
           Center(
             child: InvestmentsDashboardScreen(),
