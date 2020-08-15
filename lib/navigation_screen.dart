@@ -34,7 +34,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
     return Scaffold(
       //backgroundColor: _backgroundDashColor,
       key: scaffoldKey,
-      backgroundColor: _colorBlue,
+      //backgroundColor: _colorBlue,
+      backgroundColor: getColors(colorName: "soft_white"),
       appBar: AppBar(
         title: Row(
           children: <Widget>[

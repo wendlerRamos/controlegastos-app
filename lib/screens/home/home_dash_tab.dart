@@ -24,62 +24,78 @@ class _HomeDashTabState extends State<HomeDashTab> {
               ],
             ),
           ),
-          SizedBox(
-            height: 100.0,
-            child: Row(
-              children: [
-                HomeCategoryTile(
-                  itemIcon: Icons.shopping_basket,
-                  isWhite: false,
-                ),
-                HomeCategoryTile(
-                  isWhite: false,
-                  itemIcon: Icons.fastfood,
-                ),
-              ],
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: getColors(colorName: "white"),
+              border: Border.all(
+                color: getColors(colorName: "blue"),
+                width: 2.0,
+              ),
             ),
-          ),
-          SizedBox(
-            height: 100.0,
-            child: Row(
+            margin: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 5.0),
+            padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+            child: Column(
               children: [
-                HomeCategoryTile(
-                  itemIcon: Icons.directions_bus,
-                  isWhite: true,
+                SizedBox(
+                  height: 100.0,
+                  child: Row(
+                    children: [
+                      HomeCategoryTile(
+                        itemIcon: Icons.shopping_basket,
+                        isWhite: false,
+                      ),
+                      HomeCategoryTile(
+                        isWhite: false,
+                        itemIcon: Icons.fastfood,
+                      ),
+                    ],
+                  ),
                 ),
-                HomeCategoryTile(
-                  isWhite: true,
-                  itemIcon: Icons.receipt,
+                SizedBox(
+                  height: 100.0,
+                  child: Row(
+                    children: [
+                      HomeCategoryTile(
+                        itemIcon: Icons.directions_bus,
+                        isWhite: true,
+                      ),
+                      HomeCategoryTile(
+                        isWhite: true,
+                        itemIcon: Icons.receipt,
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 100.0,
-            child: Row(
-              children: [
-                HomeCategoryTile(
-                  itemIcon: Icons.school,
-                  isWhite: false,
+                SizedBox(
+                  height: 100.0,
+                  child: Row(
+                    children: [
+                      HomeCategoryTile(
+                        itemIcon: Icons.school,
+                        isWhite: false,
+                      ),
+                      HomeCategoryTile(
+                        isWhite: false,
+                        itemIcon: Icons.insert_emoticon,
+                      ),
+                    ],
+                  ),
                 ),
-                HomeCategoryTile(
-                  isWhite: false,
-                  itemIcon: Icons.insert_emoticon,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 100.0,
-            child: Row(
-              children: [
-                HomeCategoryTile(
-                  itemIcon: Icons.favorite,
-                  isWhite: true,
-                ),
-                HomeCategoryTile(
-                  isWhite: true,
-                  itemIcon: Icons.scatter_plot,
+                SizedBox(
+                  height: 100.0,
+                  child: Row(
+                    children: [
+                      HomeCategoryTile(
+                        itemIcon: Icons.favorite,
+                        isWhite: true,
+                      ),
+                      HomeCategoryTile(
+                        isWhite: true,
+                        itemIcon: Icons.scatter_plot,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -89,7 +105,7 @@ class _HomeDashTabState extends State<HomeDashTab> {
     );
   }
 
-    Container _buildHeader() {
+  Container _buildHeader() {
     return Container(
       padding: const EdgeInsets.fromLTRB(0, 5.0, 0, 5.0),
       margin: EdgeInsets.only(bottom: 10.0),

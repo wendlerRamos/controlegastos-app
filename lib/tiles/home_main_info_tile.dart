@@ -88,9 +88,9 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
           );
         },
         child: Container(
-          margin: EdgeInsets.all(4.0),
+          margin: EdgeInsets.all(5.0),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4.0),
+            borderRadius: BorderRadius.circular(10.0),
             color: getColors(colorName: "white"),
             border: Border.all(
               color: getColors(colorName: "blue"),
