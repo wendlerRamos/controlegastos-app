@@ -14,9 +14,9 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
   Color backgroundColor;
   Color fontColor = getColors(colorName: 'blue');
   Color borderColor;
+  
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getTheme();
   }

@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getThemeColors();
     return MaterialApp(
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
