@@ -1,4 +1,5 @@
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:controlegastos/controllers/theme.dart';
 import 'package:flutter/material.dart';
 
 IconData returnIconByCategory(String category) {
@@ -24,6 +25,12 @@ IconData returnIconByCategory(String category) {
       break;
     case "SAÚDE":
       icon = Icons.favorite;
+      break;
+    case "UP":
+      icon = Icons.arrow_drop_up;
+      break;
+    case "DOWN":
+      icon = Icons.arrow_drop_down;
       break;
     default:
       icon = Icons.scatter_plot;
@@ -76,4 +83,20 @@ Color getColors({String colorName}){
       break;
   }
   return Color.fromARGB(255, 3, 40, 80);
+}
+
+
+Map<String, Color> getThemeColors(){
+  String currentTheme = Prefs.singleton().getTheme();
+  Map<String, Color> collorPallete = new Map();
+  if (currentTheme == "Dark"){
+    collorPallete['background'] = getColors(colorName: "blue");
+    collorPallete['textColor'] = getColors(colorName: "soft_white");
+    collorPallete['borderColor'] = getColors(colorName: "soft_white");
+  }else{
+    collorPallete['background'] = getColors(colorName: "soft_white");
+    collorPallete['textColor'] = getColors(colorName: "blue");
+    collorPallete['borderColor'] = getColors(colorName: "blue");
+  }
+  return collorPallete;
 }

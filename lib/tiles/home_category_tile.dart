@@ -1,5 +1,6 @@
 import 'package:controlegastos/controllers/request.dart';
 import 'package:controlegastos/controllers/util.dart';
+import 'package:controlegastos/screens/home/show_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:controlegastos/controllers/routes.dart' as Routes;
 
@@ -126,12 +127,14 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
     return Expanded(
       child: GestureDetector(
         onTap: () {
-          
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ShowCategoryScreen(),
+            ),
+          );
         },
-        onLongPress: (){
-          setState(() {
-            
-          });
+        onLongPress: () {
+          setState(() {});
         },
         child: Container(
           margin: EdgeInsets.all(4.0),

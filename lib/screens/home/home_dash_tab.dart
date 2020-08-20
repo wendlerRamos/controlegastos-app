@@ -9,113 +9,136 @@ class HomeDashTab extends StatefulWidget {
 }
 
 class _HomeDashTabState extends State<HomeDashTab> {
+  Color backgroundColor;
+  @override
+  void initState() {
+    super.initState();
+    getTheme();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  void getTheme() {
+    Map<String, Color> pallete = getThemeColors();
+    backgroundColor = pallete['background'];
+    print("Updating Theme");
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildHeader(),
-          SizedBox(
-            height: 200.0,
-            child: Column(
-              children: [
-                HomeMainInfoTile(),
-              ],
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: getColors(colorName: "white"),
-              border: Border.all(
-                color: getColors(colorName: "blue"),
-                width: 2.0,
+    getTheme();
+    return Container(
+      color: backgroundColor,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildHeader(),
+            SizedBox(
+              height: 200.0,
+              child: Column(
+                children: [
+                  HomeMainInfoTile(),
+                ],
               ),
             ),
-            margin: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 5.0),
-            padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-            child: Column(
-              children: [
-                Text(
-                  "Gastos Por Categoria",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: getColors(colorName: "blue"),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30.0,
-                  ),
-                ),
-                Divider(
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: getColors(colorName: "white"),
+                border: Border.all(
                   color: getColors(colorName: "blue"),
-                  thickness: 2.0,
-                  indent: 5.0,
-                  endIndent: 5.0,
+                  width: 2.0,
                 ),
-                SizedBox(
-                  height: 100.0,
-                  child: Row(
-                    children: [
-                      HomeCategoryTile(
-                        itemIcon: Icons.shopping_basket,
-                        isWhite: false,
-                      ),
-                      HomeCategoryTile(
-                        isWhite: false,
-                        itemIcon: Icons.fastfood,
-                      ),
-                    ],
+              ),
+              margin: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 5.0),
+              padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+              child: Column(
+                children: [
+                  Text(
+                    "Gastos Por Categoria",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: getColors(colorName: "blue"),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.0,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 100.0,
-                  child: Row(
-                    children: [
-                      HomeCategoryTile(
-                        itemIcon: Icons.directions_bus,
-                        isWhite: true,
-                      ),
-                      HomeCategoryTile(
-                        isWhite: true,
-                        itemIcon: Icons.receipt,
-                      ),
-                    ],
+                  Divider(
+                    color: getColors(colorName: "blue"),
+                    thickness: 2.0,
+                    indent: 5.0,
+                    endIndent: 5.0,
                   ),
-                ),
-                SizedBox(
-                  height: 100.0,
-                  child: Row(
-                    children: [
-                      HomeCategoryTile(
-                        itemIcon: Icons.school,
-                        isWhite: false,
-                      ),
-                      HomeCategoryTile(
-                        isWhite: false,
-                        itemIcon: Icons.insert_emoticon,
-                      ),
-                    ],
+                  SizedBox(
+                    height: 100.0,
+                    child: Row(
+                      children: [
+                        HomeCategoryTile(
+                          itemIcon: Icons.shopping_basket,
+                          isWhite: false,
+                        ),
+                        HomeCategoryTile(
+                          isWhite: false,
+                          itemIcon: Icons.fastfood,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 100.0,
-                  child: Row(
-                    children: [
-                      HomeCategoryTile(
-                        itemIcon: Icons.favorite,
-                        isWhite: true,
-                      ),
-                      HomeCategoryTile(
-                        isWhite: true,
-                        itemIcon: Icons.scatter_plot,
-                      ),
-                    ],
+                  SizedBox(
+                    height: 100.0,
+                    child: Row(
+                      children: [
+                        HomeCategoryTile(
+                          itemIcon: Icons.directions_bus,
+                          isWhite: true,
+                        ),
+                        HomeCategoryTile(
+                          isWhite: true,
+                          itemIcon: Icons.receipt,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 100.0,
+                    child: Row(
+                      children: [
+                        HomeCategoryTile(
+                          itemIcon: Icons.school,
+                          isWhite: false,
+                        ),
+                        HomeCategoryTile(
+                          isWhite: false,
+                          itemIcon: Icons.insert_emoticon,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 100.0,
+                    child: Row(
+                      children: [
+                        HomeCategoryTile(
+                          itemIcon: Icons.favorite,
+                          isWhite: true,
+                        ),
+                        HomeCategoryTile(
+                          isWhite: true,
+                          itemIcon: Icons.scatter_plot,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

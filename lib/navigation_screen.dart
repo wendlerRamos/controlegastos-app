@@ -1,9 +1,11 @@
+import 'package:controlegastos/controllers/theme.dart';
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/screens/auth/login.dart';
 import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
 import 'package:controlegastos/screens/home/home_dash_tab.dart';
 import 'package:controlegastos/screens/investments/add_investment.dart';
 import 'package:controlegastos/screens/investments/dash_investments.dart';
+import 'package:controlegastos/screens/user/user_tab.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -12,11 +14,27 @@ class NavigationScreen extends StatefulWidget {
   _NavigationScreenState createState() => _NavigationScreenState();
 }
 
-class _NavigationScreenState extends State<NavigationScreen> {
+class _NavigationScreenState extends State<NavigationScreen> with WidgetsBindingObserver{
+  Color backgroundColor;
+
+  @override
+  void initState() { 
+    super.initState();
+    getTheme();
+    //WidgetsBinding.instance.addObserver(this);
+  }
+
   @override
   void dispose() {
     indexcontroller.close();
+    //WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  void getTheme(){
+    Map<String, Color> pallete = getThemeColors();
+    backgroundColor = pallete['background'];
+    print("Updating Theme");
   }
 
   final Color _colorBlue = getColors(colorName: "blue");
@@ -28,11 +46,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    getTheme();
     return Scaffold(
-      //backgroundColor: _backgroundDashColor,
       key: scaffoldKey,
-      //backgroundColor: _colorBlue,
-      backgroundColor: getColors(colorName: "soft_white"),
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         title: Row(
           children: <Widget>[
@@ -86,7 +103,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             child: InvestmentsDashboardScreen(),
           ),
           Center(
-            child: Text('Informações do usuário ( Em breve )'),
+            child: UserTab(),
           ),
         ],
       ),

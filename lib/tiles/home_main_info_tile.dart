@@ -1,4 +1,5 @@
 import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
+import 'package:controlegastos/screens/home/show_movimentations_screen.dart';
 import 'package:controlegastos/screens/investments/add_investment.dart';
 import 'package:flutter/material.dart';
 import 'package:controlegastos/controllers/util.dart';
@@ -83,7 +84,7 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => AddMovimentationScreen(),
+              builder: (context) => ShowMovimentationsScreen(),
             ),
           );
         },
