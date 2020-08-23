@@ -18,7 +18,6 @@ class _HomeDashTabState extends State<HomeDashTab> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -81,10 +80,12 @@ class _HomeDashTabState extends State<HomeDashTab> {
                         HomeCategoryTile(
                           itemIcon: Icons.shopping_basket,
                           isWhite: false,
+                          category: "MERCADO",
                         ),
                         HomeCategoryTile(
                           isWhite: false,
                           itemIcon: Icons.fastfood,
+                          category: "ALIMENTACAO",
                         ),
                       ],
                     ),
@@ -96,10 +97,12 @@ class _HomeDashTabState extends State<HomeDashTab> {
                         HomeCategoryTile(
                           itemIcon: Icons.directions_bus,
                           isWhite: true,
+                          category: "TRANSPORTE",
                         ),
                         HomeCategoryTile(
                           isWhite: true,
                           itemIcon: Icons.receipt,
+                          category: "CONTA",
                         ),
                       ],
                     ),
@@ -111,10 +114,12 @@ class _HomeDashTabState extends State<HomeDashTab> {
                         HomeCategoryTile(
                           itemIcon: Icons.school,
                           isWhite: false,
+                          category: "EDUCACAO",
                         ),
                         HomeCategoryTile(
                           isWhite: false,
                           itemIcon: Icons.insert_emoticon,
+                          category: "LAZER",
                         ),
                       ],
                     ),
@@ -126,10 +131,12 @@ class _HomeDashTabState extends State<HomeDashTab> {
                         HomeCategoryTile(
                           itemIcon: Icons.favorite,
                           isWhite: true,
+                          category: "SAUDE",
                         ),
                         HomeCategoryTile(
                           isWhite: true,
                           itemIcon: Icons.scatter_plot,
+                          category: "OUTRO",
                         ),
                       ],
                     ),

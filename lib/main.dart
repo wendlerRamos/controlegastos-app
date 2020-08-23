@@ -1,4 +1,3 @@
-import 'package:controlegastos/controllers/theme.dart';
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/screens/auth/login.dart';
 import 'package:flutter/material.dart';

@@ -16,7 +16,6 @@ class _ShowMovimentationsScreenState extends State<ShowMovimentationsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getTheme();
   }
@@ -74,11 +73,12 @@ class _ShowMovimentationsScreenState extends State<ShowMovimentationsScreen> {
                         "Nenhuma movimentação encontrada",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: getColors(
-                              colorName: 'orange',
-                            ),
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold),
+                          color: getColors(
+                            colorName: 'orange',
+                          ),
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   );
@@ -96,7 +96,7 @@ class _ShowMovimentationsScreenState extends State<ShowMovimentationsScreen> {
   }
 
   Future<List> searchMoviments() async {
-    final routeUrl = getRoute("movimentations_list");
+    final routeUrl = getRoute("home_dash_main_info_details");
 
     //final jobsListAPIUrl = 'https://mock-json-service.glitch.me/';
     final response = await getDataFromAPI(routeUrl);
@@ -115,6 +115,7 @@ class _ShowMovimentationsScreenState extends State<ShowMovimentationsScreen> {
           //data[index].position, data[index].company, Icons.work
           return MovimentationTile(
             themeWhite: (index % 2 == 0),
+            cardInfo: data[index],
           );
         });
   }

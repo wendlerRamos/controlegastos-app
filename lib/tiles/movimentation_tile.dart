@@ -1,15 +1,19 @@
-import 'package:controlegastos/deprecated_items/dash.dart';
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
-import 'package:controlegastos/screens/home/show_movimentations_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class MovimentationTile extends StatefulWidget {
   final bool themeWhite;
   final String category;
+  final cardInfo;
 
-  const MovimentationTile({Key key, this.themeWhite = false, this.category = "TRANSPORTE"}) : super(key: key);
+  const MovimentationTile(
+      {Key key,
+      this.themeWhite = false,
+      this.category = "TRANSPORTE",
+      this.cardInfo})
+      : super(key: key);
 
   @override
   _MovimentationTileState createState() => _MovimentationTileState();
@@ -20,13 +24,17 @@ class _MovimentationTileState extends State<MovimentationTile> {
   Color iconColor = getColors(colorName: "green");
   Color textColor = getColors(colorName: "soft_white");
   Color borderColor = getColors(colorName: "soft_white");
+  final numberFormat =
+      NumberFormat.currency(locale: "pt_BR", name: "R\$", decimalDigits: 2);
 
   @override
   Widget build(BuildContext context) {
+    if (widget.cardInfo['tipo'] == "DESPESA") {
+      iconColor = getColors(colorName: "orange");
+    }
     DateFormat formatter = new DateFormat('dd/MM/yyyy');
     if (widget.themeWhite) {
       backgroundColor = getColors(colorName: "white");
-      iconColor = getColors(colorName: "red");
       textColor = getColors(colorName: "blue");
       borderColor = getColors(colorName: "blue");
     }
@@ -34,7 +42,9 @@ class _MovimentationTileState extends State<MovimentationTile> {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => AddMovimentationScreen(),
+            builder: (context) => AddMovimentationScreen(
+              data: widget.cardInfo,
+            ),
           ),
         );
       },
@@ -60,14 +70,14 @@ class _MovimentationTileState extends State<MovimentationTile> {
                   Expanded(
                     flex: 2,
                     child: Icon(
-                      returnIconByCategory(widget.category),
+                      returnIconByCategory(widget.cardInfo['descricao']),
                       color: iconColor,
                     ),
                   ),
                   Expanded(
                     flex: 5,
                     child: Text(
-                      numberFormat.format(120.00),
+                      numberFormat.format(widget.cardInfo['valor']),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: textColor,
@@ -78,7 +88,7 @@ class _MovimentationTileState extends State<MovimentationTile> {
                   Expanded(
                     flex: 5,
                     child: Text(
-                      formatter.format(DateTime.now()),
+                      formatter.format(DateTime.parse(widget.cardInfo['data'])),
                       textAlign: TextAlign.end,
                       style: TextStyle(
                         color: textColor,

@@ -1,11 +1,15 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:controlegastos/controllers/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 IconData returnIconByCategory(String category) {
   IconData icon;
   switch (category) {
     case "ALIMENTAÇÃO":
+      icon = Icons.fastfood;
+      break;
+    case "ALIMENTACAO":
       icon = Icons.fastfood;
       break;
     case "MERCADO":
@@ -20,10 +24,16 @@ IconData returnIconByCategory(String category) {
     case "EDUCAÇÃO":
       icon =Icons.school;
       break;
+    case "EDUCACAO":
+      icon =Icons.school;
+      break;
     case "LAZER":
       icon = Icons.insert_emoticon;
       break;
     case "SAÚDE":
+      icon = Icons.favorite;
+      break;
+      case "SAUDE":
       icon = Icons.favorite;
       break;
     case "UP":
@@ -100,3 +110,5 @@ Map<String, Color> getThemeColors(){
   }
   return collorPallete;
 }
+
+var numberFormat = NumberFormat.simpleCurrency(locale: "BRL", name: "BRL", decimalDigits: 2);

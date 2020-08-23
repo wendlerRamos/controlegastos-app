@@ -1,6 +1,4 @@
-import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
 import 'package:controlegastos/screens/home/show_movimentations_screen.dart';
-import 'package:controlegastos/screens/investments/add_investment.dart';
 import 'package:flutter/material.dart';
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/controllers/routes.dart' as Routes;
@@ -15,7 +13,7 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getDataFromAPI(Routes.getRoute('main_dash_data')),
+      future: getDataFromAPI(Routes.getRoute('home_dash_main_info')),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -79,6 +77,29 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
   }
 
   Widget _buildContent(BuildContext context, Map data) {
+    data = data['resumo'];
+    Color earningsLabel;
+    Color expansesLabel;
+    int percentEarnings = 0;
+    if (data['valor_receita_media'] != 0) {
+      percentEarnings =
+          ((data['valor_receita'] / data['valor_receita_media']) * 100).floor();
+    }
+    if (percentEarnings <= 100) {
+      earningsLabel = getColors(colorName: "orange");
+    } else {
+      earningsLabel = getColors(colorName: "green");
+    }
+    int percentExpanses = 0;
+    if (data['valor_gasto_media'] != 0) {
+      percentExpanses =
+          ((data['valor_gasto'] / data['valor_gasto_media']) * 100).floor();
+    }
+    if (percentExpanses > 100) {
+      expansesLabel = getColors(colorName: "orange");
+    } else {
+      expansesLabel = getColors(colorName: "green");
+    }
     return Expanded(
       child: GestureDetector(
         onTap: () {
@@ -87,6 +108,11 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
               builder: (context) => ShowMovimentationsScreen(),
             ),
           );
+        },
+        onLongPress: (){
+          setState(() {
+            
+          });
         },
         child: Container(
           margin: EdgeInsets.all(5.0),
@@ -127,7 +153,7 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                   ),
                   Expanded(
                     child: Text(
-                      "1.200,00",
+                      "${data['valor_receita']}".replaceAll(".", ","),
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: getColors(colorName: "blue"),
@@ -139,10 +165,10 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                   ),
                   Expanded(
                     child: Text(
-                      "( +10% da média )",
+                      "( $percentEarnings% da média )",
                       textAlign: TextAlign.end,
                       style: TextStyle(
-                        color: getColors(colorName: "green"),
+                        color: earningsLabel,
                         fontStyle: FontStyle.italic,
                         fontSize: 25.0,
                       ),
@@ -167,7 +193,7 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                   ),
                   Expanded(
                     child: Text(
-                      "1.000,00",
+                      "${data['valor_gasto']}".replaceAll(".", ","),
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: getColors(colorName: "blue"),
@@ -179,10 +205,10 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                   ),
                   Expanded(
                     child: Text(
-                      "( +5% da média )",
+                      "( $percentExpanses% da média )",
                       textAlign: TextAlign.end,
                       style: TextStyle(
-                        color: getColors(colorName: "red"),
+                        color: expansesLabel,
                         fontStyle: FontStyle.italic,
                         fontSize: 25.0,
                       ),

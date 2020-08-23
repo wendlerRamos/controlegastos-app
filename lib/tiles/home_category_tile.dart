@@ -1,6 +1,7 @@
 import 'package:controlegastos/controllers/request.dart';
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/screens/home/show_category_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:controlegastos/controllers/routes.dart' as Routes;
 
@@ -43,7 +44,8 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getDataFromAPI(Routes.getRoute('main_dash_data')),
+      future: getDataFromAPI(
+          Routes.getRoute('home_dash_category_resume') + "${widget.category}"),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -124,12 +126,27 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
   }
 
   Widget _buildContent(BuildContext context, Map data) {
+    data = data['resumo'];
+    int percentMedia;
+    if (data['valor_media'] == 0) {
+      percentMedia = 0;
+    } else {
+      percentMedia = ((data['valor'] / data['valor_media']) * 100).floor();
+    }
+    Color colorPercentLabel;
+    if (percentMedia > 100) {
+      colorPercentLabel = getColors(colorName: "orange");
+    } else {
+      colorPercentLabel = getColors(colorName: "green");
+    }
     return Expanded(
       child: GestureDetector(
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => ShowCategoryScreen(),
+              builder: (context) => ShowCategoryScreen(
+                category: widget.category,
+              ),
             ),
           );
         },
@@ -165,7 +182,7 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "1.200,00",
+                        "${data['valor']}".replaceAll(".", ","),
                         textAlign: TextAlign.end,
                         style: TextStyle(
                           fontSize: 30.0,
@@ -177,10 +194,10 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
                         height: 5.0,
                       ),
                       Text(
-                        "101% da média",
+                        "$percentMedia% da média",
                         style: TextStyle(
                           fontSize: 15.0,
-                          color: getColors(colorName: "orange"),
+                          color: colorPercentLabel,
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.bold,
                         ),

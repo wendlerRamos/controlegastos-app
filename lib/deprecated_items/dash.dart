@@ -1,5 +1,4 @@
 import 'package:controlegastos/controllers/util.dart';
-//import 'package:controlegastos/dummy_data/main_dash_data.dart';
 import 'package:controlegastos/dummy_data/movimentation.dart';
 import 'package:controlegastos/models/movimentation.dart';
 import 'package:controlegastos/widgets/charts/proportion_pie.dart';
@@ -10,7 +9,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:controlegastos/controllers/routes.dart' as Routes;
 
-String request = Routes.getRoute('main_dash_data');
+String request = Routes.getRoute('home_dash_main_info');
 var numberFormat =NumberFormat.simpleCurrency(locale: "BRL",);
 
 class MainDashboard extends StatefulWidget {

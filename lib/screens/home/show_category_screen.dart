@@ -1,11 +1,14 @@
 import 'package:controlegastos/controllers/util.dart';
-import 'package:controlegastos/screens/auth/login.dart';
+import 'package:controlegastos/screens/home/show_movimentations_screen.dart';
 import 'package:controlegastos/tiles/movimentation_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:controlegastos/controllers/request.dart';
 import 'package:controlegastos/controllers/routes.dart';
 
 class ShowCategoryScreen extends StatefulWidget {
+  final String category;
+
+  const ShowCategoryScreen({Key key, this.category}) : super(key: key);
   @override
   _ShowCategoryScreenState createState() => _ShowCategoryScreenState();
 }
@@ -14,7 +17,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
   Color backgroundColor;
   Color fontColor = getColors(colorName: 'blue');
   Color borderColor;
-  
+
   @override
   void initState() {
     super.initState();
@@ -48,7 +51,10 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
             tooltip: 'Sair',
             onPressed: () {
               Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
+                SizeRoute(
+                  page: ShowMovimentationsScreen(),
+                ),
+              );
             },
           ),
         ],
@@ -61,7 +67,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<dynamic> data = snapshot.data;
-                if (snapshot.data.length == 0) {
+                if (snapshot.data.length == 0 || snapshot.data[1].length == 0) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,19 +103,31 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
   }
 
   Future<List> searchMoviments() async {
-    final routeUrl = getRoute("movimentations_list");
-
-    //final jobsListAPIUrl = 'https://mock-json-service.glitch.me/';
-    final response = await getDataFromAPI(routeUrl);
+    final routeUrl = getRoute("home_dash_category_infos");
+    final response = await getDataFromAPI(routeUrl + "${widget.category}");
 
     if (response != null) {
-      return response['mov'];
+      return [response['resumo'], response['mov']];
     } else {
       throw Exception('Failed to load jobs from API');
     }
   }
 
   Widget buildContent(data) {
+    var items = data[1];
+    var resume = data[0];
+    Color iconColor;
+    IconData iconDiff;
+    if(resume['valor_gasto'] > resume['valor_media']){
+      iconColor = getColors(colorName: "red");
+      iconDiff = returnIconByCategory("UP");
+    }else if(resume['valor_gasto'] == resume['valor_media']){
+      iconColor = getColors(colorName: "blue");
+      iconDiff = Icons.arrow_left;
+    }else{
+      iconColor = getColors(colorName: "green");
+      iconDiff = returnIconByCategory("DOWN");
+    }
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -130,7 +148,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
                 Expanded(
                   flex: 1,
                   child: Icon(
-                    Icons.school,
+                    returnIconByCategory(widget.category),
                     size: 100.0,
                     color: getColors(colorName: "orange"),
                   ),
@@ -140,7 +158,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'EDUCAÇÃO',
+                        '${widget.category}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 25.0,
@@ -169,7 +187,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
                           Expanded(
                             flex: 5,
                             child: Text(
-                              '100,00',
+                              '${resume["valor_gasto"]}',
                               style: TextStyle(
                                   color: fontColor,
                                   fontSize: 25.0,
@@ -180,9 +198,9 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
                           Expanded(
                             flex: 1,
                             child: Icon(
-                              Icons.arrow_drop_up,
+                              iconDiff,
                               size: 25.0,
-                              color: getColors(colorName: "red"),
+                              color: iconColor,
                             ),
                           ),
                         ],
@@ -207,7 +225,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
                           Expanded(
                             flex: 5,
                             child: Text(
-                              '80,00',
+                              '${resume["valor_media"]}',
                               style: TextStyle(
                                   color: fontColor,
                                   fontSize: 25.0,
@@ -244,7 +262,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
               ),
             ),
             padding: EdgeInsets.all(10.0),
-            child: itemListView(data),
+            child: itemListView(items),
           ),
         ),
       ],
@@ -259,6 +277,8 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
           return MovimentationTile(
             themeWhite: (index % 2 == 0),
             category: (index % 2 == 0) ? "UP" : "DOWN",
+            cardInfo: data[index],
+            
           );
         });
   }
