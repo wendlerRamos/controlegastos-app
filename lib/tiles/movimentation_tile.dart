@@ -1,5 +1,6 @@
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -40,11 +41,135 @@ class _MovimentationTileState extends State<MovimentationTile> {
     }
     return GestureDetector(
       onTap: () {
+        /*
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => AddMovimentationScreen(
               data: widget.cardInfo,
             ),
+          ),
+        );
+        */
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text("Detalhes da Movimentação", textAlign: TextAlign.center,),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Divider(),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          'Descrição',
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          widget.cardInfo['descricao'],
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          'Tipo',
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          widget.cardInfo['tipo'],
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          'Valor',
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          numberFormat
+                          .format(double.parse(widget.cardInfo['valor'])),
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          'Data',
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          formatter.format(DateTime.parse(widget.cardInfo['data'])),
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          'Tipo Pagamento',
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          widget.cardInfo['tipo_pgto'],
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              FlatButton(
+                child: Text("Voltar"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                onPressed: null,
+                child: Text("Editar"),
+              ),
+              FlatButton(
+                onPressed: null,
+                child: Text("Remover"),
+              ),
+            ],
           ),
         );
       },
@@ -77,7 +202,8 @@ class _MovimentationTileState extends State<MovimentationTile> {
                   Expanded(
                     flex: 5,
                     child: Text(
-                      numberFormat.format(double.parse(widget.cardInfo['valor'])),
+                      numberFormat
+                          .format(double.parse(widget.cardInfo['valor'])),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: textColor,
