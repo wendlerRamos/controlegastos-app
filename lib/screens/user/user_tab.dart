@@ -33,10 +33,14 @@ class _UserTabState extends State<UserTab> {
   @override
   Widget build(BuildContext context) {
     getTheme();
-    return Container(
-      color: backgroundColor,
-      child: SingleChildScrollView(
+    return SingleChildScrollView(
+      
+      child: Container(
+        color: backgroundColor,
         child: Column(
+          
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Center(
               child: Row(
@@ -78,8 +82,7 @@ class _UserTabState extends State<UserTab> {
             SizedBox(
               height: 250.0,
               child: Column(
-                children: [
-                ],
+                children: [],
               ),
             ),
           ],

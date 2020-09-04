@@ -119,9 +119,7 @@ class _NavigationScreenState extends State<NavigationScreen> with WidgetsBinding
           Center(
             child: WorkingProgressScreen(),
           ),
-          Center(
-            child: UserTab(),
-          ),
+          UserTab(),
         ],
       ),
       bottomNavigationBar: StreamBuilder<Object>(
