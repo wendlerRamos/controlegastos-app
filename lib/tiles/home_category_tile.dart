@@ -5,7 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:controlegastos/controllers/routes.dart' as Routes;
 
-class HomeCategoryTile extends StatefulWidget {
+class 
+HomeCategoryTile extends StatefulWidget {
   final bool isWhite;
   final IconData itemIcon;
   final String category;
@@ -128,10 +129,14 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
   Widget _buildContent(BuildContext context, Map data) {
     data = data['resumo'];
     int percentMedia;
+    String percentMediaLabel = "-";
+    data['valor_media'] = double.parse(data['valor_media']);
+    data['valor'] = double.parse(data['valor']);
     if (data['valor_media'] == 0) {
       percentMedia = 0;
     } else {
-      percentMedia = ((data['valor'] / data['valor_media']) * 100).floor();
+      percentMedia = ((data['valor'] / data['valor_media']) * 100).abs().floor();
+      percentMediaLabel = percentMedia.toString();
     }
     Color colorPercentLabel;
     if (percentMedia > 100) {
@@ -194,7 +199,7 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
                         height: 5.0,
                       ),
                       Text(
-                        "$percentMedia% da média",
+                        "$percentMediaLabel% da média",
                         style: TextStyle(
                           fontSize: 15.0,
                           color: colorPercentLabel,

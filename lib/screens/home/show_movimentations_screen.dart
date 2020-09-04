@@ -34,9 +34,9 @@ class _ShowMovimentationsScreenState extends State<ShowMovimentationsScreen> {
           children: <Widget>[
             Icon(Icons.monetization_on),
             SizedBox(
-              width: 5.0,
+              width: 10.0,
             ),
-            Text('CONTROLE DE GASTOS')
+            Text('MOVIMENTAÇÕES NO MÊS')
           ],
         ),
         backgroundColor: getColors(colorName: "blue"),

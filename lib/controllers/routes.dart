@@ -6,10 +6,10 @@ const ROUTES = {
   "teste": "https://www.google.com",
   "main_dash_data": "$host/teste",
   "movimentations_list": "$host/teste/movs",
-  "home_dash_main_info": "$host/api/movimentations/get_resume",
-  "home_dash_main_info_details": "$host/api/movimentations/get_movimentations/",
-  "home_dash_category_resume": "$host/api/movimentations/category/",
-  "home_dash_category_infos": "$host/api/movimentations/category_details/",
+  "home_dash_main_info": "/api/v1/movimentations/get_resume",
+  "home_dash_main_info_details": "/api/v1/movimentations/get_movimentations/",
+  "home_dash_category_resume": "/api/v1/movimentations/category/",
+  "home_dash_category_infos": "/api/v1/movimentations/category_details/",
 };
 
 String getRoute(String routeName) {

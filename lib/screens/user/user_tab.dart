@@ -79,15 +79,6 @@ class _UserTabState extends State<UserTab> {
               height: 250.0,
               child: Column(
                 children: [
-                  MovimentationTile(
-                    themeWhite: true,
-                  ),
-                  MovimentationTile(
-                    themeWhite: false,
-                  ),
-                  MovimentationTile(
-                    themeWhite: true,
-                  ),
                 ],
               ),
             ),

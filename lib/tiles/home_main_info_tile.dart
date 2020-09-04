@@ -93,7 +93,7 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
     int percentExpanses = 0;
     if (data['valor_gasto_media'] != 0) {
       percentExpanses =
-          ((data['valor_gasto'] / data['valor_gasto_media']) * 100).floor();
+          ((data['valor_gasto'] / data['valor_gasto_media']) * 100).abs().floor();
     }
     if (percentExpanses > 100) {
       expansesLabel = getColors(colorName: "orange");

@@ -11,7 +11,7 @@ class MovimentationTile extends StatefulWidget {
   const MovimentationTile(
       {Key key,
       this.themeWhite = false,
-      this.category = "TRANSPORTE",
+      this.category = "OUTRO",
       this.cardInfo})
       : super(key: key);
 
@@ -77,7 +77,7 @@ class _MovimentationTileState extends State<MovimentationTile> {
                   Expanded(
                     flex: 5,
                     child: Text(
-                      numberFormat.format(widget.cardInfo['valor']),
+                      numberFormat.format(double.parse(widget.cardInfo['valor'])),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: textColor,

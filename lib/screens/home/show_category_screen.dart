@@ -118,10 +118,12 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
     var resume = data[0];
     Color iconColor;
     IconData iconDiff;
-    if(resume['valor_gasto'] > resume['valor_media']){
+    resume['valor'] = double.parse(resume['valor']);
+    resume['valor_media'] = double.tryParse(resume['valor_media']);
+    if(resume['valor'] > resume['valor_media']){
       iconColor = getColors(colorName: "red");
       iconDiff = returnIconByCategory("UP");
-    }else if(resume['valor_gasto'] == resume['valor_media']){
+    }else if(resume['valor'] == resume['valor_media']){
       iconColor = getColors(colorName: "blue");
       iconDiff = Icons.arrow_left;
     }else{
@@ -187,7 +189,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
                           Expanded(
                             flex: 5,
                             child: Text(
-                              '${resume["valor_gasto"]}',
+                              '${resume["valor"]}',
                               style: TextStyle(
                                   color: fontColor,
                                   fontSize: 25.0,

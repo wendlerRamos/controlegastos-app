@@ -1,12 +1,18 @@
+import 'dart:convert';
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/screens/auth/login.dart';
 import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
 import 'package:controlegastos/screens/home/home_dash_tab.dart';
 import 'package:controlegastos/screens/investments/add_investment.dart';
 import 'package:controlegastos/screens/investments/dash_investments.dart';
+import 'package:controlegastos/screens/temp_working_progress_screen.dart';
 import 'package:controlegastos/screens/user/user_tab.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'controllers/api.dart';
 
 class NavigationScreen extends StatefulWidget {
   @override
@@ -34,6 +40,19 @@ class _NavigationScreenState extends State<NavigationScreen> with WidgetsBinding
     Map<String, Color> pallete = getThemeColors();
     backgroundColor = pallete['background'];
     print("Updating Theme");
+  }
+
+  void logout() async{
+    var res = await Network().getData('/api/v1/logout');
+    var body = json.decode(res.body);
+    if(body['success']){
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      localStorage.remove('user');
+      localStorage.remove('token');
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context)=>LoginScreen()));
+    }
   }
 
   final Color _colorBlue = getColors(colorName: "blue");
@@ -78,8 +97,7 @@ class _NavigationScreenState extends State<NavigationScreen> with WidgetsBinding
             icon: const Icon(Icons.exit_to_app),
             tooltip: 'Sair',
             onPressed: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
+              logout();
             },
           ),
         ],
@@ -96,10 +114,10 @@ class _NavigationScreenState extends State<NavigationScreen> with WidgetsBinding
             child: HomeDashTab(),
           ),
           Center(
-            child: Container(color: getColors(colorName: "blue"),),
+            child: WorkingProgressScreen(),
           ),
           Center(
-            child: InvestmentsDashboardScreen(),
+            child: WorkingProgressScreen(),
           ),
           Center(
             child: UserTab(),

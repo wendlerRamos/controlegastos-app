@@ -38,7 +38,7 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
       movimentationDescription = widget.data['descricao'];
       paymentType = widget.data['tipo_pgto'];
       isOtherSelected = false;
-      valor = widget.data['valor'];
+      valor = double.parse(widget.data['valor']);
       dateTime = DateTime.parse(widget.data['data']);
     }
   }
@@ -361,11 +361,11 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                       },
                       dropdownColor: _backgroundColor,
                       items: <String>[
-                        'CRÉDITO',
-                        'DÉBITO',
+                        'CREDITO',
+                        'DEBITO',
                         'DINHEIRO',
-                        'TRANSFERÊNCIA',
-                        'DEPÓSITO',
+                        'TRANSFERENCIA',
+                        'DEPOSITO',
                         'OUTRO',
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
