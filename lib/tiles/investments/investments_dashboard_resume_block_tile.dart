@@ -41,7 +41,17 @@ class _InvestmentsDashboardResumeBlockTileState
   }
 
   Widget _buildSuccessContent(BuildContext context, Map data) {
-    return Container(
+    return GestureDetector(
+      onLongPress: (){
+        setState(() {
+          
+        });
+      },
+      onTap: (){
+          // ignore: todo
+          //TODO Open a new screen here =)
+      },
+      child: Container(
       margin: EdgeInsets.only(top: 5.0, left: 8.0, right: 8.0, bottom: 5.0),
       padding: const EdgeInsets.all(
         8.0,
@@ -173,6 +183,7 @@ class _InvestmentsDashboardResumeBlockTileState
           ),
         ],
       ),
+    ),
     );
   }
 
