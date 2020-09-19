@@ -85,7 +85,59 @@ class _ShowMovimentationsScreenState extends State<ShowMovimentationsScreen> {
                 }
                 return itemListView(data);
               } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error,
+                      color: getColors(
+                        colorName: 'orange',
+                      ),
+                      size: 80.0,
+                    ),
+                    Divider(
+                      color: Colors.transparent,
+                    ),
+                    Text(
+                      "Não foi possível obter as informações",
+                      style: TextStyle(
+                        color: getColors(
+                          colorName: 'orange',
+                        ),
+                        fontSize: 25.0,
+                      ),
+                    ),
+                    Divider(
+                      color: Colors.transparent,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Tentar Novamente",
+                          style: TextStyle(
+                            color: getColors(
+                              colorName: 'orange',
+                            ),
+                          ),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            setState(() {});
+                          },
+                          child: Icon(
+                            Icons.settings_backup_restore,
+                            color: getColors(
+                              colorName: 'orange',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
               }
               return Center(child: CircularProgressIndicator());
             },

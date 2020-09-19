@@ -4,6 +4,7 @@ import 'package:controlegastos/screens/home/show_category_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:controlegastos/controllers/routes.dart' as Routes;
+import 'package:intl/intl.dart';
 
 class 
 HomeCategoryTile extends StatefulWidget {
@@ -27,10 +28,12 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
   Color contentColor;
   Color spotlightColor;
   Color borderColor;
-
+  final numberFormat =
+      NumberFormat.currency(locale: "pt_BR", name: "R\$", decimalDigits: 2);
   @override
   void initState() {
     super.initState();
+    
     if (widget.isWhite) {
       backgroundColor = getColors(colorName: "white");
       contentColor = getColors(colorName: "blue");
@@ -72,7 +75,7 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
             );
             break;
           default:
-            if (snapshot.hasError || !snapshot.hasData) {
+            if (snapshot.hasError || !snapshot.hasData || snapshot.data.containsKey("error")) {
               return _buildErrorContent();
             } else {
               return _buildContent(context, snapshot.data);
@@ -187,10 +190,10 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "${data['valor']}".replaceAll(".", ","),
+                        numberFormat.format(data['valor']),
                         textAlign: TextAlign.end,
                         style: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: (data['valor'] < 1000)?30.0:20.0,
                           color: contentColor,
                           fontWeight: FontWeight.bold,
                         ),

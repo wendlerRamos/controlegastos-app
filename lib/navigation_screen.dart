@@ -4,7 +4,7 @@ import 'package:controlegastos/screens/auth/login.dart';
 import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
 import 'package:controlegastos/screens/home/home_dash_tab.dart';
 import 'package:controlegastos/screens/investments/add_investment.dart';
-import 'package:controlegastos/screens/investments/dash_investments.dart';
+import 'package:controlegastos/screens/investments/investments_dashboard_tab.dart';
 import 'package:controlegastos/screens/temp_working_progress_screen.dart';
 import 'package:controlegastos/screens/user/user_tab.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +42,17 @@ class _NavigationScreenState extends State<NavigationScreen> with WidgetsBinding
     print("Updating Theme");
   }
 
+  Future<bool> testConnection() async {
+    var res = await Network().getData('/api/v1/test');
+    var body = json.decode(res.body);
+    return (body.containsKey('success'));
+  }
+
   void logout() async{
     var res = await Network().getData('/api/v1/logout');
     var body = json.decode(res.body);
-    if(body['success']){
+    var conn = await testConnection();
+    if(body.containsKey('success') || !conn){
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.remove('user');
       localStorage.remove('token');
@@ -117,7 +124,7 @@ class _NavigationScreenState extends State<NavigationScreen> with WidgetsBinding
             child: WorkingProgressScreen(),
           ),
           Center(
-            child: WorkingProgressScreen(),
+            child: InvestmentsDashboardTab(),
           ),
           UserTab(),
         ],

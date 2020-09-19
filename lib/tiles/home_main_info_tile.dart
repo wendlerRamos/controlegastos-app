@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:controlegastos/controllers/request.dart';
+import 'package:intl/intl.dart';
 
 class HomeMainInfoTile extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class HomeMainInfoTile extends StatefulWidget {
 }
 
 class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
+  final numberFormat =
+      NumberFormat.currency(locale: "pt_BR", name: "R\$", decimalDigits: 2);
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -30,7 +33,9 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
             );
             break;
           default:
-            if (snapshot.hasError || !snapshot.hasData) {
+            if (snapshot.hasError ||
+                !snapshot.hasData ||
+                snapshot.data.containsKey("error")) {
               return _buildErrorContent();
             } else {
               return _buildContent(context, snapshot.data);
@@ -85,7 +90,7 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
       percentEarnings =
           ((data['valor_receita'] / data['valor_receita_media']) * 100).floor();
     }
-    if (percentEarnings <= 100) {
+    if (percentEarnings < 100) {
       earningsLabel = getColors(colorName: "orange");
     } else {
       earningsLabel = getColors(colorName: "green");
@@ -93,9 +98,11 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
     int percentExpanses = 0;
     if (data['valor_gasto_media'] != 0) {
       percentExpanses =
-          ((data['valor_gasto'] / data['valor_gasto_media']) * 100).abs().floor();
+          ((data['valor_gasto'] / data['valor_gasto_media']) * 100)
+              .abs()
+              .floor();
     }
-    if (percentExpanses > 100) {
+    if (percentExpanses >= 100) {
       expansesLabel = getColors(colorName: "orange");
     } else {
       expansesLabel = getColors(colorName: "green");
@@ -109,10 +116,8 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
             ),
           );
         },
-        onLongPress: (){
-          setState(() {
-            
-          });
+        onLongPress: () {
+          setState(() {});
         },
         child: Container(
           margin: EdgeInsets.all(5.0),
@@ -153,12 +158,12 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                   ),
                   Expanded(
                     child: Text(
-                      "${data['valor_receita']}".replaceAll(".", ","),
+                      numberFormat.format(data['valor_receita']),
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: getColors(colorName: "blue"),
                         fontWeight: FontWeight.bold,
-                        fontSize: 35.0,
+                        fontSize: (data['valor_receita'] > 10000) ? 25.0 : 35.0,
                       ),
                     ),
                     flex: 5,
@@ -170,7 +175,7 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                       style: TextStyle(
                         color: earningsLabel,
                         fontStyle: FontStyle.italic,
-                        fontSize: 25.0,
+                        fontSize: (percentEarnings > 1000) ? 15.0 :25.0,
                       ),
                     ),
                     flex: 5,
@@ -193,12 +198,12 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                   ),
                   Expanded(
                     child: Text(
-                      "${data['valor_gasto']}".replaceAll(".", ","),
+                      numberFormat.format(data['valor_gasto']),
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: getColors(colorName: "blue"),
                         fontWeight: FontWeight.bold,
-                        fontSize: 35.0,
+                        fontSize: (data['valor_gasto'] > 10000 ? 25.0 : 35.0),
                       ),
                     ),
                     flex: 5,
@@ -210,7 +215,7 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                       style: TextStyle(
                         color: expansesLabel,
                         fontStyle: FontStyle.italic,
-                        fontSize: 25.0,
+                        fontSize:  (percentExpanses > 1000) ? 15.0 :25.0,
                       ),
                     ),
                     flex: 5,

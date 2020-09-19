@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
-const host = "http://192.168.0.12:8000";
-//const host = "https://controledegastos.herokuapp.com";
+import 'api.dart';
+
+//const host = "http://192.168.0.12:8000";
+const host = "https://controledegastos.herokuapp.com";
 const ROUTES = {
-  "teste": "https://www.google.com",
-  "main_dash_data": "$host/teste",
+  "teste": "/api/v1/teste",
   "movimentations_list": "$host/teste/movs",
   "home_dash_main_info": "/api/v1/movimentations/get_resume",
   "home_dash_main_info_details": "/api/v1/movimentations/get_movimentations/",
@@ -15,6 +18,16 @@ const ROUTES = {
 String getRoute(String routeName) {
   //print(ROUTES);
   return ROUTES[routeName];
+}
+
+Future<bool> checkIfTokenIsValid() async {
+  var res = await Network().getData('/api/v1/test');
+  var body = json.decode(res.body);
+  if (body.containsKey('error') && body['error'] == "Unauthenticated") {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 class ScaleRoute extends PageRouteBuilder {

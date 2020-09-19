@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'list_items.dart';
-
 Container buildLocalTile(
     {Color color,
     String title,
@@ -27,7 +25,7 @@ Container buildLocalTile(
     child: GestureDetector(
       onTap: () {
         if (kind != null) {
-          displayData(kind, context, Colors.orange);
+          
         }
       },
       child: Container(

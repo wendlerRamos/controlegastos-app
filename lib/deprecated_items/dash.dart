@@ -23,8 +23,6 @@ class _MainDashboardState extends State<MainDashboard> {
   bool isLoading = false;
   final Color _colorBlue = Color.fromARGB(255, 3, 40, 80);
   final Color _colorLightBlue = Color.fromARGB(255, 8, 74, 146);
-  //final Color _colorWhite = Colors.white;
-  final Color _colorOrange = Color.fromARGB(255, 255, 59, 0);
   final Color _colorRed = Color.fromARGB(255, 196, 23, 12);
 
   Future<Map> getDataFromAPI() async {

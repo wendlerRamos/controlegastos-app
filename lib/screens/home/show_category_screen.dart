@@ -4,6 +4,7 @@ import 'package:controlegastos/tiles/movimentation_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:controlegastos/controllers/request.dart';
 import 'package:controlegastos/controllers/routes.dart';
+import 'package:intl/intl.dart';
 
 class ShowCategoryScreen extends StatefulWidget {
   final String category;
@@ -17,7 +18,8 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
   Color backgroundColor;
   Color fontColor = getColors(colorName: 'blue');
   Color borderColor;
-
+  final numberFormat =
+      NumberFormat.currency(locale: "pt_BR", name: "R\$", decimalDigits: 2);
   @override
   void initState() {
     super.initState();
@@ -92,7 +94,59 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
                 }
                 return buildContent(data);
               } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error,
+                      color: getColors(
+                        colorName: 'orange',
+                      ),
+                      size: 80.0,
+                    ),
+                    Divider(
+                      color: Colors.transparent,
+                    ),
+                    Text(
+                      "Não foi possível obter as informações",
+                      style: TextStyle(
+                        color: getColors(
+                          colorName: 'orange',
+                        ),
+                        fontSize: 25.0,
+                      ),
+                    ),
+                    Divider(
+                      color: Colors.transparent,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Tentar Novamente",
+                          style: TextStyle(
+                            color: getColors(
+                              colorName: 'orange',
+                            ),
+                          ),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            setState(() {});
+                          },
+                          child: Icon(
+                            Icons.settings_backup_restore,
+                            color: getColors(
+                              colorName: 'orange',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
               }
               return Center(child: CircularProgressIndicator());
             },
@@ -120,13 +174,13 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
     IconData iconDiff;
     resume['valor'] = double.parse(resume['valor']);
     resume['valor_media'] = double.tryParse(resume['valor_media']);
-    if(resume['valor'] > resume['valor_media']){
+    if (resume['valor'] > resume['valor_media']) {
       iconColor = getColors(colorName: "red");
       iconDiff = returnIconByCategory("UP");
-    }else if(resume['valor'] == resume['valor_media']){
+    } else if (resume['valor'] == resume['valor_media']) {
       iconColor = getColors(colorName: "blue");
       iconDiff = Icons.arrow_left;
-    }else{
+    } else {
       iconColor = getColors(colorName: "green");
       iconDiff = returnIconByCategory("DOWN");
     }
@@ -176,7 +230,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            flex: 5,
+                            flex: 4,
                             child: Text(
                               'Gasto',
                               style: TextStyle(
@@ -187,9 +241,9 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
                             ),
                           ),
                           Expanded(
-                            flex: 5,
+                            flex: 6,
                             child: Text(
-                              '${resume["valor"]}',
+                              numberFormat.format(resume['valor']),
                               style: TextStyle(
                                   color: fontColor,
                                   fontSize: 25.0,
@@ -227,7 +281,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
                           Expanded(
                             flex: 5,
                             child: Text(
-                              '${resume["valor_media"]}',
+                              numberFormat.format(resume['valor_media']),
                               style: TextStyle(
                                   color: fontColor,
                                   fontSize: 25.0,
@@ -280,7 +334,6 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
             themeWhite: (index % 2 == 0),
             category: (index % 2 == 0) ? "UP" : "DOWN",
             cardInfo: data[index],
-            
           );
         });
   }

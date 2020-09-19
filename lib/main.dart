@@ -1,4 +1,5 @@
 import 'package:controlegastos/controllers/util.dart';
+import 'package:controlegastos/controllers/routes.dart';
 import 'package:controlegastos/navigation_screen.dart';
 import 'package:controlegastos/screens/auth/login.dart';
 import 'package:flutter/material.dart';
@@ -94,9 +95,12 @@ class _CheckAuthState extends State<CheckAuth> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('token');
     if (token != null) {
-      setState(() {
-        isAuth = true;
-      });
+      var tokenIsValid = await checkIfTokenIsValid();
+      if (tokenIsValid) {
+        setState(() {
+          isAuth = true;
+        });
+      }
     }
   }
 
