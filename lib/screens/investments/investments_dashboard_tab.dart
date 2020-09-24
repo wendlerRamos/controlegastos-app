@@ -1,5 +1,5 @@
 import 'package:controlegastos/tiles/investments/dashboard_header_tile.dart';
-import 'package:controlegastos/tiles/investments/historic_of_economy_chart_tile.dart';
+import 'package:controlegastos/tiles/investments/goal_card_dash_tile.dart';
 import 'package:controlegastos/tiles/investments/investments_by_month_card_tile.dart';
 import 'package:controlegastos/tiles/investments/investments_dashboard_resume_block_tile.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +31,7 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
 
   @override
   Widget build(BuildContext context) {
+    getTheme();
     return Container(
       color: backgroundColor,
       child: SingleChildScrollView(
@@ -44,6 +45,11 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
               textColor: textColor,
             ),
             InvestmentsByMonthTile(
+              backgroundColor: backgroundColor,
+              borderColor: borderColor,
+              textColor: textColor,
+            ),
+            GoalCardDashTile(
               backgroundColor: backgroundColor,
               borderColor: borderColor,
               textColor: textColor,
