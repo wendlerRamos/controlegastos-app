@@ -128,7 +128,7 @@ Map<String, dynamic> dataTemp() {
     "id": 1,
     "titulo": "Título da Meta",
     "valor_meta": 1000.00,
-    "valor_investido": 500.00,
+    "valor_investido": 700.00,
     "valor_recente": 60.00,
     "data": "01/01/0001",
   };
