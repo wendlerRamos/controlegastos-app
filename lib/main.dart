@@ -44,7 +44,7 @@ Widget _introScreen() {
   return Stack(
     children: <Widget>[
       SplashScreen(
-        seconds: 5,
+        seconds: 3,
         gradientBackground: LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
@@ -85,35 +85,56 @@ class CheckAuth extends StatefulWidget {
 
 class _CheckAuthState extends State<CheckAuth> {
   bool isAuth = false;
+  bool isLoading = true;
   @override
   void initState() {
-    _checkIfLoggedIn();
     super.initState();
+    _checkIfLoggedIn();
   }
 
   void _checkIfLoggedIn() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var token = localStorage.getString('token');
-    if (token != null) {
-      var tokenIsValid = await checkIfTokenIsValid();
-      if (tokenIsValid) {
-        setState(() {
-          isAuth = true;
-        });
+    try {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var token = localStorage.getString('token');
+      var isAutenticated = false;
+      if (token != null) {
+        var tokenIsValid = await checkIfTokenIsValid();
+        if (tokenIsValid) {
+          isAutenticated = true;
+        }
       }
+      setState(() {
+        isLoading = false;
+        isAuth = isAutenticated;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     Widget child;
-    if (isAuth) {
+    if (isLoading) {
+      child = waitingAuthConfirmationProgress();
+    } else if (isAuth) {
       child = NavigationScreen();
     } else {
       child = LoginScreen();
     }
     return Scaffold(
       body: child,
+    );
+  }
+
+  Widget waitingAuthConfirmationProgress() {
+    return Container(
+      color: getColors(colorName: "blue"),
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

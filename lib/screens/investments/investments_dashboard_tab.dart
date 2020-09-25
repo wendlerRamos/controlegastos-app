@@ -35,6 +35,7 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
     getTheme();
     return Container(
       color: backgroundColor,
+      padding: EdgeInsets.only(left: 5.0, right: 5.0,),
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +47,7 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
               textColor: textColor,
             ),
             InvestmentsByMonthTile(
-              backgroundColor: backgroundColor,
+              backgroundColor: getColors(colorName: "white"),
               borderColor: borderColor,
               textColor: textColor,
             ),

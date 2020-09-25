@@ -61,6 +61,7 @@ class _InvestmentsDashboardResumeBlockTileState
         borderRadius: BorderRadius.circular(4.0),
         border: Border.all(
           color: widget.borderColor,
+          width: 2.0,
         ),
         color: widget.backgroundColor,
       ),
@@ -190,7 +191,7 @@ class _InvestmentsDashboardResumeBlockTileState
   Widget _buildProgressIndicator() {
     return Container(
       margin: EdgeInsets.all(4.0),
-      height: 200.0,
+      height: 150.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: widget.backgroundColor,
@@ -216,7 +217,7 @@ class _InvestmentsDashboardResumeBlockTileState
       },
       child: Container(
         margin: EdgeInsets.all(4.0),
-        height: 200.0,
+        height: 150.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
           color: widget.backgroundColor,

@@ -109,7 +109,7 @@ class _InvestmentsDashboardScreenState
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  Align(
+/*                  Align(
                     alignment: Alignment.center,
                     child: buildLocalTile(
                       isLoading: isLoading,
@@ -127,6 +127,7 @@ class _InvestmentsDashboardScreenState
                       data: "500,00",
                     ),
                   ),
+                  */
                 ],
               ),
             ),

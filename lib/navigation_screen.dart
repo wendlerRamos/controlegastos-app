@@ -19,11 +19,12 @@ class NavigationScreen extends StatefulWidget {
   _NavigationScreenState createState() => _NavigationScreenState();
 }
 
-class _NavigationScreenState extends State<NavigationScreen> with WidgetsBindingObserver{
+class _NavigationScreenState extends State<NavigationScreen>
+    with WidgetsBindingObserver {
   Color backgroundColor;
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
     getTheme();
     //WidgetsBinding.instance.addObserver(this);
@@ -36,7 +37,7 @@ class _NavigationScreenState extends State<NavigationScreen> with WidgetsBinding
     super.dispose();
   }
 
-  void getTheme(){
+  void getTheme() {
     Map<String, Color> pallete = getThemeColors();
     backgroundColor = pallete['background'];
     print("Updating Theme");
@@ -48,17 +49,17 @@ class _NavigationScreenState extends State<NavigationScreen> with WidgetsBinding
     return (body.containsKey('success'));
   }
 
-  void logout() async{
-    var res = await Network().getData('/api/v1/logout');
-    var body = json.decode(res.body);
-    var conn = await testConnection();
-    if(body.containsKey('success') || !conn){
+  void logout() async {
+    try {
+      var res = await Network().getData('/api/v1/logout');
+      var body = json.decode(res.body);
+      var conn = await testConnection();
+    } catch (e) {} finally {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.remove('user');
       localStorage.remove('token');
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context)=>LoginScreen()));
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
     }
   }
 
@@ -110,7 +111,6 @@ class _NavigationScreenState extends State<NavigationScreen> with WidgetsBinding
         ],
       ),
       body: PageView(
-        
         physics: NeverScrollableScrollPhysics(),
         onPageChanged: (index) {
           indexcontroller.add(index);

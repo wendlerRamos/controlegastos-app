@@ -65,7 +65,7 @@ class _InvestmentsPlacesBlockTileState
                           colorName: "soft_white",
                         ),
                         fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
+                        fontSize: 15.0,
                       ),
                     ),
                   ],

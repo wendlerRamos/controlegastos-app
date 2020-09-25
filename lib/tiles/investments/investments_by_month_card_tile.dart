@@ -47,7 +47,7 @@ class _InvestmentsByMonthTileState extends State<InvestmentsByMonthTile> {
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        color: getColors(colorName: 'soft_white'),
+        color: widget.backgroundColor,
         border: Border.all(
           color: widget.borderColor,
           width: 2.0,
