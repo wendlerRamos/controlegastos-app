@@ -1,5 +1,6 @@
 import 'package:controlegastos/controllers/request.dart';
 import 'package:controlegastos/controllers/util.dart';
+import 'package:controlegastos/models/chart_investments_model.dart';
 import 'package:controlegastos/tiles/investments/historic_of_economy_chart_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:controlegastos/controllers/routes.dart' as Routes;
@@ -21,7 +22,7 @@ class _InvestmentsByMonthTileState extends State<InvestmentsByMonthTile> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getDataFromAPI(Routes.getRoute('teste')),
+      future: getDataFromAPI(Routes.getRoute('investments_dash_chart_by_month')),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -38,9 +39,10 @@ class _InvestmentsByMonthTileState extends State<InvestmentsByMonthTile> {
         }
       },
     );
-  }
+  } 
 
   Widget _buildSuccessContent(Map data) {
+    print('sdosiaf');
     return Container(
       margin: EdgeInsets.all(8.0),
       height: 250.0,
@@ -64,7 +66,7 @@ class _InvestmentsByMonthTileState extends State<InvestmentsByMonthTile> {
             textAlign: TextAlign.center,
           ),
           Expanded(
-            child: HistoricOfEconomyChartTile([]),
+            child: HistoricOfEconomyChartTile(parseResposeToList(data['investments_by_month'])),
           ),
         ],
       ),
@@ -72,6 +74,7 @@ class _InvestmentsByMonthTileState extends State<InvestmentsByMonthTile> {
   }
 
   Widget _buildProgressIndicator() {
+
     return Container(
       margin: EdgeInsets.all(4.0),
       height: 250.0,
@@ -137,5 +140,13 @@ class _InvestmentsByMonthTileState extends State<InvestmentsByMonthTile> {
         ),
       ),
     );
+  }
+
+  List<MonthInvestmentValue> parseResposeToList(List response){
+    List<MonthInvestmentValue> parsedList = [];
+    for (var value in response) {
+      parsedList.add(MonthInvestmentValue(value['month'], double.parse(value['valor'])));
+    }
+    return parsedList;
   }
 }

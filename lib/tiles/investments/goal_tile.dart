@@ -1,6 +1,8 @@
+import 'package:controlegastos/controllers/format_number.dart';
 import 'package:controlegastos/screens/investments/show_goal_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:intl/intl.dart';
 
 GestureDetector buildItemMeta({
   Color backgroundColor,
@@ -8,8 +10,9 @@ GestureDetector buildItemMeta({
   Map<String, dynamic> data,
   BuildContext context,
 }) {
-  data = dataTemp();
-  int percentage = (100 * data['valor_investido'] / data['valor_meta']).round();
+  //data = dataTemp();
+  DateFormat formatter = new DateFormat('dd/MM/yyyy');
+  int percentage = (100 * data['valor_atual'] / data['valor_meta']).round();
   return GestureDetector(
     onTap: () {
       Navigator.of(context).push(
@@ -51,7 +54,7 @@ GestureDetector buildItemMeta({
                       ),
                     ),
                     Text(
-                      'Este mês\n+${data["valor_investido"]}',
+                      'Este mês\n${FormatNumberToMoney.parseNumber(data['valor_atual'])}',
                       style: TextStyle(
                         color: Colors.green,
                         fontSize: 10.0,
@@ -84,14 +87,14 @@ GestureDetector buildItemMeta({
                         animation: true,
                         animationDuration: 1000,
                         lineHeight: 14.0,
-                        percent: (percentage / 100.0),
+                        percent: (percentage < 100) ? (percentage / 100.0) : 1.0,
                         backgroundColor: Colors.grey[400],
                         progressColor: textColor,
                       ),
                     ),
                     Expanded(
                       child: Text(
-                        "Aplicado: ${data['valor_investido']}",
+                        "Aplicado: ${FormatNumberToMoney.parseNumber(data['valor_atual'])}",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: textColor,
@@ -101,7 +104,7 @@ GestureDetector buildItemMeta({
                     ),
                     Expanded(
                       child: Text(
-                        "Prazo: ${data['data']}",
+                        "Prazo: ${formatter.format(DateTime.parse(data['data_limite']))}",
                         textAlign: TextAlign.end,
                         style: TextStyle(
                           color: textColor,
@@ -128,8 +131,8 @@ Map<String, dynamic> dataTemp() {
     "id": 1,
     "titulo": "Título da Meta",
     "valor_meta": 1000.00,
-    "valor_investido": 700.00,
+    "valor_atual": 700.00,
     "valor_recente": 60.00,
-    "data": "01/01/0001",
+    "data_limite": "01/01/0001",
   };
 }

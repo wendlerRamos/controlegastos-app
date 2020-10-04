@@ -21,7 +21,7 @@ class _GoalCardDashTileState extends State<GoalCardDashTile> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getDataFromAPI(Routes.getRoute('teste')),
+      future: getDataFromAPI(Routes.getRoute('investments_dash_2_goals')),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -41,6 +41,8 @@ class _GoalCardDashTileState extends State<GoalCardDashTile> {
   }
 
   Widget _buildSuccessContent(BuildContext context, Map data) {
+    final metas = data['metas'];
+    int size = metas.length;
     return Container(
       margin: EdgeInsets.all(8.0),
       height: 270.0,
@@ -68,19 +70,25 @@ class _GoalCardDashTileState extends State<GoalCardDashTile> {
           Divider(
             color: widget.textColor,
           ),
+          (size > 0) ? 
           buildItemMeta(
             backgroundColor: getColors(colorName: "blue"),
             textColor: getColors(colorName: "white"),
-          ),
+            data: metas[0],
+          ) :
+          null,
+          (size > 1) ? 
           buildItemMeta(
             backgroundColor: getColors(colorName: "white"),
             textColor: getColors(colorName: "blue"),
-          ),
+            data: metas[1],
+          ): 
+          null,
           RaisedButton(
             child: Text(
               "Ver Mais",
               style: TextStyle(
-                color: widget.textColor,
+                color: Colors.white,
               ),
             ),
             onPressed: () {

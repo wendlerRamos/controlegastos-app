@@ -1,26 +1,49 @@
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:controlegastos/models/chart_investments_model.dart';
 import 'package:flutter/material.dart';
 
 class HistoricOfEconomyChartTile extends StatelessWidget {
-  final List<charts.Series> seriesList;
+  final List<MonthInvestmentValue> seriesList;
   final bool animate;
 
   HistoricOfEconomyChartTile(this.seriesList, {this.animate});
 
+/*
   /// Creates a [BarChart] with sample data and no transition.
   factory HistoricOfEconomyChartTile.withSampleData() {
     return HistoricOfEconomyChartTile(
-      _createSampleData(),
+      [],
+      //_createSampleData(),
       animate: true,
     );
   }
+  */
 
   @override
   Widget build(BuildContext context) {
+    print('oisdnfiouakhnfiushdf');
     return charts.BarChart(
-      _createSampleData(), //change here to insert data :)
+      [
+        charts.Series<MonthInvestmentValue, String>(
+          id: 'valor_guardado_por_mes',
+          colorFn: (_, __) => charts.MaterialPalette.deepOrange.shadeDefault,
+          domainFn: (MonthInvestmentValue sales, _) => sales.month,
+          measureFn: (MonthInvestmentValue sales, _) => sales.value,
+          labelAccessorFn:(MonthInvestmentValue sales, _) => sales.value.toString(),
+          data: seriesList,        
+          displayName: "Valor Guardado no Mês",
+        )
+      ], //change here to insert data :)
       animate: animate,
     );
+  }
+
+  static List<MonthInvestmentValue> parseResponseToList(Map<String, dynamic> response){
+    List<MonthInvestmentValue> parsedList = [];
+    response.forEach((key, value){
+      parsedList.add(MonthInvestmentValue(value['month'], value['valor']));
+    });
+    return parsedList;
   }
 
   /// Create one series with sample hard coded data.
@@ -50,15 +73,9 @@ class HistoricOfEconomyChartTile extends StatelessWidget {
         labelAccessorFn:(MonthInvestmentValue sales, _) => sales.value.toString(),
         data: data,        
         displayName: "Valor Guardado no Mês",
-
       )
     ];
   }
 }
 
-class MonthInvestmentValue {
-  final String month;
-  final double value;
 
-  MonthInvestmentValue(this.month, this.value);
-}

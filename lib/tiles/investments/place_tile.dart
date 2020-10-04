@@ -1,7 +1,10 @@
+import 'package:controlegastos/controllers/format_number.dart';
 import 'package:flutter/material.dart';
 
 Container buildLocalTile(
-    {Color color,
+    {
+      Color color,
+      Map<String, dynamic> data,
 
     BuildContext context}) {
   return Container(
@@ -24,14 +27,14 @@ Container buildLocalTile(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Text(
-              "Local",
+              data['nome'],
               style: TextStyle(
                 color: Color.fromARGB(255, 3, 40, 80),
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              "200,00",
+              FormatNumberToMoney.parseNumber(data['total']),
               style: TextStyle(
                 color: Color.fromARGB(255, 3, 40, 80),
                 fontWeight: FontWeight.bold,
@@ -47,7 +50,7 @@ Container buildLocalTile(
                   size: 20.0,
                 ),
                 Text(
-                  "0,001% A.M.",
+                  "${data['tx_rendimento']}% Ao ${data['tipo_periodo']}",
                   style: TextStyle(
                     color: Color.fromARGB(255, 3, 40, 80),
                     fontWeight: FontWeight.bold,

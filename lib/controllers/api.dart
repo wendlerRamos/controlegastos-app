@@ -3,8 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Network{
-  //final String _url = 'http://192.168.0.12:8000';
-  final String _url = 'https://controledegastos.herokuapp.com';
+  final String _url = 'http://192.168.0.12:8000';
+  //final String _url = 'https://controledegastos.herokuapp.com';
   //if you are using android studio emulator, change localhost to 10.0.2.2
   var token;
 

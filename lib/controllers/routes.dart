@@ -13,6 +13,10 @@ const ROUTES = {
   "home_dash_main_info_details": "/api/v1/movimentations/get_movimentations/",
   "home_dash_category_resume": "/api/v1/movimentations/category/",
   "home_dash_category_infos": "/api/v1/movimentations/category_details/",
+  "investments_dash_resume": "/api/v1/investments/get_resume",
+  "investments_dash_chart_by_month": "/api/v1/investments/economies_historic",
+  "investments_dash_2_goals": "/api/v1/investments/goals/get_top_2",
+  "investments_dash_2_places": "/api/v1/investments/places/get_top_2",
 };
 
 String getRoute(String routeName) {
