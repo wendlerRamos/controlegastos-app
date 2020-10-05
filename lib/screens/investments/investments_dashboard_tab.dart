@@ -52,7 +52,11 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
               borderColor: borderColor,
               textColor: textColor,
             ),
-            //InvestmentsPlacesBlockTile(),
+            InvestmentsPlacesBlockTile(
+              backgroundColor: backgroundColor,
+              borderColor: borderColor,
+              textColor: textColor,
+            ),
           ],
         ),
       ),

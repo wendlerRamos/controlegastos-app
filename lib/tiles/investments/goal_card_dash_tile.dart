@@ -76,14 +76,14 @@ class _GoalCardDashTileState extends State<GoalCardDashTile> {
             textColor: getColors(colorName: "white"),
             data: metas[0],
           ) :
-          null,
+          Container(),
           (size > 1) ? 
           buildItemMeta(
             backgroundColor: getColors(colorName: "white"),
             textColor: getColors(colorName: "blue"),
             data: metas[1],
           ): 
-          null,
+          Container(),
           RaisedButton(
             child: Text(
               "Ver Mais",
