@@ -26,7 +26,7 @@ class _UserTabState extends State<UserTab> {
   void getTheme() {
     Map<String, Color> pallete = getThemeColors();
     backgroundColor = pallete['background'];
-    print("Updating Theme");
+    //print("Updating Theme");
   }
 
   @override

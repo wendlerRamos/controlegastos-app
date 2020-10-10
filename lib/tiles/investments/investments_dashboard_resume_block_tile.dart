@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:controlegastos/controllers/routes.dart' as Routes;
 
 class InvestmentsDashboardResumeBlockTile extends StatefulWidget {
+  final Color textColor;
+  final Color backgroundColor;
+  final Color borderColor;
+
+  const InvestmentsDashboardResumeBlockTile({Key key, this.textColor, this.backgroundColor, this.borderColor}) : super(key: key);
 
   @override
   _InvestmentsDashboardResumeBlockTileState createState() =>
@@ -14,19 +19,6 @@ class InvestmentsDashboardResumeBlockTile extends StatefulWidget {
 class _InvestmentsDashboardResumeBlockTileState
     extends State<InvestmentsDashboardResumeBlockTile> {
 
-  Color textColor;
-  Color backgroundColor;
-  Color borderColor;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Map<String, Color> pallete = getThemeColors();
-    backgroundColor = pallete['background'];
-    borderColor = pallete['borderColor'];
-    textColor = pallete['textColor'];
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +62,10 @@ class _InvestmentsDashboardResumeBlockTileState
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         border: Border.all(
-          color: borderColor,
+          color: widget.borderColor,
           width: 2.0,
         ),
-        color: backgroundColor,
+        color: widget.backgroundColor,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +79,7 @@ class _InvestmentsDashboardResumeBlockTileState
                   'Total Guardado',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: textColor,
+                    color: widget.textColor,
                     fontStyle: FontStyle.italic,
                     fontSize: 20.0,
                   ),
@@ -98,7 +90,7 @@ class _InvestmentsDashboardResumeBlockTileState
                   'Total de Rendimentos',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: textColor,
+                    color: widget.textColor,
                     fontStyle: FontStyle.italic,
                     fontSize: 20.0,
                   ),
@@ -114,7 +106,7 @@ class _InvestmentsDashboardResumeBlockTileState
                   FormatNumberToMoney.parseNumber(data['total_saved_money']),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: textColor,
+                    color: widget.textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 30.0,
                   ),
@@ -125,7 +117,7 @@ class _InvestmentsDashboardResumeBlockTileState
                   FormatNumberToMoney.parseNumber(data['total_yield']),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: textColor,
+                    color: widget.textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 30.0,
                   ),
@@ -134,7 +126,7 @@ class _InvestmentsDashboardResumeBlockTileState
             ],
           ),
           Divider(
-            color: textColor,
+            color: widget.textColor,
             thickness: 2.0,
             height: 20.0,
           ),
@@ -146,7 +138,7 @@ class _InvestmentsDashboardResumeBlockTileState
                   'Guardado este mês',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: textColor,
+                    color: widget.textColor,
                     fontStyle: FontStyle.italic,
                     fontSize: 20.0,
                   ),
@@ -157,7 +149,7 @@ class _InvestmentsDashboardResumeBlockTileState
                   'Média por mês',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: textColor,
+                    color: widget.textColor,
                     fontStyle: FontStyle.italic,
                     fontSize: 20.0,
                   ),
@@ -173,7 +165,7 @@ class _InvestmentsDashboardResumeBlockTileState
                   FormatNumberToMoney.parseNumber(data['total_saved_this_month']),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: textColor,
+                    color: widget.textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 30.0,
                   ),
@@ -184,7 +176,7 @@ class _InvestmentsDashboardResumeBlockTileState
                   FormatNumberToMoney.parseNumber(data['total_month_average']),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: textColor,
+                    color: widget.textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 30.0,
                   ),
@@ -204,16 +196,16 @@ class _InvestmentsDashboardResumeBlockTileState
       height: 150.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        color: backgroundColor,
+        color: widget.backgroundColor,
         border: Border.all(
-          color: borderColor,
+          color: widget.borderColor,
           width: 2.0,
         ),
       ),
       child: Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(
-            textColor,
+            widget.textColor,
           ),
         ),
       ),
@@ -230,9 +222,9 @@ class _InvestmentsDashboardResumeBlockTileState
         height: 150.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
-          color: backgroundColor,
+          color: widget.backgroundColor,
           border: Border.all(
-            color: borderColor,
+            color: widget.borderColor,
             width: 2.0,
           ),
         ),
@@ -242,18 +234,18 @@ class _InvestmentsDashboardResumeBlockTileState
             Icon(
               Icons.error,
               size: 40,
-              color: textColor,
+              color: widget.textColor,
             ),
             Text(
               'Erro de conexão',
               style: TextStyle(
-                color: textColor,
+                color: widget.textColor,
               ),
             ),
             Text(
               'Toque para tentar novamente',
               style: TextStyle(
-                color: textColor,
+                color: widget.textColor,
                 fontSize: 12,
               ),
             ),

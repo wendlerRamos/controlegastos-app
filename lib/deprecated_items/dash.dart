@@ -26,7 +26,7 @@ class _MainDashboardState extends State<MainDashboard> {
   final Color _colorRed = Color.fromARGB(255, 196, 23, 12);
 
   Future<Map> getDataFromAPI() async {
-    print(request);
+    //print(request);
     http.Response response = await http.get(request);
     return json.decode(response.body);
   }

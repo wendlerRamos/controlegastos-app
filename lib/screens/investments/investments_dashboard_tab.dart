@@ -14,6 +14,7 @@ class InvestmentsDashboardTab extends StatefulWidget {
 
 class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
   Color backgroundColor;
+  Color cardBackgroundColor;
   Color borderColor;
   Color textColor;
 
@@ -26,6 +27,7 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
   void getTheme() {
     Map<String, Color> pallete = getThemeColors();
     backgroundColor = pallete['background'];
+    cardBackgroundColor = pallete['card_background'];
     borderColor = pallete['borderColor'];
     textColor = pallete['textColor'];
   }
@@ -41,14 +43,18 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             DashboardHeaderTile(),
-            InvestmentsDashboardResumeBlockTile(),
+            InvestmentsDashboardResumeBlockTile(
+              backgroundColor: cardBackgroundColor,
+              borderColor: borderColor,
+              textColor: textColor,
+            ),
             InvestmentsByMonthTile(
-              backgroundColor: getColors(colorName: "white"),
+              backgroundColor: getColors(colorName: 'white'),
               borderColor: borderColor,
               textColor: textColor,
             ),
             GoalCardDashTile(
-              backgroundColor: backgroundColor,
+              backgroundColor: cardBackgroundColor,
               borderColor: borderColor,
               textColor: textColor,
             ),

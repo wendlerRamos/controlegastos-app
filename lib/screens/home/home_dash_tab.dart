@@ -24,7 +24,7 @@ class _HomeDashTabState extends State<HomeDashTab> {
   void getTheme() {
     Map<String, Color> pallete = getThemeColors();
     backgroundColor = pallete['background'];
-    print("Updating Theme");
+    //print("Updating Theme");
   }
 
   @override

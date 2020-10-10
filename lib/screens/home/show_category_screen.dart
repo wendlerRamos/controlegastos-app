@@ -30,7 +30,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
     Map<String, Color> pallete = getThemeColors();
     backgroundColor = pallete['background'];
     borderColor = pallete['borderColor'];
-    print("Updating Theme");
+    //print("Updating Theme");
   }
 
   @override

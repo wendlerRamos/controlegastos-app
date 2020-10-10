@@ -24,7 +24,7 @@ class Network{
 
   getData(apiUrl) async {
     var fullUrl = _url + apiUrl;
-    print(fullUrl);
+    //print(fullUrl);
     await _getToken();
     return await http.get(
         fullUrl,

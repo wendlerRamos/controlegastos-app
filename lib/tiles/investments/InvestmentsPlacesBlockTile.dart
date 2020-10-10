@@ -126,9 +126,11 @@ class _InvestmentsPlacesBlockTileState
                   flex: 1,
                 )
               : Container(),
-          SizedBox(
-            width: 25.0,
-          ),
+          (size > 0)
+              ? SizedBox(
+                  width: 25.0,
+                )
+              : Container(),
           (size > 1)
               ? Expanded(
                   child: buildLocalTile(
@@ -137,46 +139,50 @@ class _InvestmentsPlacesBlockTileState
                   flex: 1,
                 )
               : Container(),
-          SizedBox(
-            width: 25.0,
-          ),
-          Expanded(
-            flex: 1,
-            child: RaisedButton(
-              onPressed: () {
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("Tela incompleta"),
-                  ),
-                );
-              },
-              color: getColors(colorName: "orange"),
-              child: Container(
-                height: 60.0,
-                padding: EdgeInsets.all(5.0),
-                margin: EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Icon(
-                      Icons.arrow_forward,
-                      color: getColors(colorName: "soft_white"),
-                      size: 30.0,
-                    ),
-                    Text(
-                      "Ver Mais",
-                      style: TextStyle(
-                        color: getColors(
-                          colorName: "soft_white",
+          (size > 1)
+              ? SizedBox(
+                  width: 25.0,
+                )
+              : Container(),
+          (size > 0)
+              ? Expanded(
+                  flex: 1,
+                  child: RaisedButton(
+                    onPressed: () {
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Tela incompleta"),
                         ),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15.0,
+                      );
+                    },
+                    color: getColors(colorName: "orange"),
+                    child: Container(
+                      height: 60.0,
+                      padding: EdgeInsets.all(5.0),
+                      margin: EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.arrow_forward,
+                            color: getColors(colorName: "soft_white"),
+                            size: 30.0,
+                          ),
+                          Text(
+                            "Ver Mais",
+                            style: TextStyle(
+                              color: getColors(
+                                colorName: "soft_white",
+                              ),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );

@@ -42,7 +42,6 @@ class _InvestmentsByMonthTileState extends State<InvestmentsByMonthTile> {
   } 
 
   Widget _buildSuccessContent(Map data) {
-    print('sdosiaf');
     return Container(
       margin: EdgeInsets.all(8.0),
       height: 250.0,

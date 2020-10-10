@@ -101,10 +101,12 @@ Map<String, Color> getThemeColors(){
   Map<String, Color> collorPallete = new Map();
   if (currentTheme == "Dark"){
     collorPallete['background'] = getColors(colorName: "blue");
+    collorPallete['card_background'] = getColors(colorName: "blue");
     collorPallete['textColor'] = getColors(colorName: "soft_white");
     collorPallete['borderColor'] = getColors(colorName: "soft_white");
   }else{
     collorPallete['background'] = getColors(colorName: "soft_white");
+    collorPallete['card_background'] = getColors(colorName: "white");
     collorPallete['textColor'] = getColors(colorName: "blue");
     collorPallete['borderColor'] = getColors(colorName: "blue");
   }

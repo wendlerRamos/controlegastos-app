@@ -21,7 +21,6 @@ class HistoricOfEconomyChartTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('oisdnfiouakhnfiushdf');
     return charts.BarChart(
       [
         charts.Series<MonthInvestmentValue, String>(
