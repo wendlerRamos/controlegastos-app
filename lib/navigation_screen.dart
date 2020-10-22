@@ -40,7 +40,7 @@ class _NavigationScreenState extends State<NavigationScreen>
   void getTheme() {
     Map<String, Color> pallete = getThemeColors();
     backgroundColor = pallete['background'];
-    print("Updating Theme");
+    //print("Updating Theme");
   }
 
   Future<bool> testConnection() async {
