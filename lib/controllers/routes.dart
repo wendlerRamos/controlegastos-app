@@ -17,6 +17,7 @@ const ROUTES = {
   "investments_dash_chart_by_month": "/api/v1/investments/economies_historic",
   "investments_dash_2_goals": "/api/v1/investments/goals/get_top_2",
   "investments_dash_2_places": "/api/v1/investments/places/get_top_2",
+  "investments_movements": "/api/v1/investments/movements",
 };
 
 String getRoute(String routeName) {

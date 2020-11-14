@@ -44,13 +44,17 @@ class InvestmentItemTile extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Expanded(
-                flex: 2,
-                child: Text(((investmentData.data != null)
-                    ? investmentData.data
-                    : "Sem Meta")),
+                flex: 6,
+                child: Text(
+                  ((investmentData.meta != null)
+                      ? investmentData.meta
+                      : "SEM META"),
+                  style:
+                      TextStyle(color: textColor, fontWeight: FontWeight.bold),
+                ),
               ),
               Expanded(
-                flex: 5,
+                flex: 4,
                 child: Text(
                   FormatNumberToMoney.parseNumber(investmentData.valor),
                   textAlign: TextAlign.center,
@@ -61,7 +65,7 @@ class InvestmentItemTile extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 5,
+                flex: 4,
                 child: Text(
                   formatter.format(DateTime.parse(investmentData.data)),
                   textAlign: TextAlign.end,
