@@ -3,6 +3,12 @@ import 'package:controlegastos/widgets/date_picker_input.dart';
 import 'package:flutter/material.dart';
 
 class SearchPeriodOfInvestmentsTile extends StatefulWidget {
+  final fromDate;
+  final untilDate;
+
+  const SearchPeriodOfInvestmentsTile({Key key, this.fromDate, this.untilDate})
+      : super(key: key);
+
   @override
   _SearchPeriodOfInvestmentsTileState createState() =>
       _SearchPeriodOfInvestmentsTileState();
@@ -24,13 +30,11 @@ class _SearchPeriodOfInvestmentsTileState
     final from = TextEditingController();
     final until = TextEditingController();
     return AlertDialog(
-      actions: [],
-      backgroundColor: collorPallete['card_background'],
+      backgroundColor: getColors(colorName: "blue"),
       content: Container(
         height: 250.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
-          color: collorPallete['card_background'],
         ),
         child: Form(
           key: _formKey,
@@ -40,19 +44,19 @@ class _SearchPeriodOfInvestmentsTileState
                 "Selecione o Período",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: collorPallete['textColor'],
+                  color: getColors(colorName: "soft_white"),
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Divider(
-                color: collorPallete['textColor'],
+                color: getColors(colorName: "soft_white"),
               ),
               Expanded(
                 child: BasicDateField(
                   label: "De",
-                  backgroundColor: collorPallete['card_background'],
-                  defaultValue: DateTime.now(),
+                  backgroundColor: getColors(colorName: "blue"),
+                  defaultValue: widget.fromDate,
                   hasPrefix: false,
                   controller: from,
                 ),
@@ -63,8 +67,9 @@ class _SearchPeriodOfInvestmentsTileState
               Expanded(
                 child: BasicDateField(
                   label: "Até",
-                  backgroundColor: collorPallete['card_background'],
+                  backgroundColor: getColors(colorName: "blue"),
                   controller: until,
+                  defaultValue: widget.untilDate,
                 ),
               ),
               Divider(

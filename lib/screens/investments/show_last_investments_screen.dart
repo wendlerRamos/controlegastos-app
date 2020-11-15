@@ -48,10 +48,15 @@ class _ShowLastInvestmentsScreenState extends State<ShowLastInvestmentsScreen> {
         },
       ),
       body: Container(
+        padding: EdgeInsets.only(top: 10.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Container(child: headerText(colors['textColor'])),
+            Divider(
+              color: colors['textColor'],
+            ),
             Expanded(
-              flex: 1,
               child: Container(
                 child: RefreshIndicator(
                   onRefresh: () async {
@@ -79,6 +84,32 @@ class _ShowLastInvestmentsScreenState extends State<ShowLastInvestmentsScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Text headerText(Color textColor) {
+    String text = "";
+    if (dateFilter == null ||
+        dateFilter.isEmpty ||
+        (dateFilter['until'] == "" && dateFilter['from'] == "")) {
+      text = "Mostrando Últimos 20";
+    } else {
+      text = "Filtrando";
+      if (dateFilter['until'] != null && dateFilter['until'] != "") {
+        text += " Até ${dateFilter['until']}";
+      }
+      if (dateFilter['from'] != null && dateFilter['from'] != "") {
+        text += " De ${dateFilter['from']}";
+      }
+    }
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: textColor,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
       ),
     );
   }
