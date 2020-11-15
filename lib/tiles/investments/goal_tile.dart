@@ -87,7 +87,8 @@ GestureDetector buildItemMeta({
                         animation: true,
                         animationDuration: 1000,
                         lineHeight: 14.0,
-                        percent: (percentage < 100) ? (percentage / 100.0) : 1.0,
+                        percent:
+                            (percentage < 100) ? (percentage / 100.0) : 1.0,
                         backgroundColor: Colors.grey[400],
                         progressColor: textColor,
                       ),
@@ -124,15 +125,4 @@ GestureDetector buildItemMeta({
       ],
     ),
   );
-}
-
-Map<String, dynamic> dataTemp() {
-  return {
-    "id": 1,
-    "titulo": "Título da Meta",
-    "valor_meta": 1000.00,
-    "valor_atual": 700.00,
-    "valor_recente": 60.00,
-    "data_limite": "01/01/0001",
-  };
 }

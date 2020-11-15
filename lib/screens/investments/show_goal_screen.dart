@@ -19,110 +19,119 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
   Color borderColor;
   Color textColor;
   Color iconColor;
+  Color utilColor;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     backgroundColor = getThemeColors()['background'];
     borderColor = getColors(colorName: "blue");
     textColor = getColors(colorName: "blue");
     iconColor = getColors(colorName: "orange");
+    utilColor = getColors(colorName: "orange");
   }
 
-  //var image = NetworkImage("https://firebasestorage.googleapis.com/v0/b/controledegastos-w.appspot.com/o/teste%2F1561076480162?alt=media&token=c78ec376-a866-4150-962c-baa198ef68ab");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: SingleChildScrollView(
-        child: FutureBuilder(
-          future: getDataFromAPI(
-              "${Routes.getRoute('investments_goal_details')}/${widget.goalId}"),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return _buildProgressIndicator();
-                break;
-              default:
-                if (snapshot.hasError ||
-                    !snapshot.hasData ||
-                    snapshot.data.containsKey("error")) {
-                  return _buildErrorContent();
-                } else {
-                  return _buildSuccessContent(snapshot.data['result']);
-                }
-            }
-          },
+      body: Container(
+        child: GestureDetector(
+          child: FutureBuilder(
+            future: getDataFromAPI(
+                "${Routes.getRoute('investments_goal_details')}/${widget.goalId}"),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return _buildProgressIndicator();
+                  break;
+                default:
+                  if (snapshot.hasError ||
+                      !snapshot.hasData ||
+                      snapshot.data.containsKey("error")) {
+                    return _buildErrorContent();
+                  } else {
+                    return _buildSuccessContent(snapshot.data['result']);
+                  }
+              }
+            },
+          ),
         ),
       ),
     );
   }
 
   Widget _buildErrorContent() {
-    return GestureDetector(
-      onTap: () {
-        setState(() {});
-      },
-      child: Container(
-        margin: EdgeInsets.all(8.0),
-        height: 250.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4.0),
-          color: backgroundColor,
-          border: Border.all(
-            color: borderColor,
-            width: 2.0,
+    return Center(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {});
+        },
+        child: Container(
+          margin: EdgeInsets.all(8.0),
+          height: 250.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4.0),
+            color: backgroundColor,
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.error,
-              size: 40,
-              color: textColor,
-            ),
-            Text(
-              'Erro de conexão',
-              style: TextStyle(
-                color: textColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error,
+                size: 50,
+                color: utilColor,
               ),
-            ),
-            Text(
-              'Toque para tentar novamente',
-              style: TextStyle(
-                color: textColor,
-                fontSize: 12,
+              Text(
+                'Erro de conexão',
+                style: TextStyle(
+                  color: utilColor,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            Divider(
-              color: Colors.transparent,
-            ),
-          ],
+              Text(
+                'Toque para tentar novamente',
+                style: TextStyle(
+                  color: utilColor,
+                  fontSize: 16.0,
+                ),
+              ),
+              Divider(
+                color: Colors.transparent,
+              ),
+              RaisedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                color: utilColor,
+                child: Text(
+                  "VOLTAR",
+                  style: TextStyle(
+                    color: getColors(colorName: "white"),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildProgressIndicator() {
-    return Container(
-      margin: EdgeInsets.all(4.0),
-      height: 250.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        color: backgroundColor,
-        border: Border.all(
-          color: borderColor,
-          width: 2.0,
-        ),
-      ),
-      child: Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(
-            textColor,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(
+              utilColor,
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 

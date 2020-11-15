@@ -67,7 +67,7 @@ class _InvestmentsPlacesBlockTileState
       },
       child: Container(
         margin: EdgeInsets.all(8.0),
-        height: 80.0,
+        height: 100.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
           color: widget.backgroundColor,
