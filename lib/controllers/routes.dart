@@ -18,6 +18,7 @@ const ROUTES = {
   "investments_dash_2_goals": "/api/v1/investments/goals/get_top_2",
   "investments_dash_2_places": "/api/v1/investments/places/get_top_2",
   "investments_movements": "/api/v1/investments/movements",
+  "investments_goal_details": "/api/v1/investments/goal",
 };
 
 String getRoute(String routeName) {
