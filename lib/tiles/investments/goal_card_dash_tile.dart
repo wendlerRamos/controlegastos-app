@@ -70,20 +70,22 @@ class _GoalCardDashTileState extends State<GoalCardDashTile> {
           Divider(
             color: widget.textColor,
           ),
-          (size > 0) ? 
-          buildItemMeta(
-            backgroundColor: getColors(colorName: "blue"),
-            textColor: getColors(colorName: "white"),
-            data: metas[0],
-          ) :
-          Container(),
-          (size > 1) ? 
-          buildItemMeta(
-            backgroundColor: getColors(colorName: "white"),
-            textColor: getColors(colorName: "blue"),
-            data: metas[1],
-          ): 
-          Container(),
+          (size > 0)
+              ? buildItemMeta(
+                  backgroundColor: getColors(colorName: "blue"),
+                  textColor: getColors(colorName: "white"),
+                  data: metas[0],
+                  context: context,
+                )
+              : Container(),
+          (size > 1)
+              ? buildItemMeta(
+                  backgroundColor: getColors(colorName: "white"),
+                  textColor: getColors(colorName: "blue"),
+                  data: metas[1],
+                  context: context,
+                )
+              : Container(),
           RaisedButton(
             child: Text(
               "Ver Mais",
