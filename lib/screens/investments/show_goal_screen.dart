@@ -1,7 +1,10 @@
 import 'package:controlegastos/controllers/format_number.dart';
 import 'package:controlegastos/controllers/request.dart';
 import 'package:controlegastos/controllers/util.dart';
+import 'package:controlegastos/models/investment_tile_model.dart';
+import 'package:controlegastos/tiles/investments/investment_item_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:intl/intl.dart';
@@ -50,7 +53,8 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
                       snapshot.data.containsKey("error")) {
                     return _buildErrorContent();
                   } else {
-                    return _buildSuccessContent(snapshot.data['result']);
+                    return _buildSuccessContent(
+                        snapshot.data['result'], context);
                   }
               }
             },
@@ -135,345 +139,402 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
     );
   }
 
-  Widget _buildSuccessContent(Map data) {
+  Widget _buildSuccessContent(Map data, BuildContext context) {
     var goal = data['goal'];
     var investments = data['movements'];
     DateFormat formatter = new DateFormat('dd/MM/yyyy');
 
-    return Stack(
-      children: <Widget>[
-        SizedBox(
-          height: 250,
-          width: double.infinity,
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage("${goal['url_foto']}"),
-                fit: BoxFit.cover,
+    return SingleChildScrollView(
+      child: Stack(
+        children: <Widget>[
+          SizedBox(
+            height: 250,
+            width: double.infinity,
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage("${goal['url_foto']}"),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-        ),
-        Container(
-          margin: EdgeInsets.fromLTRB(16.0, 200.0, 16.0, 16.0),
-          child: Column(
-            children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(16.0),
-                    margin: EdgeInsets.only(top: 16.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: getColors(colorName: "white"),
-                      border: Border.all(
-                        color: borderColor,
-                        width: 1.0,
+          Container(
+            margin: EdgeInsets.fromLTRB(16.0, 200.0, 16.0, 16.0),
+            child: Column(
+              children: <Widget>[
+                Stack(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(16.0),
+                      margin: EdgeInsets.only(top: 16.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: getColors(colorName: "white"),
+                        border: Border.all(
+                          color: borderColor,
+                          width: 1.0,
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(left: 16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                goal['nome'],
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: textColor,
-                                ),
-                              ),
-                              ListTile(
-                                contentPadding: EdgeInsets.all(0),
-                                title: Text(
-                                  "Criada em",
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.only(left: 16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  goal['nome'],
                                   style: TextStyle(
+                                    fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
                                     color: textColor,
                                   ),
                                 ),
-                                subtitle: Text(
-                                  formatter.format(
-                                      DateTime.parse(goal['created_at'])),
-                                  style: TextStyle(
-                                    color: textColor,
-                                    fontStyle: FontStyle.italic,
+                                ListTile(
+                                  contentPadding: EdgeInsets.all(0),
+                                  title: Text(
+                                    "Criada em",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: textColor,
+                                    ),
                                   ),
+                                  subtitle: Text(
+                                    formatter.format(
+                                        DateTime.parse(goal['created_at'])),
+                                    style: TextStyle(
+                                      color: textColor,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10.0),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      FormatNumberToMoney.parseNumber(
+                                          double.tryParse(goal['valor_meta'])),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: textColor,
+                                        fontSize: 18.0,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Valor da Meta",
+                                      style: TextStyle(
+                                        color: textColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      FormatNumberToMoney.parseNumber(
+                                          goal['valor_total']),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: textColor,
+                                        fontSize: 18.0,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Investidos",
+                                      style: TextStyle(
+                                        color: textColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      FormatNumberToMoney.parseNumber(
+                                          goal['valor_restante']),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: textColor,
+                                        fontSize: 18.0,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Restante",
+                                      style: TextStyle(
+                                        color: textColor,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    color: getColors(colorName: "white"),
+                    border: Border.all(
+                      color: borderColor,
+                      width: 1.0,
+                    ),
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      ListTile(
+                        title: Text(
+                          "Informações da Meta",
+                          style: TextStyle(
+                            color: textColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0,
+                          ),
                         ),
-                        SizedBox(height: 10.0),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    FormatNumberToMoney.parseNumber(
-                                        double.tryParse(goal['valor_meta'])),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: textColor,
-                                      fontSize: 18.0,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Valor da Meta",
-                                    style: TextStyle(
-                                      color: textColor,
-                                    ),
-                                  ),
-                                ],
+                        subtitle: Divider(
+                          color: textColor,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ListTile(
+                              title: Text(
+                                "Prioridade",
+                                style: TextStyle(
+                                  color: textColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Text(
+                                "${goal['prioridade']} / 10",
+                                style: TextStyle(
+                                  color: textColor,
+                                ),
+                              ),
+                              leading: Icon(
+                                Icons.priority_high,
+                                color: iconColor,
+                                size: 35.0,
                               ),
                             ),
-                            Expanded(
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    FormatNumberToMoney.parseNumber(
-                                        goal['valor_total']),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: textColor,
-                                      fontSize: 18.0,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Investidos",
-                                    style: TextStyle(
-                                      color: textColor,
-                                    ),
-                                  ),
-                                ],
+                          ),
+                          Expanded(
+                            child: ListTile(
+                              title: Text(
+                                "Data Limite",
+                                style: TextStyle(
+                                  color: textColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Text(
+                                formatter.format(
+                                    DateTime.parse(goal['data_limite'])),
+                                style: TextStyle(
+                                  color: textColor,
+                                ),
+                              ),
+                              leading: Icon(
+                                Icons.calendar_today,
+                                color: iconColor,
+                                size: 35.0,
                               ),
                             ),
-                            Expanded(
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    FormatNumberToMoney.parseNumber(
-                                        goal['valor_restante']),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: textColor,
-                                      fontSize: 18.0,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Restante",
-                                    style: TextStyle(
-                                      color: textColor,
-                                    ),
-                                  ),
-                                ],
+                          ),
+                        ],
+                      ),
+                      ListTile(
+                        title: Text(
+                          "Percentual atingido",
+                          style: TextStyle(
+                            color: textColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: LinearPercentIndicator(
+                          center: Text(
+                            "${goal['porcentagem'] * 100}%",
+                            style: TextStyle(
+                              color: getColors(colorName: "white"),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          linearStrokeCap: LinearStrokeCap.roundAll,
+                          animation: true,
+                          animationDuration: 1000,
+                          lineHeight: 14.0,
+                          percent: goal['porcentagem'] * 1.0,
+                          backgroundColor: Colors.grey[700],
+                          progressColor: getColors(colorName: "blue"),
+                        ),
+                        leading: Icon(
+                          Icons.bubble_chart,
+                          color: iconColor,
+                          size: 35.0,
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          "Descrição",
+                          style: TextStyle(
+                            color: textColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          goal['descricao'],
+                          style: TextStyle(
+                            color: textColor,
+                          ),
+                          textAlign: TextAlign.justify,
+                        ),
+                        leading: Icon(
+                          Icons.text_fields,
+                          color: iconColor,
+                          size: 35.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    color: getColors(colorName: "white"),
+                    border: Border.all(
+                      color: borderColor,
+                      width: 1.0,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      RaisedButton(
+                        onPressed: () {
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                "Recurso não implementado",
+                              ),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              "\tEditar",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
                               ),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20.0),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: getColors(colorName: "white"),
-                  border: Border.all(
-                    color: borderColor,
-                    width: 1.0,
-                  ),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      title: Text(
-                        "Informações da Meta",
-                        style: TextStyle(
-                          color: textColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                        ),
-                      ),
-                      subtitle: Divider(
                         color: textColor,
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ListTile(
-                            title: Text(
-                              "Prioridade",
-                              style: TextStyle(
-                                color: textColor,
-                                fontWeight: FontWeight.bold,
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      RaisedButton(
+                        onPressed: () {
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                "Recurso não implementado",
                               ),
                             ),
-                            subtitle: Text(
-                              "${goal['prioridade']} / 10",
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.archive,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              "\tArquivar",
                               style: TextStyle(
-                                color: textColor,
+                                color: Colors.white,
+                                fontSize: 18.0,
                               ),
                             ),
-                            leading: Icon(
-                              Icons.priority_high,
-                              color: iconColor,
-                              size: 35.0,
-                            ),
-                          ),
+                          ],
                         ),
-                        Expanded(
-                          child: ListTile(
-                            title: Text(
-                              "Data Limite",
-                              style: TextStyle(
-                                color: textColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            subtitle: Text(
-                              formatter
-                                  .format(DateTime.parse(goal['data_limite'])),
-                              style: TextStyle(
-                                color: textColor,
-                              ),
-                            ),
-                            leading: Icon(
-                              Icons.calendar_today,
-                              color: iconColor,
-                              size: 35.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    ListTile(
-                      title: Text(
-                        "Percentual atingido",
-                        style: TextStyle(
-                          color: textColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        color: Colors.red[700],
                       ),
-                      subtitle: LinearPercentIndicator(
-                        center: Text(
-                          "${goal['porcentagem'] * 100}%",
-                          style: TextStyle(
-                            color: getColors(colorName: "white"),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        linearStrokeCap: LinearStrokeCap.roundAll,
-                        animation: true,
-                        animationDuration: 1000,
-                        lineHeight: 14.0,
-                        percent: goal['porcentagem'] * 1.0,
-                        backgroundColor: Colors.grey[700],
-                        progressColor: getColors(colorName: "blue"),
-                      ),
-                      leading: Icon(
-                        Icons.bubble_chart,
-                        color: iconColor,
-                        size: 35.0,
-                      ),
-                    ),
-                    ListTile(
-                      title: Text(
-                        "Descrição",
-                        style: TextStyle(
-                          color: textColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: Text(
-                        goal['descricao'],
-                        style: TextStyle(
-                          color: textColor,
-                        ),
-                        textAlign: TextAlign.justify,
-                      ),
-                      leading: Icon(
-                        Icons.text_fields,
-                        color: iconColor,
-                        size: 35.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20.0),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: getColors(colorName: "white"),
-                  border: Border.all(
-                    color: borderColor,
-                    width: 1.0,
+                    ],
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    RaisedButton(
-                      onPressed: () {},
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            "\tEditar",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      color: textColor,
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    RaisedButton(
-                      onPressed: () {},
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.archive,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            "\tArquivar",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      color: Colors.red[700],
-                    ),
-                  ],
+                SizedBox(
+                  height: 20.0,
                 ),
-              ),
-            ],
+                Container(
+                  height: 300.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    color: getColors(colorName: "white"),
+                    border: Border.all(
+                      color: borderColor,
+                      width: 1.0,
+                    ),
+                  ),
+                  child: itemListView(investments),
+                ),
+              ],
+            ),
           ),
-        ),
-        AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        )
-      ],
+          AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          )
+        ],
+      ),
+    );
+  }
+
+  ListView itemListView(data) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: data.length,
+      itemBuilder: (context, index) {
+        final pairColor = getColors(colorName: 'white');
+        final evenColor = getColors(colorName: 'blue');
+        final item = data[index];
+        InvestmentTileModel investmentModel = new InvestmentTileModel(
+          BigInt.from(item['id']),
+          double.tryParse(item['valor']),
+          item['data'],
+          item['nome_meta'],
+        );
+        return InvestmentItemTile(
+          borderColor: (index % 2 == 0) ? evenColor : pairColor,
+          backgroundColor: (index % 2 == 0) ? pairColor : evenColor,
+          textColor: (index % 2 == 0) ? evenColor : pairColor,
+          investmentData: investmentModel,
+        );
+      },
     );
   }
 }
