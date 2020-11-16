@@ -2,11 +2,7 @@ import 'package:controlegastos/controllers/format_number.dart';
 import 'package:flutter/material.dart';
 
 Container buildLocalTile(
-    {
-      Color color,
-      Map<String, dynamic> data,
-
-    BuildContext context}) {
+    {Color color, Map<String, dynamic> data, BuildContext context}) {
   return Container(
     child: GestureDetector(
       onTap: null,
@@ -50,7 +46,9 @@ Container buildLocalTile(
                   size: 20.0,
                 ),
                 Text(
-                  "${data['tx_rendimento']}% Ao ${data['tipo_periodo']}",
+                  "${data['tx_rendimento']}% ao ${data['tipo_periodo']}"
+                      .replaceAll(".", ",")
+                      .toLowerCase(),
                   style: TextStyle(
                     color: Color.fromARGB(255, 3, 40, 80),
                     fontWeight: FontWeight.bold,

@@ -170,12 +170,12 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                   ),
                   Expanded(
                     child: Text(
-                      "( $percentEarnings% da média )",
+                      "$percentEarnings%\nda média",
                       textAlign: TextAlign.end,
                       style: TextStyle(
                         color: earningsLabel,
                         fontStyle: FontStyle.italic,
-                        fontSize: (percentEarnings > 1000) ? 15.0 :25.0,
+                        fontSize: (percentEarnings > 1000) ? 14.0 : 18.0,
                       ),
                     ),
                     flex: 5,
@@ -210,12 +210,12 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                   ),
                   Expanded(
                     child: Text(
-                      "( $percentExpanses% da média )",
+                      "$percentExpanses%\nda média",
                       textAlign: TextAlign.end,
                       style: TextStyle(
                         color: expansesLabel,
                         fontStyle: FontStyle.italic,
-                        fontSize:  (percentExpanses > 1000) ? 15.0 :25.0,
+                        fontSize: (percentExpanses > 1000) ? 14.0 : 18.0,
                       ),
                     ),
                     flex: 5,

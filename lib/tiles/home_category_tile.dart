@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:intl/intl.dart';
 
-class 
-HomeCategoryTile extends StatefulWidget {
+class HomeCategoryTile extends StatefulWidget {
   final bool isWhite;
   final IconData itemIcon;
   final String category;
@@ -33,7 +32,7 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
   @override
   void initState() {
     super.initState();
-    
+
     if (widget.isWhite) {
       backgroundColor = getColors(colorName: "white");
       contentColor = getColors(colorName: "blue");
@@ -75,7 +74,9 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
             );
             break;
           default:
-            if (snapshot.hasError || !snapshot.hasData || snapshot.data.containsKey("error")) {
+            if (snapshot.hasError ||
+                !snapshot.hasData ||
+                snapshot.data.containsKey("error")) {
               return _buildErrorContent();
             } else {
               return _buildContent(context, snapshot.data);
@@ -138,7 +139,8 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
     if (data['valor_media'] == 0) {
       percentMedia = 0;
     } else {
-      percentMedia = ((data['valor'] / data['valor_media']) * 100).abs().floor();
+      percentMedia =
+          ((data['valor'] / data['valor_media']) * 100).abs().floor();
       percentMediaLabel = percentMedia.toString();
     }
     Color colorPercentLabel;
@@ -178,13 +180,13 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
                 Expanded(
                   child: Icon(
                     widget.itemIcon,
-                    size: 60.0,
+                    size: 40.0,
                     color: contentColor,
                   ),
                   flex: 1,
                 ),
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -193,7 +195,7 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
                         numberFormat.format(data['valor']),
                         textAlign: TextAlign.end,
                         style: TextStyle(
-                          fontSize: (data['valor'] < 1000)?30.0:20.0,
+                          fontSize: (data['valor'] < 1000) ? 30.0 : 20.0,
                           color: contentColor,
                           fontWeight: FontWeight.bold,
                         ),

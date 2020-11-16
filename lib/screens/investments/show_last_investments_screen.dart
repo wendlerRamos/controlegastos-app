@@ -96,11 +96,11 @@ class _ShowLastInvestmentsScreenState extends State<ShowLastInvestmentsScreen> {
       text = "Mostrando Últimos 20";
     } else {
       text = "Filtrando";
-      if (dateFilter['until'] != null && dateFilter['until'] != "") {
-        text += " Até ${dateFilter['until']}";
-      }
       if (dateFilter['from'] != null && dateFilter['from'] != "") {
         text += " De ${dateFilter['from']}";
+      }
+      if (dateFilter['until'] != null && dateFilter['until'] != "") {
+        text += " Até ${dateFilter['until']}";
       }
     }
     return Text(
@@ -132,10 +132,10 @@ class _ShowLastInvestmentsScreenState extends State<ShowLastInvestmentsScreen> {
         !(dateFilter.containsKey('until') && dateFilter.containsKey('from'))) {
       return response;
     }
-    if (dateFilter['until'] != null) {
+    if (dateFilter['until'] != null && dateFilter['ultil'] != "") {
       response += "&to=${dateFilter['until']}";
     }
-    if (dateFilter['from'] != null) {
+    if (dateFilter['from'] != null && dateFilter['from'] != "") {
       response += "&from=${dateFilter['from']}";
     }
     return response;
