@@ -1,10 +1,11 @@
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/widgets/date_picker_input.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SearchPeriodOfInvestmentsTile extends StatefulWidget {
-  final fromDate;
-  final untilDate;
+  final String fromDate;
+  final String untilDate;
 
   const SearchPeriodOfInvestmentsTile({Key key, this.fromDate, this.untilDate})
       : super(key: key);
@@ -29,6 +30,9 @@ class _SearchPeriodOfInvestmentsTileState
     Map<String, String> formResult = new Map();
     final from = TextEditingController();
     final until = TextEditingController();
+    from.text = widget.fromDate;
+    until.text = widget.untilDate;
+    formResult = updateFormResultMap(formResult, from, until);
     return AlertDialog(
       backgroundColor: getColors(colorName: "blue"),
       content: Container(
@@ -56,7 +60,6 @@ class _SearchPeriodOfInvestmentsTileState
                 child: BasicDateField(
                   label: "De",
                   backgroundColor: getColors(colorName: "blue"),
-                  defaultValue: widget.fromDate,
                   hasPrefix: false,
                   controller: from,
                 ),
@@ -69,7 +72,6 @@ class _SearchPeriodOfInvestmentsTileState
                   label: "Até",
                   backgroundColor: getColors(colorName: "blue"),
                   controller: until,
-                  defaultValue: widget.untilDate,
                 ),
               ),
               Divider(
@@ -80,8 +82,7 @@ class _SearchPeriodOfInvestmentsTileState
                 color: Colors.orange,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    formResult['from'] = from.text;
-                    formResult['until'] = until.text;
+                    formResult = updateFormResultMap(formResult, from, until);
                     Navigator.pop(context, formResult);
                   }
                 },
@@ -96,5 +97,17 @@ class _SearchPeriodOfInvestmentsTileState
         ),
       ),
     );
+  }
+
+  Map updateFormResultMap(
+      Map formResult, TextEditingController from, TextEditingController until) {
+    var format = DateFormat("dd/MM/yyyy");
+    formResult['from'] =
+        (from.text.isNotEmpty) ? format.parse(from.text).toString() : null;
+    formResult['fromText'] = from.text;
+    formResult['until'] =
+        (until.text.isNotEmpty) ? format.parse(until.text).toString() : null;
+    formResult['untilText'] = until.text;
+    return formResult;
   }
 }

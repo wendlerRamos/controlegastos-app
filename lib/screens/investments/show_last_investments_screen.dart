@@ -14,12 +14,13 @@ class ShowLastInvestmentsScreen extends StatefulWidget {
 
 class _ShowLastInvestmentsScreenState extends State<ShowLastInvestmentsScreen> {
   var colors;
-  var dateFilter = Map();
+  var dateFilter;
 
   @override
   void initState() {
     colors = getThemeColors();
     super.initState();
+    dateFilter = Map();
   }
 
   @override
@@ -39,10 +40,19 @@ class _ShowLastInvestmentsScreenState extends State<ShowLastInvestmentsScreen> {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return SearchPeriodOfInvestmentsTile();
+              return SearchPeriodOfInvestmentsTile(
+                fromDate: (dateFilter != null && dateFilter['from'] != null)
+                    ? dateFilter['fromText']
+                    : null,
+                untilDate: (dateFilter != null && dateFilter['until'] != null)
+                    ? dateFilter['untilText']
+                    : null,
+              );
             },
           ).then((value) {
-            dateFilter = value;
+            if (value != null) {
+              dateFilter = value;
+            }
             setState(() {});
           });
         },
@@ -92,15 +102,15 @@ class _ShowLastInvestmentsScreenState extends State<ShowLastInvestmentsScreen> {
     String text = "";
     if (dateFilter == null ||
         dateFilter.isEmpty ||
-        (dateFilter['until'] == "" && dateFilter['from'] == "")) {
+        (dateFilter['until'] == null && dateFilter['from'] == null)) {
       text = "Mostrando Últimos 20";
     } else {
       text = "Filtrando";
       if (dateFilter['from'] != null && dateFilter['from'] != "") {
-        text += " De ${dateFilter['from']}";
+        text += " De ${dateFilter['fromText']}";
       }
       if (dateFilter['until'] != null && dateFilter['until'] != "") {
-        text += " Até ${dateFilter['until']}";
+        text += " Até ${dateFilter['untilText']}";
       }
     }
     return Text(
