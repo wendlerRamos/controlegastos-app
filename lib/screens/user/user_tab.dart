@@ -11,7 +11,10 @@ class UserTab extends StatefulWidget {
 class _UserTabState extends State<UserTab> {
   bool isSwitched;
   Color backgroundColor;
-
+  var nameController = TextEditingController();
+  var passwordController = TextEditingController();
+  var confirmPasswordController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
@@ -26,26 +29,155 @@ class _UserTabState extends State<UserTab> {
   void getTheme() {
     Map<String, Color> pallete = getThemeColors();
     backgroundColor = pallete['background'];
-    //print("Updating Theme");
   }
 
   @override
   Widget build(BuildContext context) {
     getTheme();
-    return SingleChildScrollView(
-      
-      child: Container(
-        color: backgroundColor,
+    return Container(
+      color: backgroundColor,
+      child: SingleChildScrollView(
         child: Column(
-          
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(
+            Card(
+              child: Padding(
+                padding: EdgeInsets.all(5.0),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      Text(
+                        "Editar Informações",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Divider(
+                        color: getColors(colorName: "blue"),
+                        thickness: 1.5,
+                        height: 30.0,
+                      ),
+                      TextFormField(
+                        style: TextStyle(
+                          color: getColors(colorName: "blue"),
+                        ),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(16.0),
+                          labelText: "Nome",
+                          labelStyle: TextStyle(
+                            color: getColors(colorName: "blue"),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        controller: nameController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Este atributo é obrigatório";
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      TextFormField(
+                        style: TextStyle(
+                          color: getColors(colorName: "blue"),
+                        ),
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(16.0),
+                          labelText: "Senha",
+                          labelStyle: TextStyle(
+                            color: getColors(colorName: "blue"),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        controller: passwordController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Este atributo é obrigatório";
+                          }
+                          if (value.toString().length < 8) {
+                            return "Necesário mais que 8 caracteres";
+                          }
+                          return null;
+                        },
+                        autovalidateMode: AutovalidateMode.always,
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      TextFormField(
+                        style: TextStyle(
+                          color: getColors(colorName: "blue"),
+                        ),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(16.0),
+                          labelText: "Confirmar Senha",
+                          labelStyle: TextStyle(
+                            color: getColors(colorName: "blue"),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        obscureText: true,
+                        controller: confirmPasswordController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value != passwordController.text) {
+                            return "As senhas precisam ser iguais";
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      RaisedButton(
+                        onPressed: () {
+                          if (formKey.currentState.validate()) {
+                            Scaffold.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Sending updates"),
+                              ),
+                            );
+                          }
+                        },
+                        color: getColors(colorName: "blue"),
+                        textColor: getColors(colorName: "white"),
+                        child: Text(
+                          "SALVAR",
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Card(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Light'),
+                  Text(
+                    'Claro',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   Switch(
                     value: isSwitched,
                     onChanged: (value) {
@@ -74,14 +206,14 @@ class _UserTabState extends State<UserTab> {
                     activeTrackColor: Colors.blue[300],
                     activeColor: getColors(colorName: "blue"),
                   ),
-                  Text('Blue'),
+                  Text(
+                    'Escuro',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
-              ),
-            ),
-            SizedBox(
-              height: 250.0,
-              child: Column(
-                children: [],
               ),
             ),
           ],
