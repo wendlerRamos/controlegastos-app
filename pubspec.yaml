@@ -43,6 +43,7 @@ dependencies:
   http: ^0.12.1
   adobe_xd: ^1.0.0+1
   flutter_svg: ^0.18.0
+  auto_size_text: ^2.1.0
   
 dev_dependencies:
   flutter_test:

@@ -21,14 +21,21 @@ class Network {
 
   getData(apiUrl) async {
     var fullUrl = _url + apiUrl;
-    //print(fullUrl);
     await _getToken();
     return await http.get(fullUrl, headers: _setHeaders());
   }
 
   postData(apiUrl, data) async {
     var fullUrl = _url + apiUrl;
+    await _getToken();
     return await http.post(fullUrl,
+        body: jsonEncode(data), headers: _setHeaders());
+  }
+
+  putData(apiUrl, data) async {
+    var fullUrl = _url + apiUrl;
+    await _getToken();
+    return await http.put(fullUrl,
         body: jsonEncode(data), headers: _setHeaders());
   }
 

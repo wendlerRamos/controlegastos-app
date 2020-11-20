@@ -8,6 +8,7 @@ import 'api.dart';
 const host = "https://controledegastos.herokuapp.com";
 const ROUTES = {
   "teste": "/api/v1/teste",
+  "user_information": "/api/v1/user",
   "movimentations_list": "$host/teste/movs",
   "home_dash_main_info": "/api/v1/movimentations/get_resume",
   "home_dash_main_info_details": "/api/v1/movimentations/get_movimentations/",
@@ -19,6 +20,7 @@ const ROUTES = {
   "investments_dash_2_places": "/api/v1/investments/places/get_top_2",
   "investments_movements": "/api/v1/investments/movements",
   "investments_goal_details": "/api/v1/investments/goal",
+  "update_user": "/api/v1/users",
 };
 
 String getRoute(String routeName) {
@@ -27,7 +29,7 @@ String getRoute(String routeName) {
 }
 
 Future<bool> checkIfTokenIsValid() async {
-  var res = await Network().getData('/api/v1/test');
+  var res = await Network().getData(ROUTES['user_information']);
   var body = json.decode(res.body);
   if (body.containsKey('error') && body['error'] == "Unauthenticated") {
     return false;

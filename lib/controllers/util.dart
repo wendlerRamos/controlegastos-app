@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:controlegastos/controllers/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 IconData returnIconByCategory(String category) {
   IconData icon;
@@ -16,16 +19,16 @@ IconData returnIconByCategory(String category) {
       icon = Icons.shopping_basket;
       break;
     case "TRANSPORTE":
-      icon =Icons.directions_bus;
+      icon = Icons.directions_bus;
       break;
     case "CONTA":
       icon = Icons.receipt;
       break;
     case "EDUCAÇÃO":
-      icon =Icons.school;
+      icon = Icons.school;
       break;
     case "EDUCACAO":
-      icon =Icons.school;
+      icon = Icons.school;
       break;
     case "LAZER":
       icon = Icons.insert_emoticon;
@@ -33,7 +36,7 @@ IconData returnIconByCategory(String category) {
     case "SAÚDE":
       icon = Icons.favorite;
       break;
-      case "SAUDE":
+    case "SAUDE":
       icon = Icons.favorite;
       break;
     case "UP":
@@ -56,26 +59,29 @@ class PieChartModel {
   PieChartModel(this.ref, this.value, this.description);
 }
 
-List<charts.Series<PieChartModel, int>> createPieMainDashChartData(List listOfValues) {
-    List<PieChartModel> data = [
-    ];
-    int index = 0;
-    for (var item in listOfValues) {
-      data.add(PieChartModel(index++, double.parse(item['value'].toString()), item['description']),);
-    }
-
-    return [
-      new charts.Series<PieChartModel, int>(
-        id: 'proporcaoGastos',
-        domainFn: (PieChartModel sales, _) => sales.ref,
-        measureFn: (PieChartModel sales, _) => sales.value,
-        data: data,
-        labelAccessorFn: (PieChartModel row, _) => '${row.description}',
-      )
-    ];
+List<charts.Series<PieChartModel, int>> createPieMainDashChartData(
+    List listOfValues) {
+  List<PieChartModel> data = [];
+  int index = 0;
+  for (var item in listOfValues) {
+    data.add(
+      PieChartModel(
+          index++, double.parse(item['value'].toString()), item['description']),
+    );
   }
 
-Color getColors({String colorName}){
+  return [
+    new charts.Series<PieChartModel, int>(
+      id: 'proporcaoGastos',
+      domainFn: (PieChartModel sales, _) => sales.ref,
+      measureFn: (PieChartModel sales, _) => sales.value,
+      data: data,
+      labelAccessorFn: (PieChartModel row, _) => '${row.description}',
+    )
+  ];
+}
+
+Color getColors({String colorName}) {
   switch (colorName) {
     case "blue":
       return Color.fromARGB(255, 3, 40, 80);
@@ -95,16 +101,15 @@ Color getColors({String colorName}){
   return Color.fromARGB(255, 3, 40, 80);
 }
 
-
-Map<String, Color> getThemeColors(){
+Map<String, Color> getThemeColors() {
   String currentTheme = Prefs.singleton().getTheme();
   Map<String, Color> collorPallete = new Map();
-  if (currentTheme == "Dark"){
+  if (currentTheme == "Dark") {
     collorPallete['background'] = getColors(colorName: "blue");
     collorPallete['card_background'] = getColors(colorName: "blue");
     collorPallete['textColor'] = getColors(colorName: "soft_white");
     collorPallete['borderColor'] = getColors(colorName: "soft_white");
-  }else{
+  } else {
     collorPallete['background'] = getColors(colorName: "soft_white");
     collorPallete['card_background'] = getColors(colorName: "white");
     collorPallete['textColor'] = getColors(colorName: "blue");
@@ -113,4 +118,11 @@ Map<String, Color> getThemeColors(){
   return collorPallete;
 }
 
-var numberFormat = NumberFormat.simpleCurrency(locale: "BRL", name: "BRL", decimalDigits: 2);
+Future<String> getUserName() async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  var userJson = localStorage.getString("user");
+  return jsonDecode(userJson)['nome'];
+}
+
+var numberFormat =
+    NumberFormat.simpleCurrency(locale: "BRL", name: "BRL", decimalDigits: 2);

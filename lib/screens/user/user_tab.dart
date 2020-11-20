@@ -1,7 +1,13 @@
+import 'dart:convert';
+import 'dart:ffi';
+
+import 'package:controlegastos/controllers/request.dart';
 import 'package:controlegastos/controllers/theme.dart';
 import 'package:controlegastos/controllers/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:controlegastos/controllers/routes.dart' as Routes;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserTab extends StatefulWidget {
   @override
@@ -15,6 +21,8 @@ class _UserTabState extends State<UserTab> {
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+  var userName = "";
+
   @override
   void initState() {
     super.initState();
@@ -24,16 +32,13 @@ class _UserTabState extends State<UserTab> {
     } else {
       isSwitched = false;
     }
-  }
-
-  void getTheme() {
-    Map<String, Color> pallete = getThemeColors();
-    backgroundColor = pallete['background'];
+    getName();
   }
 
   @override
   Widget build(BuildContext context) {
     getTheme();
+    getName();
     return Container(
       color: backgroundColor,
       child: SingleChildScrollView(
@@ -92,7 +97,7 @@ class _UserTabState extends State<UserTab> {
                         obscureText: true,
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(16.0),
-                          labelText: "Senha",
+                          labelText: "Senha (Informe apenas se for alterá-la)",
                           labelStyle: TextStyle(
                             color: getColors(colorName: "blue"),
                           ),
@@ -102,15 +107,13 @@ class _UserTabState extends State<UserTab> {
                         ),
                         controller: passwordController,
                         validator: (value) {
-                          if (value.isEmpty) {
-                            return "Este atributo é obrigatório";
-                          }
-                          if (value.toString().length < 8) {
+                          if (value.toString().length > 0 &&
+                              value.toString().length < 8) {
                             return "Necesário mais que 8 caracteres";
                           }
                           return null;
                         },
-                        autovalidateMode: AutovalidateMode.always,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                       ),
                       SizedBox(
                         height: 20.0,
@@ -145,11 +148,34 @@ class _UserTabState extends State<UserTab> {
                       RaisedButton(
                         onPressed: () {
                           if (formKey.currentState.validate()) {
-                            Scaffold.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Sending updates"),
-                              ),
-                            );
+                            var formDto = <String, dynamic>{};
+                            formDto['name'] = nameController.text;
+                            if (passwordController.text.length > 0) {
+                              formDto['password'] = passwordController.text;
+                            }
+                            displaySnackbar(context, "Processando", "info");
+                            putDataFromAPI(
+                                    Routes.getRoute('update_user'), formDto)
+                                .then(
+                              (_) => {
+                                displaySnackbar(
+                                  context,
+                                  "Atualizado com sucesso",
+                                  "success",
+                                ),
+                                updateUserOnStorage(json.encode(_['user'])),
+                                passwordController.text = "",
+                                confirmPasswordController.text = "",
+                                getName(),
+                              },
+                            )
+                                .catchError((Exception) {
+                              displaySnackbar(
+                                context,
+                                "Houve um problema na atualização",
+                                "error",
+                              );
+                            });
                           }
                         },
                         color: getColors(colorName: "blue"),
@@ -217,6 +243,43 @@ class _UserTabState extends State<UserTab> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  void getName() {
+    getUserName().then((value) => userName = value);
+    setState(() {});
+    nameController.text = userName;
+  }
+
+  void getTheme() {
+    Map<String, Color> pallete = getThemeColors();
+    backgroundColor = pallete['background'];
+  }
+
+  void updateUserOnStorage(String user) {
+    SharedPreferences.getInstance().then(
+      (value) => {value.setString('user', user)},
+    );
+  }
+
+  void displaySnackbar(BuildContext context, String message, String status) {
+    Color bgColor = (status == "info")
+        ? Colors.blue
+        : (status == "error")
+            ? Colors.red
+            : Colors.green[900];
+    Scaffold.of(context).hideCurrentSnackBar();
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: bgColor,
+        content: Text(
+          "$message",
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
     );
