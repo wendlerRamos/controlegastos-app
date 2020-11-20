@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+
 part 'movimentation.g.dart';
 
 class Movimentation = _MovimentationBase with _$Movimentation;

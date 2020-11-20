@@ -1,11 +1,11 @@
-import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/controllers/routes.dart';
+import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/navigation_screen.dart';
 import 'package:controlegastos/screens/auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:splashscreen/splashscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 void main() => runApp(MyApp());
 

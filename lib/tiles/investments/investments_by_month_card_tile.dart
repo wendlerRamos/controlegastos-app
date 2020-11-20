@@ -1,9 +1,9 @@
 import 'package:controlegastos/controllers/request.dart';
+import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/models/chart_investments_model.dart';
 import 'package:controlegastos/tiles/investments/historic_of_economy_chart_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:controlegastos/controllers/routes.dart' as Routes;
 
 class InvestmentsByMonthTile extends StatefulWidget {
   final Color textColor;

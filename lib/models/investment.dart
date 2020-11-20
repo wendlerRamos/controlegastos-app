@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+
 part 'investment.g.dart';
 
 class Investment = _InvestmentBase with _$Investment;

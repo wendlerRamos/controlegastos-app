@@ -1,13 +1,13 @@
 import 'package:controlegastos/controllers/format_number.dart';
 import 'package:controlegastos/controllers/request.dart';
+import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/models/investment_tile_model.dart';
 import 'package:controlegastos/tiles/investments/investment_item_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:intl/intl.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class ShowGoalScreen extends StatefulWidget {
   final int goalId;

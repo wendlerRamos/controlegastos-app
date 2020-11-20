@@ -1,10 +1,10 @@
+import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/tiles/investments/InvestmentsPlacesBlockTile.dart';
 import 'package:controlegastos/tiles/investments/dashboard_header_tile.dart';
 import 'package:controlegastos/tiles/investments/goal_card_dash_tile.dart';
 import 'package:controlegastos/tiles/investments/investments_by_month_card_tile.dart';
 import 'package:controlegastos/tiles/investments/investments_dashboard_resume_block_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:controlegastos/controllers/util.dart';
 
 class InvestmentsDashboardTab extends StatefulWidget {
   @override

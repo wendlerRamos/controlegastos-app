@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/screens/auth/login.dart';
 import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
@@ -8,8 +10,6 @@ import 'package:controlegastos/screens/investments/investments_dashboard_tab.dar
 import 'package:controlegastos/screens/temp_working_progress_screen.dart';
 import 'package:controlegastos/screens/user/user_tab.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'controllers/api.dart';

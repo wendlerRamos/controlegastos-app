@@ -1,9 +1,8 @@
 import 'package:controlegastos/controllers/format_number.dart';
 import 'package:controlegastos/controllers/request.dart';
-import 'package:controlegastos/controllers/util.dart';
+import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:controlegastos/screens/investments/show_last_investments_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:controlegastos/controllers/routes.dart' as Routes;
 
 class InvestmentsDashboardResumeBlockTile extends StatefulWidget {
   final Color textColor;

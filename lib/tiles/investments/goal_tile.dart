@@ -1,8 +1,8 @@
 import 'package:controlegastos/controllers/format_number.dart';
 import 'package:controlegastos/screens/investments/show_goal_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:intl/intl.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 GestureDetector buildItemMeta({
   Color backgroundColor,
