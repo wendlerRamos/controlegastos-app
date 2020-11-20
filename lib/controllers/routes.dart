@@ -21,6 +21,7 @@ const ROUTES = {
   "investments_movements": "/api/v1/investments/movements",
   "investments_goal_details": "/api/v1/investments/goal",
   "update_user": "/api/v1/users",
+  "movements": "/api/v1/movements",
 };
 
 String getRoute(String routeName) {

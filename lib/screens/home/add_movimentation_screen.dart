@@ -1,10 +1,14 @@
+import 'package:controlegastos/controllers/request.dart';
+import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:controlegastos/widgets/date_picker_input.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AddMovimentationScreen extends StatefulWidget {
   final Map<String, dynamic> data;
+
   const AddMovimentationScreen({Key key, this.data}) : super(key: key);
+
   @override
   _AddMovimentationScreenState createState() => _AddMovimentationScreenState();
 }
@@ -12,14 +16,18 @@ class AddMovimentationScreen extends StatefulWidget {
 enum MovimentationType { receita, despesa }
 
 class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final format = DateFormat("dd/MM/yyyy");
   final _formKey = GlobalKey<FormState>();
 
-  MovimentationType _character = MovimentationType.despesa;
+  MovimentationType movementType = MovimentationType.despesa;
   String movimentationDescription = 'MERCADO';
-  String paymentType = "CRÉDITO";
+  String paymentType = "CREDITO";
+
+  var customDescriptionController = TextEditingController();
+  var valueController = TextEditingController();
+  var dateController = TextEditingController();
+
   bool isOtherSelected = false;
   Color _backgroundColor;
   double valor;
@@ -28,13 +36,12 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
   @override
   void initState() {
     super.initState();
-    if(widget.data != null){
-      if(widget.data['tipo'] == "RECEITA"){
-        _character = MovimentationType.receita;
-      }else{
-        _character = MovimentationType.despesa;
+    if (widget.data != null) {
+      if (widget.data['tipo'] == "RECEITA") {
+        movementType = MovimentationType.receita;
+      } else {
+        movementType = MovimentationType.despesa;
       }
-      //formattedDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
       movimentationDescription = widget.data['descricao'];
       paymentType = widget.data['tipo_pgto'];
       isOtherSelected = false;
@@ -45,11 +52,11 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (_character == MovimentationType.despesa) {
+    if (movementType == MovimentationType.despesa) {
       _backgroundColor = Colors.red[900];
     } else {
       _backgroundColor = Colors.green[900];
-    } 
+    }
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -70,35 +77,40 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                   Radio(
                     activeColor: Colors.white,
                     value: MovimentationType.despesa,
-                    groupValue: _character,
+                    groupValue: movementType,
                     onChanged: (MovimentationType value) {
                       setState(() {
-                        _character = value;
+                        movementType = value;
                       });
                     },
                   ),
-                  Text('Despesa',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.white,
-                      )),
-                  SizedBox( 
+                  Text(
+                    'Despesa',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
                     width: 20.0,
                   ),
                   Radio(
                     activeColor: Colors.white,
                     value: MovimentationType.receita,
-                    groupValue: _character,
+                    groupValue: movementType,
                     onChanged: (MovimentationType value) {
                       setState(() {
-                        _character = value;
+                        movementType = value;
                         movimentationDescription = "RECEITA";
                       });
                     },
                   ),
                   Text(
                     'Receita',
-                    style: TextStyle(fontSize: 20.0, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
@@ -114,14 +126,14 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                     flex: 2,
                   ),
                   Expanded(
-                    flex: 10,
+                    flex: 15,
                     child: Text(
                       "Descrição",
                       style: TextStyle(
                         color: Colors.white54,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               Row(
@@ -129,24 +141,25 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                   Expanded(
                     flex: 2,
                     child: Container(
-                        padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-                        margin: const EdgeInsets.only(right: 8.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30.0),
-                            bottomLeft: Radius.circular(30.0),
-                            topRight: Radius.circular(30.0),
-                            bottomRight: Radius.circular(10.0),
-                          ),
+                      padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                      margin: const EdgeInsets.only(right: 8.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          bottomLeft: Radius.circular(30.0),
+                          topRight: Radius.circular(30.0),
+                          bottomRight: Radius.circular(10.0),
                         ),
-                        child: Icon(
-                          Icons.description,
-                          color: _backgroundColor,
-                        )),
+                      ),
+                      child: Icon(
+                        Icons.description,
+                        color: _backgroundColor,
+                      ),
+                    ),
                   ),
                   Expanded(
-                    flex: 10,
+                    flex: 15,
                     child: DropdownButton<String>(
                       value: movimentationDescription,
                       icon: Icon(
@@ -167,23 +180,15 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                           movimentationDescription = newValue;
                           if (newValue == "OUTRO") {
                             isOtherSelected = true;
+                            customDescriptionController.text = "";
                           } else {
                             isOtherSelected = false;
                           }
                         });
                       },
                       dropdownColor: _backgroundColor,
-                      items: <String>[
-                        'MERCADO',
-                        'ALIMENTAÇÃO',
-                        'TRANSPORTE',
-                        'CONTA',
-                        'LAZER',
-                        'SAÚDE',
-                        'EDUCAÇÃO',
-                        'RECEITA',
-                        'OUTRO'
-                      ].map<DropdownMenuItem<String>>((String value) {
+                      items: getListOfDescriptionType()
+                          .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -194,32 +199,37 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                 ],
               ),
               SizedBox(
-                height: 5.0,
+                height: 8.0,
               ),
               Visibility(
                 visible: isOtherSelected,
                 child: TextFormField(
+                  controller: customDescriptionController,
                   style: TextStyle(
                     color: Colors.white,
                   ),
                   decoration: InputDecoration(
+                    errorStyle: TextStyle(
+                      color: Colors.white,
+                    ),
                     contentPadding: const EdgeInsets.all(16.0),
                     prefixIcon: Container(
-                        padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-                        margin: const EdgeInsets.only(right: 8.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30.0),
-                            bottomLeft: Radius.circular(30.0),
-                            topRight: Radius.circular(30.0),
-                            bottomRight: Radius.circular(10.0),
-                          ),
+                      padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                      margin: const EdgeInsets.only(right: 8.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          bottomLeft: Radius.circular(30.0),
+                          topRight: Radius.circular(30.0),
+                          bottomRight: Radius.circular(10.0),
                         ),
-                        child: Icon(
-                          Icons.description,
-                          color: _backgroundColor,
-                        )),
+                      ),
+                      child: Icon(
+                        Icons.description,
+                        color: _backgroundColor,
+                      ),
+                    ),
                     labelText: "Descrição diferente (opcional)",
                     labelStyle: TextStyle(color: Colors.white54),
                     border: OutlineInputBorder(
@@ -238,17 +248,19 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                 height: 20.0,
               ),
               TextFormField(
+                controller: valueController,
                 keyboardType: TextInputType.number,
                 style: TextStyle(color: Colors.white),
-                initialValue: "$valor",
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(16.0),
+                  errorStyle: TextStyle(
+                    color: Colors.white,
+                  ),
                   prefixIcon: Container(
                     padding: const EdgeInsets.only(
                       top: 16.0,
                       bottom: 16.0,
                     ),
-                    
                     margin: const EdgeInsets.only(
                       right: 8.0,
                     ),
@@ -280,6 +292,11 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Preencha este campo !';
+                  } else if (double.tryParse(value.replaceAll(",", ".")) ==
+                      null) {
+                    return "Isto não é um número !";
+                  } else if (double.tryParse(value) == 0) {
+                    return 'Não pode ser zero !';
                   }
                   return null;
                 },
@@ -290,6 +307,9 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
               BasicDateField(
                 backgroundColor: _backgroundColor,
                 defaultValue: dateTime,
+                controller: dateController,
+                isRequired: true,
+                errorStyle: TextStyle(color: Colors.white),
               ),
               SizedBox(
                 height: 20.0,
@@ -303,7 +323,7 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                     flex: 2,
                   ),
                   Expanded(
-                    flex: 10,
+                    flex: 15,
                     child: Text(
                       "Tipo de pagamento",
                       style: TextStyle(
@@ -318,29 +338,30 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                   Expanded(
                     flex: 2,
                     child: Container(
-                        padding: const EdgeInsets.only(
-                          top: 16.0,
-                          bottom: 16.0,
+                      padding: const EdgeInsets.only(
+                        top: 16.0,
+                        bottom: 16.0,
+                      ),
+                      margin: const EdgeInsets.only(
+                        right: 8.0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          bottomLeft: Radius.circular(30.0),
+                          topRight: Radius.circular(30.0),
+                          bottomRight: Radius.circular(10.0),
                         ),
-                        margin: const EdgeInsets.only(
-                          right: 8.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30.0),
-                            bottomLeft: Radius.circular(30.0),
-                            topRight: Radius.circular(30.0),
-                            bottomRight: Radius.circular(10.0),
-                          ),
-                        ),
-                        child: Icon(
-                          Icons.payment,
-                          color: _backgroundColor,
-                        ),),
+                      ),
+                      child: Icon(
+                        Icons.payment,
+                        color: _backgroundColor,
+                      ),
+                    ),
                   ),
                   Expanded(
-                    flex: 10,
+                    flex: 15,
                     child: DropdownButton<String>(
                       value: paymentType,
                       icon: Icon(
@@ -360,14 +381,8 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                         });
                       },
                       dropdownColor: _backgroundColor,
-                      items: <String>[
-                        'CREDITO',
-                        'DEBITO',
-                        'DINHEIRO',
-                        'TRANSFERENCIA',
-                        'DEPOSITO',
-                        'OUTRO',
-                      ].map<DropdownMenuItem<String>>((String value) {
+                      items: getListOfPaymentType()
+                          .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -388,11 +403,37 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                       color: Colors.white,
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          _scaffoldKey.currentState.showSnackBar(
-                            SnackBar(
-                              content: Text('Processando ... '),
-                            ),
+                          var formDto = <String, dynamic>{};
+                          formDto['tipo'] = getMovementType();
+                          formDto['descricao'] = getDescription();
+                          formDto['data'] = getDate();
+                          formDto['valor'] =
+                              valueController.text.replaceAll(",", ".");
+                          formDto['tipo_pgto'] = paymentType;
+                          displaySnackbar(
+                            context,
+                            "Processando",
+                            "info",
                           );
+                          postDataFromAPI(Routes.getRoute('movements'), formDto)
+                              .then(
+                                (_) =>
+                            {
+                              displaySnackbar(
+                                context,
+                                "Movimentação criada com sucesso",
+                                "success",
+                              ),
+                            },
+                          )
+                          // ignore: non_constant_identifier_names
+                              .catchError((Exception) {
+                            displaySnackbar(
+                              context,
+                              "Houve um problema ao inserir",
+                              "error",
+                            );
+                          });
                         }
                       },
                       child: Text(
@@ -407,6 +448,76 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                 ],
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  String getDescription() {
+    if (movimentationDescription == "OUTRO") {
+      return (customDescriptionController.text.isEmpty)
+          ? movimentationDescription
+          : customDescriptionController.text;
+    }
+    return movimentationDescription;
+  }
+
+  String getMovementType(){
+    if(movementType == MovimentationType.despesa){
+      return "DESPESA";
+    }
+    return "RECEITA";
+  }
+
+  String getDate() {
+    var format = DateFormat("dd/MM/yyyy");
+    if (dateController.text.isNotEmpty) {
+      return format.parse(dateController.text).toString();
+    }
+    return null;
+  }
+
+  List<String> getListOfPaymentType() {
+    return <String>[
+      'CREDITO',
+      'DEBITO',
+      'DINHEIRO',
+      'TRANSFERENCIA',
+      'DEPOSITO',
+      'OUTRO',
+    ];
+  }
+
+  List<String> getListOfDescriptionType() {
+    return <String>[
+      'MERCADO',
+      'ALIMENTAÇÃO',
+      'TRANSPORTE',
+      'CONTA',
+      'LAZER',
+      'SAÚDE',
+      'EDUCAÇÃO',
+      'RECEITA',
+      'OUTRO'
+    ];
+  }
+
+  void displaySnackbar(BuildContext scaffoldContext, String message,
+      String status) {
+    Color bgColor = (status == "info")
+        ? Colors.blue
+        : (status == "error")
+        ? Colors.red
+        : Colors.green[900];
+    _scaffoldKey.currentState.hideCurrentSnackBar();
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        backgroundColor: bgColor,
+        content: Text(
+          "$message",
+          style: TextStyle(
+            color: Colors.white, fontSize: 18.0,
           ),
         ),
       ),

@@ -48,8 +48,6 @@ class _InvestmentsDashboardResumeBlockTileState
         setState(() {});
       },
       onTap: () {
-        // ignore: todo
-        //TODO Open a new screen here =)
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => ShowLastInvestmentsScreen(),
