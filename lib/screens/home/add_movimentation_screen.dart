@@ -403,18 +403,7 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                       color: Colors.white,
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          var formDto = <String, dynamic>{};
-                          formDto['tipo'] = getMovementType();
-                          formDto['descricao'] = getDescription();
-                          formDto['data'] = getDate();
-                          formDto['valor'] =
-                              valueController.text.replaceAll(",", ".");
-                          formDto['tipo_pgto'] = paymentType;
-                          displaySnackbar(
-                            context,
-                            "Processando",
-                            "info",
-                          );
+                          Map<String, dynamic> formDto = getDTO(context);
                           postDataFromAPI(Routes.getRoute('movements'), formDto)
                               .then(
                                 (_) =>
@@ -452,6 +441,22 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
         ),
       ),
     );
+  }
+
+  Map<String, dynamic> getDTO(BuildContext context) {
+    var formDto = <String, dynamic>{};
+    formDto['tipo'] = getMovementType();
+    formDto['descricao'] = getDescription();
+    formDto['data'] = getDate();
+    formDto['valor'] =
+        valueController.text.replaceAll(",", ".");
+    formDto['tipo_pgto'] = paymentType;
+    displaySnackbar(
+      context,
+      "Processando",
+      "info",
+    );
+    return formDto;
   }
 
   String getDescription() {
