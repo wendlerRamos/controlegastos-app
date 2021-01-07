@@ -1,13 +1,15 @@
+import 'dart:convert';
+
+import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/dummy_data/movimentation.dart';
 import 'package:controlegastos/models/movimentation.dart';
 import 'package:controlegastos/widgets/charts/proportion_pie.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import '../screens/home/add_movimentation_screen.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:controlegastos/controllers/routes.dart' as Routes;
+import 'package:intl/intl.dart';
+
+import '../screens/home/add_movimentation_screen.dart';
 
 String request = Routes.getRoute('home_dash_main_info');
 var numberFormat =NumberFormat.simpleCurrency(locale: "BRL",);

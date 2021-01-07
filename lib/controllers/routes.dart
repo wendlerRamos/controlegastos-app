@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 
-//const host = "http://192.168.0.12:8000";
-const host = "https://controledegastos.herokuapp.com";
+const host = "http://192.168.0.12:8000";
+//const host = "https://controledegastos.herokuapp.com";
 const ROUTES = {
   "teste": "/api/v1/teste",
   "user_information": "/api/v1/user",
@@ -22,6 +22,7 @@ const ROUTES = {
   "investments_goal_details": "/api/v1/investments/goal",
   "update_user": "/api/v1/users",
   "movements": "/api/v1/movements",
+  "get_goals": "/api/v1/investments/goals",
 };
 
 String getRoute(String routeName) {
@@ -41,6 +42,7 @@ Future<bool> checkIfTokenIsValid() async {
 
 class ScaleRoute extends PageRouteBuilder {
   final Widget page;
+
   ScaleRoute({this.page})
       : super(
           pageBuilder: (
@@ -72,6 +74,7 @@ class ScaleRoute extends PageRouteBuilder {
 
 class SizeRoute extends PageRouteBuilder {
   final Widget page;
+
   SizeRoute({this.page})
       : super(
           pageBuilder: (

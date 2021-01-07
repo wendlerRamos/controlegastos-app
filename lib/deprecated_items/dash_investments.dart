@@ -1,7 +1,6 @@
 import 'package:controlegastos/deprecated_items/widgets/block_item.dart';
 import 'package:controlegastos/deprecated_items/widgets/header.dart';
 import 'package:controlegastos/tiles/investments/goal_tile.dart';
-import 'package:controlegastos/tiles/investments/place_tile.dart';
 import 'package:controlegastos/widgets/charts/investments_by_month.dart';
 import 'package:flutter/material.dart';
 

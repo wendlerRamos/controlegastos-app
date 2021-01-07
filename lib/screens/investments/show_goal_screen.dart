@@ -322,12 +322,8 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              subtitle: Text(
-                                "${goal['prioridade']} / 10",
-                                style: TextStyle(
-                                  color: textColor,
-                                ),
-                              ),
+                              subtitle: priorityItem(
+                                  double.tryParse(goal['prioridade'])),
                               leading: Icon(
                                 Icons.priority_high,
                                 color: iconColor,
@@ -535,6 +531,35 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
           investmentData: investmentModel,
         );
       },
+    );
+  }
+
+  Row priorityItem(double valor) {
+    valor = valor / 2;
+    List<Widget> stars = [];
+    Color startColor = getColors(colorName: "orange");
+    for (var i = 0; valor - i > 0; i++) {
+      if (valor - i < 1) {
+        stars.add(
+          Icon(
+            Icons.star_half,
+            color: startColor,
+            size: 14,
+          ),
+        );
+      } else {
+        stars.add(
+          Icon(
+            Icons.star,
+            color: startColor,
+            size: 14,
+          ),
+        );
+      }
+    }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: stars,
     );
   }
 }
