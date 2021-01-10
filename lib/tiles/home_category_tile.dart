@@ -120,7 +120,7 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
                 'Toque para tentar novamente',
                 style: TextStyle(
                   color: contentColor,
-                  fontSize: 12,
+                  fontSize: 10,
                 ),
               ),
             ],
@@ -180,7 +180,7 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
                 Expanded(
                   child: Icon(
                     widget.itemIcon,
-                    size: 40.0,
+                    size: 35.0,
                     color: contentColor,
                   ),
                   flex: 1,
@@ -195,7 +195,7 @@ class _HomeCategoryTileState extends State<HomeCategoryTile> {
                         numberFormat.format(data['valor']),
                         textAlign: TextAlign.end,
                         style: TextStyle(
-                          fontSize: (data['valor'] < 1000) ? 30.0 : 20.0,
+                          fontSize: (data['valor'] < 1000) ? 20.0 : 18.0,
                           color: contentColor,
                           fontWeight: FontWeight.bold,
                         ),

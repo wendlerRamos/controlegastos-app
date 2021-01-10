@@ -140,7 +140,7 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                 style: TextStyle(
                   color: getColors(colorName: "blue"),
                   fontWeight: FontWeight.bold,
-                  fontSize: 30.0,
+                  fontSize: 25.0,
                 ),
               ),
               Divider(
@@ -163,10 +163,10 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                       style: TextStyle(
                         color: getColors(colorName: "blue"),
                         fontWeight: FontWeight.bold,
-                        fontSize: (data['valor_receita'] > 10000) ? 25.0 : 35.0,
+                        fontSize: (data['valor_receita'] > 10000) ? 25.0 : 28.0,
                       ),
                     ),
-                    flex: 5,
+                    flex: 6,
                   ),
                   Expanded(
                     child: Text(
@@ -175,10 +175,10 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                       style: TextStyle(
                         color: earningsLabel,
                         fontStyle: FontStyle.italic,
-                        fontSize: (percentEarnings > 1000) ? 14.0 : 18.0,
+                        fontSize: (percentEarnings > 1000) ? 12.0 : 15.0,
                       ),
                     ),
-                    flex: 5,
+                    flex: 4,
                   ),
                 ],
               ),
@@ -203,10 +203,10 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                       style: TextStyle(
                         color: getColors(colorName: "blue"),
                         fontWeight: FontWeight.bold,
-                        fontSize: (data['valor_gasto'] > 10000 ? 25.0 : 35.0),
+                        fontSize: (data['valor_gasto'] > 10000 ? 25.0 : 28.0),
                       ),
                     ),
-                    flex: 5,
+                    flex: 6,
                   ),
                   Expanded(
                     child: Text(
@@ -215,10 +215,10 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
                       style: TextStyle(
                         color: expansesLabel,
                         fontStyle: FontStyle.italic,
-                        fontSize: (percentExpanses > 1000) ? 14.0 : 18.0,
+                        fontSize: (percentExpanses > 1000) ? 12.0 : 15.0,
                       ),
                     ),
-                    flex: 5,
+                    flex: 4,
                   ),
                 ],
               ),

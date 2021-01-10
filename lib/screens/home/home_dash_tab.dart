@@ -63,7 +63,7 @@ class _HomeDashTabState extends State<HomeDashTab> {
                     style: TextStyle(
                       color: getColors(colorName: "blue"),
                       fontWeight: FontWeight.bold,
-                      fontSize: 30.0,
+                      fontSize: 25.0,
                     ),
                   ),
                   Divider(
