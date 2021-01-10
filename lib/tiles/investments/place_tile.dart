@@ -9,7 +9,6 @@ Container buildLocalTile(
       child: Container(
         padding: const EdgeInsets.all(8.0),
         margin: const EdgeInsets.only(right: 5.0),
-        height: 80.0,
         width: 100.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),

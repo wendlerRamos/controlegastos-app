@@ -39,7 +39,7 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
       color: backgroundColor,
       child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             DashboardHeaderTile(),
             InvestmentsDashboardResumeBlockTile(

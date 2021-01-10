@@ -25,18 +25,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="27b1572f-f074-4b80-8db9-24974f9d2ea6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/screens/investments/list_goals_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controllers/routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/routes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/deprecated_items/dash.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/deprecated_items/dash.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/deprecated_items/dash_investments.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/deprecated_items/dash_investments.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/tiles/investments/goal_card_dash_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/tiles/investments/goal_card_dash_tile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="27b1572f-f074-4b80-8db9-24974f9d2ea6" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,10 +93,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="917" y="288" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1605914333228" />
-    <state x="92" y="92" width="1736" height="856" key="AVDManager" timestamp="1609930032519">
+    <state x="92" y="92" width="1736" height="856" key="AVDManager" timestamp="1610320195913">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="92" y="92" width="1736" height="856" key="AVDManager/0.0.1920.1040@0.0.1920.1040" timestamp="1609930032519" />
+    <state x="92" y="92" width="1736" height="856" key="AVDManager/0.0.1920.1040@0.0.1920.1040" timestamp="1610320195913" />
     <state x="579" y="270" key="AndroidProcessChooserDialog" timestamp="1605912738828">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -117,15 +117,11 @@ class _NavigationScreenState extends State<NavigationScreen>
         },
         controller: pageController,
         children: <Widget>[
-          Center(
-            child: HomeDashTab(),
-          ),
+          HomeDashTab(),
           Center(
             child: WorkingProgressScreen(),
           ),
-          Center(
-            child: InvestmentsDashboardTab(),
-          ),
+          InvestmentsDashboardTab(),
           UserTab(),
         ],
       ),

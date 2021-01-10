@@ -46,7 +46,6 @@ class _GoalCardDashTileState extends State<GoalCardDashTile> {
     int size = metas.length;
     return Container(
       margin: EdgeInsets.all(8.0),
-      height: 270.0,
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
