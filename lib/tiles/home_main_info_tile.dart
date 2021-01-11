@@ -22,6 +22,7 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
           case ConnectionState.waiting:
             return Expanded(
               child: Card(
+                color: getColors(colorName: "white"),
                 child: Center(
                   child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(
@@ -53,6 +54,7 @@ class _HomeMainInfoTileState extends State<HomeMainInfoTile> {
           setState(() {});
         },
         child: Card(
+          color: getColors(colorName: "white"),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -46,6 +46,7 @@ class _UserTabState extends State<UserTab> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Card(
+              color: getColors(colorName: "white"),
               child: Padding(
                 padding: EdgeInsets.all(5.0),
                 child: Form(
@@ -57,6 +58,7 @@ class _UserTabState extends State<UserTab> {
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
+                          color: getColors(colorName: "blue"),
                         ),
                       ),
                       Divider(
@@ -193,6 +195,7 @@ class _UserTabState extends State<UserTab> {
               ),
             ),
             Card(
+              color: getColors(colorName: "white"),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -201,6 +204,7 @@ class _UserTabState extends State<UserTab> {
                     style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
+                      color: getColors(colorName: "blue"),
                     ),
                   ),
                   Switch(
@@ -236,6 +240,7 @@ class _UserTabState extends State<UserTab> {
                     style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
+                      color: getColors(colorName: "blue"),
                     ),
                   ),
                 ],
