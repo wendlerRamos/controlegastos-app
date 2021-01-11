@@ -24,6 +24,11 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
     getTheme();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   void getTheme() {
     Map<String, Color> pallete = getThemeColors();
     backgroundColor = pallete['background'];

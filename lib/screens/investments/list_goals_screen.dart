@@ -15,7 +15,6 @@ class _ListGoalsScreenState extends State<ListGoalsScreen> {
   Color cardBackground;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     var colors = getThemeColors();
     backgroundColor = getColors(colorName: "soft_white");
@@ -26,7 +25,18 @@ class _ListGoalsScreenState extends State<ListGoalsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Row(
+          children: <Widget>[
+            Icon(Icons.monetization_on),
+            SizedBox(
+              width: 10.0,
+            ),
+            Text('METAS')
+          ],
+        ),
+        backgroundColor: getColors(colorName: "blue"),
+      ),
       backgroundColor: backgroundColor,
       body: Container(
         child: FutureBuilder(
@@ -55,19 +65,8 @@ class _ListGoalsScreenState extends State<ListGoalsScreen> {
     final metas = items['metas'];
     return Column(
       children: [
-        /*
-            Expanded(
-              child: Card(
-                //color: Colors.red,
-                child: Container(),
-              ),
-              flex: 1,
-            ),
-            */
-
         Expanded(
           child: Container(
-            //color: Colors.black,
             child: ListView.builder(
               itemCount: metas.length,
               itemBuilder: (context, index) {

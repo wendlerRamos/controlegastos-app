@@ -27,7 +27,16 @@ class _ShowLastInvestmentsScreenState extends State<ShowLastInvestmentsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("LISTAR INVESTIMENTOS"),
+        title: Row(
+          children: <Widget>[
+            Icon(Icons.monetization_on),
+            SizedBox(
+              width: 10.0,
+            ),
+            Text('LISTAR INVESTIMENTOS')
+          ],
+        ),
+        backgroundColor: getColors(colorName: "blue"),
       ),
       backgroundColor: colors['background'],
       floatingActionButton: FloatingActionButton(
