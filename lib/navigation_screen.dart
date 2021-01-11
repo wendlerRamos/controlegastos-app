@@ -147,6 +147,7 @@ class _NavigationScreenState extends State<NavigationScreen>
                 pageController.jumpToPage(value);
               },
               activeColor: _colorBlue,
+              backgroundColor: getColors(colorName: "white"),
             );
           }),
     );
