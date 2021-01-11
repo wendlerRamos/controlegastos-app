@@ -54,7 +54,7 @@ GestureDetector buildItemMeta({
                       ),
                     ),
                     Text(
-                      'Este mês\n${FormatNumberToMoney.parseNumber(data['valor_atual'])}',
+                      'Este mês\n${FormatNumberToMoney.parseNumber(data['valor_recente'])}',
                       style: TextStyle(
                         color: Colors.green,
                         fontSize: 10.0,

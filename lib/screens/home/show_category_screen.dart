@@ -309,15 +309,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
         Expanded(
           child: Container(
             margin: EdgeInsets.all(5.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: backgroundColor,
-              border: Border.all(
-                color: borderColor,
-                width: 2.0,
-              ),
-            ),
-            padding: EdgeInsets.all(10.0),
+            color: backgroundColor,
             child: itemListView(items),
           ),
         ),
