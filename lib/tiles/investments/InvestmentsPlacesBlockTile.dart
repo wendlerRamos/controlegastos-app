@@ -1,6 +1,7 @@
 import 'package:controlegastos/controllers/request.dart';
 import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:controlegastos/controllers/util.dart';
+import 'package:controlegastos/screens/investments/show_locals_screen.dart';
 import 'package:controlegastos/tiles/investments/place_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -149,9 +150,9 @@ class _InvestmentsPlacesBlockTileState
                   flex: 1,
                   child: RaisedButton(
                     onPressed: () {
-                      Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("Tela incompleta"),
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ShowLocalsScreen(),
                         ),
                       );
                     },

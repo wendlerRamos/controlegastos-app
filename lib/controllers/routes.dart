@@ -23,6 +23,7 @@ const ROUTES = {
   "update_user": "/api/v1/users",
   "movements": "/api/v1/movements",
   "get_goals": "/api/v1/investments/goals",
+  "get_investments_places": "/api/v1/investments/places",
 };
 
 String getRoute(String routeName) {
