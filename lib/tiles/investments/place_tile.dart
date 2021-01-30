@@ -33,7 +33,7 @@ Container buildLocalTile(
               style: TextStyle(
                 color: Color.fromARGB(255, 3, 40, 80),
                 fontWeight: FontWeight.bold,
-                fontSize: (data['total'] < 10000) ? 20.0 : 15.0,
+                fontSize: (data['total'] < 10000) ? 18.0 : 15.0,
               ),
             ),
             Row(

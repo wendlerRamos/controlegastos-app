@@ -4,12 +4,9 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 
-const host = "http://192.168.0.12:8000";
-//const host = "https://controledegastos.herokuapp.com";
 const ROUTES = {
   "teste": "/api/v1/teste",
   "user_information": "/api/v1/user",
-  "movimentations_list": "$host/teste/movs",
   "home_dash_main_info": "/api/v1/movimentations/get_resume",
   "home_dash_main_info_details": "/api/v1/movimentations/get_movimentations/",
   "home_dash_category_resume": "/api/v1/movimentations/category/",
@@ -27,7 +24,6 @@ const ROUTES = {
 };
 
 String getRoute(String routeName) {
-  //print(ROUTES);
   return ROUTES[routeName];
 }
 
