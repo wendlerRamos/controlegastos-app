@@ -9,9 +9,10 @@ class InvestmentsByMonthTile extends StatefulWidget {
   final Color textColor;
   final Color backgroundColor;
   final Color borderColor;
+  final String route;
 
   const InvestmentsByMonthTile(
-      {Key key, this.textColor, this.backgroundColor, this.borderColor})
+      {Key key, this.textColor, this.backgroundColor, this.borderColor, this.route})
       : super(key: key);
 
   @override
@@ -22,7 +23,7 @@ class _InvestmentsByMonthTileState extends State<InvestmentsByMonthTile> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getDataFromAPI(Routes.getRoute('investments_dash_chart_by_month')),
+      future: getDataFromAPI(widget.route),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -60,7 +61,7 @@ class _InvestmentsByMonthTileState extends State<InvestmentsByMonthTile> {
             'Historico de economia por mês',
             style: TextStyle(
               color: getColors(colorName: 'blue'),
-              fontSize: 25.0,
+              fontSize: 18.0,
             ),
             textAlign: TextAlign.center,
           ),

@@ -1,3 +1,4 @@
+import 'package:controlegastos/controllers/routes.dart';
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/tiles/investments/InvestmentsPlacesBlockTile.dart';
 import 'package:controlegastos/tiles/investments/dashboard_header_tile.dart';
@@ -56,6 +57,7 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
               backgroundColor: getColors(colorName: 'white'),
               borderColor: borderColor,
               textColor: textColor,
+              route: getRoute('investments_dash_chart_by_month'),
             ),
             GoalCardDashTile(
               backgroundColor: cardBackgroundColor,

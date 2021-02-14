@@ -4,6 +4,7 @@ import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/models/investment_tile_model.dart';
 import 'package:controlegastos/tiles/investments/investment_item_tile.dart';
+import 'package:controlegastos/tiles/investments/investments_by_month_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
@@ -450,9 +451,6 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
                         ),
                         color: textColor,
                       ),
-                      SizedBox(
-                        width: 10.0,
-                      ),
                       RaisedButton(
                         onPressed: () {
                           Scaffold.of(context).showSnackBar(
@@ -479,6 +477,56 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
                           ],
                         ),
                         color: Colors.red[700],
+                      ),
+                      RaisedButton(
+                        onPressed: () {
+                          showDialog<void>(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                insetPadding: EdgeInsets.all(5.0),
+                                title: Text('Investimentos Por Mês'),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: <Widget>[
+                                      InvestmentsByMonthTile(
+                                        backgroundColor: getColors(colorName: 'white'),
+                                        borderColor: borderColor,
+                                        textColor: textColor,
+                                        route: "/api/v1/investments/goals/${goal['id']}/amount_per_month",
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('Voltar'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.bar_chart,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              "\tPor Mês",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        color: Colors.green[700],
                       ),
                     ],
                   ),

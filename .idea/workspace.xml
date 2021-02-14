@@ -26,10 +26,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27b1572f-f074-4b80-8db9-24974f9d2ea6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/widgets/forms/user_form.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/user/user_tab.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/user/user_tab.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/tiles/investments/InvestmentsPlacesBlockTile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/tiles/investments/InvestmentsPlacesBlockTile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/controllers/api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/controllers/routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/routes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/investments/investments_dashboard_tab.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/investments/investments_dashboard_tab.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/investments/show_goal_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/investments/show_goal_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/tiles/investments/investments_by_month_card_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/tiles/investments/investments_by_month_card_tile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/forms/investment_form.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/forms/investment_form.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,14 +114,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="430" y="448" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611352239185" />
-    <state x="274" y="306" key="#xdebugger.evaluate" timestamp="1613269947091">
+    <state x="274" y="306" key="#xdebugger.evaluate" timestamp="1613333863694">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="274" y="306" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1613269947091" />
-    <state x="30" y="91" width="1736" height="856" key="AVDManager" timestamp="1613254040545">
+    <state x="274" y="306" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1613333863694" />
+    <state x="30" y="91" width="1736" height="856" key="AVDManager" timestamp="1613300302853">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="30" y="91" width="1736" height="856" key="AVDManager/0.0.1920.1040@0.0.1920.1040" timestamp="1613254040545" />
+    <state x="30" y="91" width="1736" height="856" key="AVDManager/0.0.1920.1040@0.0.1920.1040" timestamp="1613300302853" />
     <state x="579" y="270" key="AndroidProcessChooserDialog" timestamp="1612002390423">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -126,22 +130,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1220" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1609841530872" />
-    <state width="1470" height="184" key="GridCell.Tab.0.bottom" timestamp="1613269443144">
+    <state width="1470" height="184" key="GridCell.Tab.0.bottom" timestamp="1613270662576">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1470" height="184" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1613269443144" />
-    <state width="1470" height="184" key="GridCell.Tab.0.center" timestamp="1613269443144">
+    <state width="1470" height="184" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1613270662576" />
+    <state width="1470" height="184" key="GridCell.Tab.0.center" timestamp="1613270662575">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1470" height="184" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1613269443144" />
-    <state width="1470" height="184" key="GridCell.Tab.0.left" timestamp="1613269443144">
+    <state width="1470" height="184" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1613270662575" />
+    <state width="1470" height="184" key="GridCell.Tab.0.left" timestamp="1613270662575">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1470" height="184" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1613269443144" />
-    <state width="1470" height="184" key="GridCell.Tab.0.right" timestamp="1613269443144">
+    <state width="1470" height="184" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1613270662575" />
+    <state width="1470" height="184" key="GridCell.Tab.0.right" timestamp="1613270662575">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1470" height="184" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1613269443144" />
+    <state width="1470" height="184" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1613270662575" />
     <state width="1474" height="218" key="GridCell.Tab.1.bottom" timestamp="1605920947848">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -166,13 +170,20 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1611351856660" />
-    <state x="459" y="123" width="585" height="801" key="find.popup" timestamp="1613269588870">
+    <state x="459" y="123" width="585" height="801" key="find.popup" timestamp="1613300269096">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="459" y="123" width="585" height="801" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1613269588870" />
+    <state x="459" y="123" width="585" height="801" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1613300269096" />
     <state x="421" y="244" key="run.anything.popup" timestamp="1613269985976">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="421" y="244" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1613269985976" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint suspend="THREAD" type="dart-exception" />
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
