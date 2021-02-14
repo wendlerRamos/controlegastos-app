@@ -406,8 +406,7 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                           Map<String, dynamic> formDto = getDTO(context);
                           postDataFromAPI(Routes.getRoute('movements'), formDto)
                               .then(
-                                (_) =>
-                            {
+                            (_) => {
                               displaySnackbar(
                                 context,
                                 "Movimentação criada com sucesso",
@@ -415,8 +414,7 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
                               ),
                             },
                           )
-                          // ignore: non_constant_identifier_names
-                              .catchError((Exception) {
+                              .catchError((Exception e) {
                             displaySnackbar(
                               context,
                               "Houve um problema ao inserir",
@@ -448,8 +446,7 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
     formDto['tipo'] = getMovementType();
     formDto['descricao'] = getDescription();
     formDto['data'] = getDate();
-    formDto['valor'] =
-        valueController.text.replaceAll(",", ".");
+    formDto['valor'] = valueController.text.replaceAll(",", ".");
     formDto['tipo_pgto'] = paymentType;
     displaySnackbar(
       context,
@@ -468,8 +465,8 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
     return movimentationDescription;
   }
 
-  String getMovementType(){
-    if(movementType == MovimentationType.despesa){
+  String getMovementType() {
+    if (movementType == MovimentationType.despesa) {
       return "DESPESA";
     }
     return "RECEITA";
@@ -508,13 +505,13 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
     ];
   }
 
-  void displaySnackbar(BuildContext scaffoldContext, String message,
-      String status) {
+  void displaySnackbar(
+      BuildContext scaffoldContext, String message, String status) {
     Color bgColor = (status == "info")
         ? Colors.blue
         : (status == "error")
-        ? Colors.red
-        : Colors.green[900];
+            ? Colors.red
+            : Colors.green[900];
     _scaffoldKey.currentState.hideCurrentSnackBar();
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
@@ -522,7 +519,8 @@ class _AddMovimentationScreenState extends State<AddMovimentationScreen> {
         content: Text(
           "$message",
           style: TextStyle(
-            color: Colors.white, fontSize: 18.0,
+            color: Colors.white,
+            fontSize: 18.0,
           ),
         ),
       ),
