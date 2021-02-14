@@ -160,7 +160,7 @@ class _InvestmentsPlacesBlockTileState
                     child: Container(
                       height: 60.0,
                       padding: EdgeInsets.all(5.0),
-                      margin: EdgeInsets.all(8.0),
+                      //margin: EdgeInsets.all(8.0),
                       child: Column(
                         children: [
                           Icon(
