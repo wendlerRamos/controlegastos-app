@@ -1,48 +1,46 @@
 import 'package:controlegastos/controllers/request.dart';
-import 'package:controlegastos/controllers/routes.dart';
 import 'package:controlegastos/controllers/util.dart';
-import 'package:controlegastos/widgets/date_picker_input.dart';
-import 'package:controlegastos/widgets/forms/dropdown.dart';
-import 'package:controlegastos/widgets/forms/investment_form.dart';
+import 'package:controlegastos/tiles/investments/goal_tile_with_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:controlegastos/controllers/routes.dart' as Routes;
 
-class AddInvestmentScreen extends StatefulWidget {
+class ListGoalsScreen extends StatefulWidget {
   @override
-  _AddInvestmentScreenState createState() => _AddInvestmentScreenState();
+  _ListGoalsScreenState createState() => _ListGoalsScreenState();
 }
 
-enum MovimentationType { receita, despesa }
-
-class _AddInvestmentScreenState extends State<AddInvestmentScreen> {
-  final Color _backgroundColor = Color.fromARGB(255, 8, 74, 146);
-  final _formKey = GlobalKey<FormState>();
-  String formattedDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final format = DateFormat("dd/MM/yyyy");
-  String meta = "NENHUMA";
-  String local;
-  final Color textColor = getColors(colorName: "white");
-
+class _ListGoalsScreenState extends State<ListGoalsScreen> {
+  Color backgroundColor;
+  Color textColor;
+  Color cardBackground;
   @override
   void initState() {
     super.initState();
+    var colors = getThemeColors();
+    backgroundColor = getColors(colorName: "soft_white");
+    cardBackground = colors["card_background"];
+    textColor = colors['textColor'];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: _backgroundColor,
-        title: Text('ADICIONAR INVESTIMENTO'),
-        actions: <Widget>[],
+        title: Row(
+          children: <Widget>[
+            Icon(Icons.monetization_on),
+            SizedBox(
+              width: 10.0,
+            ),
+            Text('METAS')
+          ],
+        ),
+        backgroundColor: getColors(colorName: "blue"),
       ),
+      backgroundColor: backgroundColor,
       body: Container(
-        color: _backgroundColor,
-        padding: EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
         child: FutureBuilder(
-          future: getGoalsAndPlaces(),
+          future: getDataFromAPI(Routes.getRoute('get_goals')),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
@@ -54,9 +52,7 @@ class _AddInvestmentScreenState extends State<AddInvestmentScreen> {
                     snapshot.data.containsKey("error")) {
                   return _buildErrorContent();
                 } else {
-                  return InvestmentForm(
-                    payload: snapshot.data,
-                  );
+                  return successContent(snapshot.data, context);
                 }
             }
           },
@@ -65,17 +61,28 @@ class _AddInvestmentScreenState extends State<AddInvestmentScreen> {
     );
   }
 
-  Future<Map<String, dynamic>> getGoalsAndPlaces() async {
-    Map<String, dynamic> payload = {};
-    await Future.wait([
-      getDataFromAPI(getRoute('get_places_names')),
-      getDataFromAPI(getRoute('get_goals_names')),
-    ]).then((value) => {
-          payload["locals"] = value[0]['locals'],
-          payload["goals"] = value[1]['goals'],
-          payload["goals"].add({"id": null, "nome": "SEM META"})
-        });
-    return payload;
+  Widget successContent(Map<String, dynamic> items, BuildContext context) {
+    final metas = items['metas'];
+    return Column(
+      children: [
+        Expanded(
+          child: Container(
+            child: ListView.builder(
+              itemCount: metas.length,
+              itemBuilder: (context, index) {
+                final meta = metas[index];
+                return GoalTileWithImage(
+                  itemData: meta,
+                  textColor: textColor,
+                  backgroundColor: cardBackground,
+                );
+              },
+            ),
+          ),
+          flex: 2,
+        ),
+      ],
+    );
   }
 
   Widget _buildProgressIndicator() {

@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+
 part 'goal.g.dart';
 
 class Goal = _GoalBase with _$Goal;

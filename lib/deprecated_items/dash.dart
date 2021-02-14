@@ -1,17 +1,17 @@
-import 'package:controlegastos/controllers/routes.dart';
+import 'dart:convert';
+
+import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:controlegastos/controllers/util.dart';
-//import 'package:controlegastos/dummy_data/main_dash_data.dart';
 import 'package:controlegastos/dummy_data/movimentation.dart';
 import 'package:controlegastos/models/movimentation.dart';
-import 'package:controlegastos/screens/home/widgets/charts/proportion_pie.dart';
+import 'package:controlegastos/widgets/charts/proportion_pie.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'add_movimentation_screen.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:controlegastos/controllers/routes.dart' as Routes;
+import 'package:intl/intl.dart';
 
-String request = Routes.getRoute('main_dash_data');
+import '../screens/home/add_movimentation_screen.dart';
+
+String request = Routes.getRoute('home_dash_main_info');
 var numberFormat =NumberFormat.simpleCurrency(locale: "BRL",);
 
 class MainDashboard extends StatefulWidget {
@@ -25,12 +25,10 @@ class _MainDashboardState extends State<MainDashboard> {
   bool isLoading = false;
   final Color _colorBlue = Color.fromARGB(255, 3, 40, 80);
   final Color _colorLightBlue = Color.fromARGB(255, 8, 74, 146);
-  //final Color _colorWhite = Colors.white;
-  final Color _colorOrange = Color.fromARGB(255, 255, 59, 0);
-  final Color _colorRed = Color.fromARGB(255, 255, 0, 0);
+  final Color _colorRed = Color.fromARGB(255, 196, 23, 12);
 
   Future<Map> getDataFromAPI() async {
-    print(request);
+    //print(request);
     http.Response response = await http.get(request);
     return json.decode(response.body);
   }
@@ -86,6 +84,7 @@ class _MainDashboardState extends State<MainDashboard> {
                   child: _blockTile(
                     isLoading: isLoading,
                     color: _colorRed,
+                    bordered: true,
                     icon: Icons.trending_down,
                     title: "Gastos em 30 dias",
                     currentValue: numberFormat.format(data['spent_card']['total']),
@@ -93,12 +92,13 @@ class _MainDashboardState extends State<MainDashboard> {
                     kind: "despesa",
                   ),
                 ),
-                const SizedBox(width: 16.0),
+                const SizedBox(width: 8.0),
                 Expanded(
                   flex: 3,
                   child: _blockTile(
                     isLoading: isLoading,
-                    color: Colors.green,
+                    color: Colors.green[900],
+                    bordered: true,
                     icon: Icons.trending_up,
                     title: "Receitas em 30 dias",
                     currentValue: numberFormat.format(data['profit_card']['total']),
@@ -108,17 +108,15 @@ class _MainDashboardState extends State<MainDashboard> {
               ],
             ),
           ),
-          const SizedBox(height: 4.0),
+          const SizedBox(height: 8.0),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 11.0),
-              child: Card(
-                //color: _colorLightBlue,
-                child: SizedBox(
-                  height: 120.0,
-                  child: DonutPieChart(createPieMainDashChartData(data['chart_data'])),
-                ),
-              )),
-          const SizedBox(height: 4.0),
+            padding: const EdgeInsets.only(left: 20.0),
+            child: Text(
+              "Saldos por categoria",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
+            ),
+          ),
+          const SizedBox(height: 8.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
@@ -126,7 +124,8 @@ class _MainDashboardState extends State<MainDashboard> {
                 Expanded(
                   child: _blockTile(
                     isLoading: isLoading,
-                    color: _colorOrange,
+                    color: _colorLightBlue,
+                    bordered: false,
                     icon: Icons.shopping_basket,
                     title: "Mercado",
                     currentValue: numberFormat.format(data['categories']['mercado']['total']),
@@ -138,6 +137,7 @@ class _MainDashboardState extends State<MainDashboard> {
                   child: _blockTile(
                     isLoading: isLoading,
                     color: _colorLightBlue,
+                    bordered: true,
                     icon: Icons.fastfood,
                     title: "Alimentação",
                     currentValue: numberFormat.format(data['categories']['alimentacao']['total']),
@@ -148,7 +148,8 @@ class _MainDashboardState extends State<MainDashboard> {
                 Expanded(
                   child: _blockTile(
                     isLoading: isLoading,
-                    color: _colorOrange,
+                    color: _colorLightBlue,
+                    bordered: false,
                     icon: Icons.directions_bus,
                     title: "Transporte",
                     currentValue: numberFormat.format(data['categories']['transporte']['total']),
@@ -167,6 +168,7 @@ class _MainDashboardState extends State<MainDashboard> {
                   child: _blockTile(
                     isLoading: isLoading,
                     color: _colorLightBlue,
+                    bordered: true,
                     icon: Icons.receipt,
                     title: "Contas",
                     currentValue: numberFormat.format(data['categories']['conta']['total']),
@@ -177,7 +179,8 @@ class _MainDashboardState extends State<MainDashboard> {
                 Expanded(
                   child: _blockTile(
                     isLoading: isLoading,
-                    color: _colorOrange,
+                    color: _colorLightBlue,
+                    bordered: false,
                     icon: Icons.school,
                     title: "Educação",
                     currentValue: numberFormat.format(data['categories']['educacao']['total']),
@@ -189,6 +192,7 @@ class _MainDashboardState extends State<MainDashboard> {
                   child: _blockTile(
                     isLoading: isLoading,
                     color: _colorLightBlue,
+                    bordered: true,
                     icon: Icons.insert_emoticon,
                     title: "Lazer",
                     currentValue: numberFormat.format(data['categories']['lazer']['total']),
@@ -206,7 +210,8 @@ class _MainDashboardState extends State<MainDashboard> {
                 Expanded(
                   child: _blockTile(
                     isLoading: isLoading,
-                    color: _colorOrange,
+                    color: _colorLightBlue,
+                    bordered: false,
                     icon: Icons.favorite,
                     title: "Saúde",
                     currentValue: numberFormat.format(data['categories']['saude']['total']),
@@ -219,6 +224,7 @@ class _MainDashboardState extends State<MainDashboard> {
                   child: _blockTile(
                     isLoading: isLoading,
                     color: _colorLightBlue,
+                    bordered: true,
                     icon: Icons.scatter_plot,
                     title: "Outros",
                     currentValue: numberFormat.format(data['categories']['outro']['total']),
@@ -230,7 +236,8 @@ class _MainDashboardState extends State<MainDashboard> {
                   flex: 1,
                   child: _blockTile(
                     isLoading: isLoading,
-                    color: _colorOrange,
+                    color: _colorLightBlue,
+                    bordered: false,
                     icon: Icons.compare_arrows,
                     title: "% Gasto",
                     currentValue: data['categories']['porcentagem']['total'].toString(),
@@ -240,6 +247,24 @@ class _MainDashboardState extends State<MainDashboard> {
               ],
             ),
           ),
+          const SizedBox(height: 8.0),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child: Text(
+              "Distribuição percentual dos gastos",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
+            ),
+          ),
+          const SizedBox(height: 8.0),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 11.0),
+              child: Card(
+                //color: _colorLightBlue,
+                child: SizedBox(
+                  height: 250.0,
+                  child: DonutPieChart(createPieMainDashChartData(data['chart_data'])),
+                ),
+              ),),
         ],
       ),
     );
@@ -284,6 +309,7 @@ class _MainDashboardState extends State<MainDashboard> {
     String average,
     bool isLoading = false,
     String kind,
+    bool bordered = false,
   }) {
     if (isLoading) {
       return Container(
@@ -300,6 +326,15 @@ class _MainDashboardState extends State<MainDashboard> {
         ),
       );
     }
+    Color textColor;
+    Color backgroundColor;
+    if(bordered){
+      textColor = color;
+      backgroundColor = Colors.white;
+    }else{
+      textColor = Colors.white;
+      backgroundColor = color;
+    }
     return Container(
       child: GestureDetector(
         onTap: () async {
@@ -314,7 +349,8 @@ class _MainDashboardState extends State<MainDashboard> {
           height: 120.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4.0),
-            color: color,
+            border: Border.all(color: color,),
+            color: backgroundColor,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -322,23 +358,19 @@ class _MainDashboardState extends State<MainDashboard> {
             children: <Widget>[
               Icon(
                 icon,
-                color: Colors.white,
+                color: textColor,
               ),
               Text(
                 title,
-                style: whiteText.copyWith(fontWeight: FontWeight.bold),
+                style: TextStyle(color: textColor, fontWeight: FontWeight.bold,)
               ),
               Text(
                 currentValue,
-                style: whiteText.copyWith(
-                    fontWeight: FontWeight.bold, fontSize: 20.0),
+                style:  TextStyle(color: textColor, fontWeight: FontWeight.bold,fontSize: 20.0,)
               ),
               Text(
                 "Média $average",
-                style: whiteText.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10.0,
-                ),
+                style:  TextStyle(color: textColor, fontWeight: FontWeight.bold,fontSize: 10.0,)
               ),
             ],
           ),

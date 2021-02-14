@@ -1,8 +1,7 @@
-import 'package:controlegastos/screens/investments/widgets/block_item.dart';
-import 'package:controlegastos/screens/investments/widgets/charts/investments_by_month.dart';
-import 'package:controlegastos/screens/investments/widgets/header.dart';
-import 'package:controlegastos/screens/investments/widgets/item_meta.dart';
-import 'package:controlegastos/screens/investments/widgets/local_tile.dart';
+import 'package:controlegastos/deprecated_items/widgets/block_item.dart';
+import 'package:controlegastos/deprecated_items/widgets/header.dart';
+import 'package:controlegastos/tiles/investments/goal_tile.dart';
+import 'package:controlegastos/widgets/charts/investments_by_month.dart';
 import 'package:flutter/material.dart';
 
 class InvestmentsDashboardScreen extends StatefulWidget {
@@ -109,7 +108,7 @@ class _InvestmentsDashboardScreenState
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  Align(
+/*                  Align(
                     alignment: Alignment.center,
                     child: buildLocalTile(
                       isLoading: isLoading,
@@ -127,6 +126,7 @@ class _InvestmentsDashboardScreenState
                       data: "500,00",
                     ),
                   ),
+                  */
                 ],
               ),
             ),

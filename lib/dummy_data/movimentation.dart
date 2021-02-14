@@ -1,6 +1,4 @@
 
-import 'dart:convert';
-
 Map<String, dynamic> getMovimentationJson(){
   return {
       "id": "0",

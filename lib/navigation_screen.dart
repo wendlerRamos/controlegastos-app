@@ -1,38 +1,81 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/screens/auth/login.dart';
 import 'package:controlegastos/screens/home/add_movimentation_screen.dart';
-import 'package:controlegastos/screens/home/dash.dart';
+import 'package:controlegastos/screens/home/home_dash_tab.dart';
 import 'package:controlegastos/screens/investments/add_investment.dart';
-import 'package:controlegastos/screens/investments/dash_investments.dart';
+import 'package:controlegastos/screens/investments/investments_dashboard_tab.dart';
+import 'package:controlegastos/screens/temp_working_progress_screen.dart';
+import 'package:controlegastos/screens/user/user_tab.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatefulWidget {
+import 'controllers/api.dart';
+
+class NavigationScreen extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _NavigationScreenState createState() => _NavigationScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _NavigationScreenState extends State<NavigationScreen>
+    with WidgetsBindingObserver {
+  Color backgroundColor;
+
+  @override
+  void initState() {
+    super.initState();
+    getTheme();
+    //WidgetsBinding.instance.addObserver(this);
+  }
+
   @override
   void dispose() {
     indexcontroller.close();
+    //WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
-  final Color _colorBlue = Color.fromARGB(255, 3, 40, 80);
-  //final Color _colorLightBlue = Color.fromARGB(255, 8, 74, 146);
-  //final Color _colorWhite = Colors.white;
-  //final Color _colorOrange = Color.fromARGB(255, 255, 59, 0);
+  void getTheme() {
+    Map<String, Color> pallete = getThemeColors();
+    backgroundColor = pallete['background'];
+    //print("Updating Theme");
+  }
+
+  Future<bool> testConnection() async {
+    var res = await Network().getData('/api/v1/test');
+    var body = json.decode(res.body);
+    return (body.containsKey('success'));
+  }
+
+  void logout() async {
+    try {
+      var res = await Network().getData('/api/v1/logout');
+      var body = json.decode(res.body);
+      var conn = await testConnection();
+    } catch (e) {} finally {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      localStorage.remove('user');
+      localStorage.remove('token');
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    }
+  }
+
+  final Color _colorBlue = getColors(colorName: "blue");
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   PageController pageController = PageController(initialPage: 0);
   StreamController<int> indexcontroller = StreamController<int>.broadcast();
   int index = 0;
-  //final Color _backgroundDashColor = Color.fromARGB(255, 232, 247, 247);
+
   @override
   Widget build(BuildContext context) {
+    getTheme();
     return Scaffold(
-      //backgroundColor: _backgroundDashColor,
       key: scaffoldKey,
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         title: Row(
           children: <Widget>[
@@ -62,8 +105,7 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.exit_to_app),
             tooltip: 'Sair',
             onPressed: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
+              logout();
             },
           ),
         ],
@@ -75,18 +117,12 @@ class _HomePageState extends State<HomePage> {
         },
         controller: pageController,
         children: <Widget>[
+          HomeDashTab(),
           Center(
-            child: MainDashboard(),
+            child: WorkingProgressScreen(),
           ),
-          Center(
-            child: Text('Históricos ( Em Breve )'),
-          ),
-          Center(
-            child: InvestmentsDashboardScreen(),
-          ),
-          Center(
-            child: Text('Informações do usuário ( Em breve )'),
-          ),
+          InvestmentsDashboardTab(),
+          UserTab(),
         ],
       ),
       bottomNavigationBar: StreamBuilder<Object>(
@@ -111,6 +147,7 @@ class _HomePageState extends State<HomePage> {
                 pageController.jumpToPage(value);
               },
               activeColor: _colorBlue,
+              backgroundColor: getColors(colorName: "white"),
             );
           }),
     );
