@@ -14,6 +14,7 @@ class ShowGoalScreen extends StatefulWidget {
   final int goalId;
 
   const ShowGoalScreen({Key key, this.goalId}) : super(key: key);
+
   @override
   _ShowGoalScreenState createState() => _ShowGoalScreenState();
 }
@@ -24,6 +25,7 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
   Color textColor;
   Color iconColor;
   Color utilColor;
+
   @override
   void initState() {
     super.initState();
@@ -484,29 +486,17 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
                             context: context,
                             barrierDismissible: true,
                             builder: (BuildContext context) {
-                              return AlertDialog(
+                              return Dialog(
+                                backgroundColor: Colors.white,
                                 insetPadding: EdgeInsets.all(5.0),
-                                title: Text('Investimentos Por Mês'),
-                                content: SingleChildScrollView(
-                                  child: ListBody(
-                                    children: <Widget>[
-                                      InvestmentsByMonthTile(
-                                        backgroundColor: getColors(colorName: 'white'),
-                                        borderColor: borderColor,
-                                        textColor: textColor,
-                                        route: "/api/v1/investments/goals/${goal['id']}/amount_per_month",
-                                      ),
-                                    ],
-                                  ),
+                                child: InvestmentsByMonthTile(
+                                  backgroundColor:
+                                      getColors(colorName: 'white'),
+                                  borderColor: borderColor,
+                                  textColor: textColor,
+                                  route:
+                                      "/api/v1/investments/goals/${goal['id']}/amount_per_month",
                                 ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('Voltar'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
                               );
                             },
                           );
