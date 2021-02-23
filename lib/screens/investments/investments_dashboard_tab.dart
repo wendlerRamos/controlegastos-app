@@ -1,7 +1,7 @@
 import 'package:controlegastos/controllers/routes.dart';
 import 'package:controlegastos/controllers/util.dart';
+import 'package:controlegastos/tiles/header.dart';
 import 'package:controlegastos/tiles/investments/InvestmentsPlacesBlockTile.dart';
-import 'package:controlegastos/tiles/investments/dashboard_header_tile.dart';
 import 'package:controlegastos/tiles/investments/goal_card_dash_tile.dart';
 import 'package:controlegastos/tiles/investments/investments_by_month_card_tile.dart';
 import 'package:controlegastos/tiles/investments/investments_dashboard_resume_block_tile.dart';
@@ -47,7 +47,7 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            DashboardHeaderTile(),
+            HeaderTile(),
             InvestmentsDashboardResumeBlockTile(
               backgroundColor: cardBackgroundColor,
               borderColor: borderColor,

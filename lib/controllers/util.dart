@@ -124,5 +124,11 @@ Future<String> getUserName() async {
   return jsonDecode(userJson)['nome'];
 }
 
+Future<Map<String, dynamic>> getUser() async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  var userJson = localStorage.getString("user");
+  return jsonDecode(userJson);
+}
+
 var numberFormat =
     NumberFormat.simpleCurrency(locale: "BRL", name: "BRL", decimalDigits: 2);
