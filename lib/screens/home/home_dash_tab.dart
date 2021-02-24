@@ -11,6 +11,7 @@ class HomeDashTab extends StatefulWidget {
 
 class _HomeDashTabState extends State<HomeDashTab> {
   Color backgroundColor;
+
   @override
   void initState() {
     super.initState();
@@ -30,123 +31,132 @@ class _HomeDashTabState extends State<HomeDashTab> {
   @override
   Widget build(BuildContext context) {
     getTheme();
-    return Container(
-      color: backgroundColor,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            HeaderTile(),
-            SizedBox(
-              height: 200.0,
-              child: Column(
-                children: [
-                  HomeMainInfoTile(),
-                ],
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: getColors(colorName: "white"),
-                border: Border.all(
-                  color: getColors(colorName: "blue"),
-                  width: 2.0,
+    return RefreshIndicator(
+      child: Container(
+        color: backgroundColor,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              HeaderTile(),
+              SizedBox(
+                height: 200.0,
+                child: Column(
+                  children: [
+                    HomeMainInfoTile(),
+                  ],
                 ),
               ),
-              margin: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 5.0),
-              padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-              child: Column(
-                children: [
-                  Text(
-                    "Gastos Por Categoria",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: getColors(colorName: "blue"),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25.0,
-                    ),
-                  ),
-                  Divider(
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: getColors(colorName: "white"),
+                  border: Border.all(
                     color: getColors(colorName: "blue"),
-                    thickness: 2.0,
-                    indent: 5.0,
-                    endIndent: 5.0,
+                    width: 2.0,
                   ),
-                  SizedBox(
-                    height: 100.0,
-                    child: Row(
-                      children: [
-                        HomeCategoryTile(
-                          itemIcon: Icons.shopping_basket,
-                          isWhite: false,
-                          category: "MERCADO",
-                        ),
-                        HomeCategoryTile(
-                          isWhite: false,
-                          itemIcon: Icons.fastfood,
-                          category: "ALIMENTACAO",
-                        ),
-                      ],
+                ),
+                margin: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 5.0),
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "Gastos Por Categoria",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: getColors(colorName: "blue"),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25.0,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 100.0,
-                    child: Row(
-                      children: [
-                        HomeCategoryTile(
-                          itemIcon: Icons.directions_bus,
-                          isWhite: true,
-                          category: "TRANSPORTE",
-                        ),
-                        HomeCategoryTile(
-                          isWhite: true,
-                          itemIcon: Icons.receipt,
-                          category: "CONTA",
-                        ),
-                      ],
+                    Divider(
+                      color: getColors(colorName: "blue"),
+                      thickness: 2.0,
+                      indent: 5.0,
+                      endIndent: 5.0,
                     ),
-                  ),
-                  SizedBox(
-                    height: 100.0,
-                    child: Row(
-                      children: [
-                        HomeCategoryTile(
-                          itemIcon: Icons.school,
-                          isWhite: false,
-                          category: "EDUCACAO",
-                        ),
-                        HomeCategoryTile(
-                          isWhite: false,
-                          itemIcon: Icons.insert_emoticon,
-                          category: "LAZER",
-                        ),
-                      ],
+                    SizedBox(
+                      height: 100.0,
+                      child: Row(
+                        children: [
+                          HomeCategoryTile(
+                            itemIcon: Icons.shopping_basket,
+                            isWhite: false,
+                            category: "MERCADO",
+                          ),
+                          HomeCategoryTile(
+                            isWhite: false,
+                            itemIcon: Icons.fastfood,
+                            category: "ALIMENTACAO",
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 100.0,
-                    child: Row(
-                      children: [
-                        HomeCategoryTile(
-                          itemIcon: Icons.favorite,
-                          isWhite: true,
-                          category: "SAUDE",
-                        ),
-                        HomeCategoryTile(
-                          isWhite: true,
-                          itemIcon: Icons.scatter_plot,
-                          category: "OUTRO",
-                        ),
-                      ],
+                    SizedBox(
+                      height: 100.0,
+                      child: Row(
+                        children: [
+                          HomeCategoryTile(
+                            itemIcon: Icons.directions_bus,
+                            isWhite: true,
+                            category: "TRANSPORTE",
+                          ),
+                          HomeCategoryTile(
+                            isWhite: true,
+                            itemIcon: Icons.receipt,
+                            category: "CONTA",
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 100.0,
+                      child: Row(
+                        children: [
+                          HomeCategoryTile(
+                            itemIcon: Icons.school,
+                            isWhite: false,
+                            category: "EDUCACAO",
+                          ),
+                          HomeCategoryTile(
+                            isWhite: false,
+                            itemIcon: Icons.insert_emoticon,
+                            category: "LAZER",
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 100.0,
+                      child: Row(
+                        children: [
+                          HomeCategoryTile(
+                            itemIcon: Icons.favorite,
+                            isWhite: true,
+                            category: "SAUDE",
+                          ),
+                          HomeCategoryTile(
+                            isWhite: true,
+                            itemIcon: Icons.scatter_plot,
+                            category: "OUTRO",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
+      onRefresh: refreshScreen,
+      color: getColors(colorName: "orange"),
+      backgroundColor: Colors.transparent,
     );
+  }
+
+  Future<void> refreshScreen() async {
+    setState(() {});
   }
 }
