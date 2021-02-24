@@ -41,37 +41,48 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
   @override
   Widget build(BuildContext context) {
     getTheme();
-    return Container(
-      color: backgroundColor,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            HeaderTile(),
-            InvestmentsDashboardResumeBlockTile(
-              backgroundColor: cardBackgroundColor,
-              borderColor: borderColor,
-              textColor: textColor,
-            ),
-            InvestmentsByMonthTile(
-              backgroundColor: getColors(colorName: 'white'),
-              borderColor: borderColor,
-              textColor: textColor,
-              route: getRoute('investments_dash_chart_by_month'),
-            ),
-            GoalCardDashTile(
-              backgroundColor: cardBackgroundColor,
-              borderColor: borderColor,
-              textColor: textColor,
-            ),
-            InvestmentsPlacesBlockTile(
-              backgroundColor: backgroundColor,
-              borderColor: borderColor,
-              textColor: textColor,
-            ),
-          ],
+    return RefreshIndicator(
+      child: Container(
+        color: backgroundColor,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              HeaderTile(),
+              InvestmentsDashboardResumeBlockTile(
+                backgroundColor: cardBackgroundColor,
+                borderColor: borderColor,
+                textColor: textColor,
+              ),
+              InvestmentsByMonthTile(
+                backgroundColor: getColors(colorName: 'white'),
+                borderColor: borderColor,
+                textColor: textColor,
+                route: getRoute('investments_dash_chart_by_month'),
+              ),
+              GoalCardDashTile(
+                backgroundColor: cardBackgroundColor,
+                borderColor: borderColor,
+                textColor: textColor,
+              ),
+              InvestmentsPlacesBlockTile(
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
+                textColor: textColor,
+              ),
+            ],
+          ),
         ),
       ),
+      onRefresh: refreshScreen,
+      color: getColors(colorName: "orange"),
+      backgroundColor: Colors.transparent,
     );
+  }
+
+  Future<void> refreshScreen() async{
+    setState(() {
+
+    });
   }
 }
