@@ -1,3 +1,4 @@
+import 'package:controlegastos/controllers/request.dart';
 import 'package:controlegastos/controllers/routes.dart';
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/navigation_screen.dart';
@@ -10,8 +11,10 @@ import 'package:splashscreen/splashscreen.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    getDataFromAPI(getRoute('teste'));
     getThemeColors();
     return MaterialApp(
       localizationsDelegates: [

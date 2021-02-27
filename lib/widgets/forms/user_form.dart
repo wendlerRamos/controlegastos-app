@@ -62,6 +62,13 @@ class _UserFormState extends State<UserForm> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: BorderSide(
+                  color: getColors(colorName: "blue"),
+                  width: 1.0,
+                ),
+              ),
             ),
             controller: nameController,
             validator: (value) {
@@ -88,6 +95,13 @@ class _UserFormState extends State<UserForm> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: BorderSide(
+                  color: getColors(colorName: "blue"),
+                  width: 1.0,
+                ),
+              ),
             ),
             controller: passwordController,
             validator: (value) {
@@ -113,6 +127,13 @@ class _UserFormState extends State<UserForm> {
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: BorderSide(
+                  color: getColors(colorName: "blue"),
+                  width: 1.0,
+                ),
               ),
             ),
             obscureText: true,
