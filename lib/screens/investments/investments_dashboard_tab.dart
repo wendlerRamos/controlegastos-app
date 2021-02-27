@@ -45,6 +45,7 @@ class _InvestmentsDashboardTabState extends State<InvestmentsDashboardTab> {
       child: Container(
         color: backgroundColor,
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
