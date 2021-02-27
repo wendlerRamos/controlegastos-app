@@ -551,6 +551,7 @@ class _ShowGoalScreenState extends State<ShowGoalScreen> {
   ListView itemListView(data) {
     return ListView.builder(
       scrollDirection: Axis.vertical,
+      padding: EdgeInsets.zero,
       itemCount: data.length,
       itemBuilder: (context, index) {
         final pairColor = getColors(colorName: 'white');
