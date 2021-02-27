@@ -1,7 +1,7 @@
 import 'package:controlegastos/controllers/util.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HeaderTile extends StatefulWidget {
   @override

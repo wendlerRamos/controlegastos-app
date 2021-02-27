@@ -1,8 +1,8 @@
 import 'package:controlegastos/controllers/request.dart';
+import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/tiles/investments/place_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:controlegastos/controllers/routes.dart' as Routes;
 
 class ShowLocalsScreen extends StatefulWidget {
   @override

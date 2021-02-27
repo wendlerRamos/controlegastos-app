@@ -1,8 +1,8 @@
 import 'package:controlegastos/controllers/request.dart';
+import 'package:controlegastos/controllers/routes.dart' as Routes;
 import 'package:controlegastos/controllers/util.dart';
 import 'package:controlegastos/tiles/investments/goal_tile_with_image.dart';
 import 'package:flutter/material.dart';
-import 'package:controlegastos/controllers/routes.dart' as Routes;
 
 class ListGoalsScreen extends StatefulWidget {
   @override
